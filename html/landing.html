@@ -2,33 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>contextr</title>
-    <link rel="stylesheet" href ="../css/landing.css">
+    <title>contextr.io</title>
+    <link rel="stylesheet" href="../css/landing.css">
+    <link rel="icon" type="image/png" href="../assets/square-logo-cutout.png"/>
+    <link href="https://fonts.googleapis.com/css2?family=Yantramanav:wght@100;300;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <script src="../js/landing.js"></script>
-    <div class="form-structor">
-        <div class="signup">
-            <h2 class="form-title" id="signup"><span id="signup-span" style="display: none;">or</span>Sign up</h2>
-            <div class="form-holder">
-                <input type="text" class="input" placeholder="Name" />
-                <input type="email" class="input" placeholder="Email" />
-                <input type="password" class="input" placeholder="Password" />
-            </div>
-            <button class="submit-btn">Sign up</button>
+<script src="../js/landing.js"></script>
+<div class="form-structor">
+    <div class="signup">
+        <h2 class="form-title" id="signup"><span id="signup-span" style="display: none;">or</span>Sign up</h2>
+        <div class="form-holder">
+            <input type="text" class="input" placeholder="Name"/>
+            <input type="email" class="input" placeholder="Email"/>
+            <input type="password" class="input" placeholder="Password"/>
         </div>
-        <div class="login slide-up">
-            <div class="center">
-                <h2 class="form-title" id="login">Log in</h2>
-                <div class="form-holder">
-                    <input type="email" class="input" placeholder="Email" />
-                    <input type="password" class="input" placeholder="Password" />
-                </div>
-                <button class="submit-btn">Log in</button>
+        <button class="submit-btn">Sign up</button>
+    </div>
+    <div class="login slide-up">
+        <div class="center">
+            <h2 class="form-title" id="login">Log in</h2>
+            <div class="form-holder">
+                <input type="email" class="input" placeholder="Email"/>
+                <input type="password" class="input" placeholder="Password"/>
             </div>
+            <button class="submit-btn">Log in</button>
         </div>
     </div>
-    
+</div>
+
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
 
@@ -37,20 +42,20 @@
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
 
 <script>
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  var firebaseConfig = {
-    apiKey: "AIzaSyDlCzdF70uR7X2fZ7o0p0ga__0M3zCm1v4",
-    authDomain: "contextr.firebaseapp.com",
-    projectId: "contextr",
-    storageBucket: "contextr.appspot.com",
-    messagingSenderId: "794463682882",
-    appId: "1:794463682882:web:00e5cb985b2eb9f684c8db",
-    measurementId: "G-9EGE324T37"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+        apiKey: "AIzaSyDlCzdF70uR7X2fZ7o0p0ga__0M3zCm1v4",
+        authDomain: "contextr.firebaseapp.com",
+        projectId: "contextr",
+        storageBucket: "contextr.appspot.com",
+        messagingSenderId: "794463682882",
+        appId: "1:794463682882:web:00e5cb985b2eb9f684c8db",
+        measurementId: "G-9EGE324T37"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
 </script>
 </body>
 </html>
