@@ -89,9 +89,11 @@ a{
     flex-direction: column;
     align-items: center;
     justify-content: start;
+    width: 100%;
 }
 
 .content-area .prompt {
+    position: relative;
     margin-top: 50px;
     width: 60%;
     padding: 0 1rem 1rem;
@@ -113,30 +115,36 @@ a{
     flex-direction: column;
     align-items: start;
     justify-content: center;
-    flex: 1 1 0px;
 }
 
 .prompt-images{
     display: flex;
     align-items: center;
     justify-content: center;
-    flex: 1 1 0px;
 }
 
-.prompt-images > p{
-    width: 5rem;
+.prompt-images p{
+    margin: 0;
     color: white;
 }
 
-.prompt-images > img{
+.prompt-images img{
     height: 75px;
     width: 75px;
     object-fit: contain;
     border-radius: 100%;
-    margin: 1rem;
+    margin: 1rem 1rem 0.4rem;
+}
+
+.prompt-name-image{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #see-all{
+    position: absolute;
     border: 0;
     border-radius: 5px;
     font-size: 1rem;
@@ -144,8 +152,10 @@ a{
     font-family: Quicksand;
     background-color: rgba(0, 0, 0, 0.25);
     padding: 0.25rem 0.45rem;
-    margin-left: 1.25rem;
     cursor: pointer;
+    right: 0;
+    top: 75%;
+    margin-right: 1.5rem;
 }
 
 .content-area h3 {
@@ -158,4 +168,46 @@ a{
     padding: 0 1rem;
     border: 1px solid #000000;
     width: 60%;
+}
+
+@media screen and (max-width: 1890px){
+    #prompt6{
+        display: none
+    }
+
+}
+
+@media screen and (max-width: 1640px){
+    #prompt5{
+        display: none
+    }
+}
+
+@media screen and (max-width: 1390px) {
+    #prompt4 {
+        display: none
+    }
+}
+
+@media screen and (max-width: 1135px) {
+    #prompt3 {
+        display: none
+    }
+}
+
+@media screen and (max-width: 900px) {
+    #prompt2{
+        display: none
+    }
+     #prompt1 {
+        display: none
+    }
+
+     #see-all{
+         top: 33%;
+     }
+
+     .content-area .prompt {
+         padding: 0 1rem 0;
+     }
 }
