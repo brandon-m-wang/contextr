@@ -6,7 +6,22 @@ html, body, div, span {
     font-size: 100%;
     vertical-align: baseline;
     background: transparent;
-    font-family: Yantramanav;
+    font-family: Quicksand;
+}
+
+html{
+    overflow: hidden;
+    height: 100%;
+}
+
+body{
+    height: 100%;
+    overflow: auto;
+}
+
+a{
+    color: inherit;
+    text-decoration: inherit;
 }
 
 .company {
@@ -42,20 +57,25 @@ html, body, div, span {
     align-items: flex-end;
     justify-content: center;
     height: 100%;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.3), inset 0 -3px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 0px 10px rgba(0,0,0,0.3), inset 0 -3px 3px rgba(0,0,0,0.1);
     border-right: solid #ccc 1px;
 }
 
 .sidebar-nav > .container > h3 {
     color: white;
-    opacity: 0.7;
-    font-size: 2rem;
-    margin: 1.5rem 3rem 1.5rem 0;
+    opacity: 0.6;
+    font-size: 1.5rem;
+    margin: 1rem 3rem 1rem 0;
     font-weight: 300;
 }
 
 .sidebar-nav > .container > h3 > i {
-    margin-right: 1rem;
+    margin-right: 0.5rem;
+}
+
+#Home{
+    text-shadow: 0px 0px 5px #fff;
+    opacity: 1;
 }
 
 .content-area {
@@ -73,10 +93,59 @@ html, body, div, span {
 
 .content-area .prompt {
     margin-top: 50px;
-    width: 55%;
-    padding: 0 1rem;
-    border: 1px solid #000000;
+    width: 60%;
+    padding: 0 1rem 1rem;
     margin-bottom: 50px;
+    border-radius: 20px;
+    background: rgb(136, 123, 176);
+    background: linear-gradient(321deg, rgba(136, 123, 176, 1) 12%, rgba(203, 157, 156, 1) 100%);
+    box-shadow: 0 0 10px rgba(0,0,0,0.3), inset 0 -3px 3px rgba(0,0,0,0.1);
+}
+
+.content-area .prompt h3{
+    color: white;
+    font-size: 1.5rem;
+    margin-left: 1rem;
+}
+
+.prompt-images-container{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    flex: 1 1 0px;
+}
+
+.prompt-images{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 0px;
+}
+
+.prompt-images > p{
+    width: 5rem;
+    color: white;
+}
+
+.prompt-images > img{
+    height: 75px;
+    width: 75px;
+    object-fit: contain;
+    border-radius: 100%;
+    margin: 1rem;
+}
+
+#see-all{
+    border: 0;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 300;
+    font-family: Quicksand;
+    background-color: rgba(0, 0, 0, 0.25);
+    padding: 0.25rem 0.45rem;
+    margin-left: 1.25rem;
+    cursor: pointer;
 }
 
 .content-area h3 {
@@ -88,5 +157,5 @@ html, body, div, span {
     margin-top: 50px;
     padding: 0 1rem;
     border: 1px solid #000000;
-    width: 55%;
+    width: 60%;
 }
