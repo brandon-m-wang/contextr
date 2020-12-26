@@ -13,8 +13,31 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
           rel="stylesheet">
+    <!-- Connect js files -->
+    <script src="../js/home.js"></script>
+    <script src="../js/posts.js"></script>
 </head>
-<body>
+<body onload="getPosts()">
+<!-- Firebase storage setup Start -->
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-storage.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+<script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyDlCzdF70uR7X2fZ7o0p0ga__0M3zCm1v4",
+        authDomain: "contextr.firebaseapp.com",
+        projectId: "contextr",
+        storageBucket: "contextr.appspot.com",
+        messagingSenderId: "794463682882",
+        appId: "1:794463682882:web:00e5cb985b2eb9f684c8db",
+        measurementId: "G-9EGE324T37"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+</script>
+
 <div class="company">
     <img src="../assets/square-logo-white.png" style="width: 75px; height: 75px;"/>
 </div>
@@ -231,6 +254,5 @@
         <h6>© 2020 contextr L.L.C. | build v0.0.1</h6>
     </div>
 </section>
-<script src="../js/home.js"></script>
 </body>
 </html>
