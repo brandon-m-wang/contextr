@@ -9,27 +9,28 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <script src="../js/landing.js"></script>
+    <script src="../js/login.js"></script>
 </head>
 <body>
-<script src="../js/landing.js"></script>
 <div class="form-structor">
     <div class="signup">
         <h2 class="form-title" id="signup"><span id="signup-span" style="display: none;">or</span>Sign up</h2>
         <div class="form-holder">
-            <input type="text" class="input" placeholder="Name"/>
-            <input type="email" class="input" placeholder="Email"/>
-            <input type="password" class="input" placeholder="Password"/>
+            <input type="text" class="input" placeholder="Name" id="name_signup"/>
+            <input type="email" class="input" placeholder="Email" id="email_signup"/>
+            <input type="password" class="input" placeholder="Password" id="password_signup"/>
         </div>
-        <button class="submit-btn">Sign up</button>
+        <button onclick="signUp()" class="submit-btn">Sign up</button>
     </div>
     <div class="login slide-up">
         <div class="center">
             <h2 class="form-title" id="login">Log in</h2>
             <div class="form-holder">
-                <input type="email" class="input" placeholder="Email"/>
-                <input type="password" class="input" placeholder="Password"/>
+                <input type="email" class="input" placeholder="Email" id="email_login"/>
+                <input type="password" class="input" placeholder="Password" id="password_login"/>
             </div>
-            <button class="submit-btn">Log in</button>
+            <button onclick="logIn()" class="submit-btn">Log in</button>
         </div>
     </div>
 </div>

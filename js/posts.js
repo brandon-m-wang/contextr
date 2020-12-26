@@ -1,6 +1,7 @@
 function getPosts(){
     var user = 'zanenasrallah';
     var posts = new Array();
+    console.log("helo");
     console.log(posts);
     var storageRef = firebase.storage().ref();
     var listRef = storageRef.child('users/' + user + '/friends');
