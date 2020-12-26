@@ -1,11 +1,11 @@
 function logIn() {
-    const email = document.getElementById("email_field").value;
-    const password = document.getElementById("password_field").value;
+    const email = document.getElementById("email_login").value;
+    const password = document.getElementById("password_login").value;
 
     return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(() => {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then((user) => {
-                window.location.href = "../homefeed/homefeed.html";
+                window.location.href = "../html/home.html";
             })
             .catch((error) => {
                 var errorCode = error.code;
@@ -23,7 +23,7 @@ function signUp(){
 
 		firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
             .then((user) => {
-                window.location.href = "../homefeed/homefeed.html";
+                window.location.href = "../html/home.html";
             })
             .catch((error) => {
                 var errorCode = error.code;
