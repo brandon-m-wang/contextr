@@ -19,3 +19,117 @@
 #Friends{
     text-shadow: none;
 }
+
+.profile-area {
+    position: relative;
+    left: 30%;
+    width: 70%;
+
+}
+
+.profile-area img{
+    border-radius: 100%;
+    height: 160px;
+    width: auto;
+}
+
+.profile-area > .container{
+    display: flex;
+    justify-content: center;
+}
+
+.profile-area .profile-container {
+    display: flex;
+    margin-top: 3rem;
+    justify-self: center;
+    align-items: flex-start;
+    justify-content: center;
+    width: 70%;
+    padding: 1.75rem 1rem 1rem 1.75rem;
+    border-radius: 20px;
+    background: rgb(136, 123, 176);
+    background: linear-gradient(321deg, rgba(136, 123, 176, 1) 12%, rgba(203, 157, 156, 1) 100%);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), inset 0 -3px 3px rgba(0, 0, 0, 0.1);
+}
+
+.username-and-details{
+    margin-left: 2rem;
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+
+.username-and-details h3{
+    color: white;
+    margin-top: 0;
+    margin-bottom: 0.8rem;
+    font-size: 2rem;
+    font-weight: 100;
+}
+
+.username-and-details h6{
+    color: white;
+    margin: 0;
+    font-weight: 100;
+}
+
+.details{
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.details span{
+    font-weight: 600;
+}
+
+.details > h6{
+    font-size: 1rem;
+    margin: 0.8rem;
+}
+
+p{
+    color: white;
+    font-weight: 100;
+}
+
+.details h6:first-child{
+    margin-left: 0.25rem !important;
+}
+
+.fancy-header{
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+    font-weight: 100;
+    font-size: 1.25rem;
+    text-align: center;
+    line-height: 0.5;
+    color: rgb(88, 88, 88);
+}
+
+.fancy-header > span{
+    display: inline-block;
+    position: relative;
+}
+
+.fancy-header::before,
+.fancy-header::after{
+    content: "";
+    position: absolute;
+    height: 6px;
+    border-bottom: 1px solid rgb(141, 141, 141);
+    width: 33%;
+}
+
+.fancy-header::before{
+    right: 10%;
+    margin-right: 1%;
+}
+
+.fancy-header::after{
+    left: 10%;
+    margin-left: 1%;
+}
