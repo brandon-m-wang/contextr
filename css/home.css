@@ -97,7 +97,7 @@ a {
     padding-bottom: 3rem;
 }
 
-.content-area > .container {
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -359,6 +359,16 @@ a {
     font-size: 2rem;
     width: 80%;
     margin: 0 2rem;
+}
+
+.heart{
+    background:-moz-linear-gradient(top, rgb(136, 123, 176) 0%, rgba(203, 157, 156, 1) 100%); 
+    background: -webkit-linear-gradient(top,rgb(136, 123, 176) 0%,rgba(203, 157, 156, 1) 100%); 
+    background: linear-gradient(to bottom, rgb(136, 123, 176) 0%, rgba(203, 157, 156, 1) 100%);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color:transparent;
 }
 
 @media screen and (max-width: 1890px) {
