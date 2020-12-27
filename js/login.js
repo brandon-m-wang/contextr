@@ -16,18 +16,19 @@ function logIn() {
 }
 
 function signUp(){
-        var name = document.getElementById("name_signup");
-		var email = document.getElementById("email_signup");
-        var password = document.getElementById("password_signup");
-        console.log(name.value, email.value, password.value);
-
-		firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
-            .then((user) => {
-                window.location.href = "../html/home.html";
+    var name = document.getElementById("name_signup").value;
+    var email = document.getElementById("email_signup").value;
+    var password = document.getElementById("password_signup").value;
+    console.log(name.value, email.value, password.value);
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(function(result) {
+            window.location.href = "../html/home.html";
+            return result.user.updateProfile({
+                displayName: name
             })
-            .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                window.alert(errorMessage);
-            });
-	}
+        }).catch(function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            window.alert(errorMessage);
+        });
+}
