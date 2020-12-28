@@ -21,32 +21,43 @@ function signUp(){
     var email = document.getElementById("email_signup").value;
     var password = document.getElementById("password_signup").value;
     console.log(nameIn, email, password);
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(function(result) {
-            firebase.auth().onAuthStateChanged(function(user) {
-                console.log("2");
-                if(user){
-                    var userID = firebase.auth().currentUser.uid;
-                    db.collection('users').doc('' + userID).set({
-                        bio: "",
-                        name: nameIn
-                        //gotta somehow add in the other folders here??
-                    })
-                    .then(function() {
-                        console.log("Document successfully written!");
-                    })
-                    .catch(function(error) {
-                        console.error("Error writing document: ", error);
-                    });     
-                }
+
+    var username = db.collection("usernames").doc(nameIn);
+    username.get().then(function(doc) {
+        if (doc.exists) {
+            window.alert("This username is already in use");
+        } else {
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(function(result) {
+                firebase.auth().onAuthStateChanged(function(user) {
+                    console.log("2");
+                    if(user){
+                        var userID = firebase.auth().currentUser.uid;
+                        db.collection('users').doc('' + userID).set({
+                            bio: "",
+                            name: nameIn
+                            //gotta somehow add in the other folders here??
+                        })
+                        .then(function() {
+                            console.log("Document successfully written!");
+                        })
+                        .catch(function(error) {
+                            console.error("Error writing document: ", error);
+                        });     
+                    }
+                });
+                // window.location.href = "../html/home.html";
+                return result.user.updateProfile({
+                    displayName: name
+                })
+            }).catch(function(error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                window.alert(errorMessage);
             });
-            // window.location.href = "../html/home.html";
-            return result.user.updateProfile({
-                displayName: name
-            })
-        }).catch(function(error) {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            window.alert(errorMessage);
-        });
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
 }
+ 

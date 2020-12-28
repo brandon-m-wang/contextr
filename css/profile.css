@@ -46,7 +46,7 @@
     justify-content: center;
     width: 70%;
     padding: 1.75rem 1rem 1rem 1.75rem;
-    border-radius: 20px;
+    border-radius: 5px;
     background: rgb(136, 123, 176);
     background: linear-gradient(321deg, rgba(136, 123, 176, 1) 12%, rgba(203, 157, 156, 1) 100%);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), inset 0 -3px 3px rgba(0, 0, 0, 0.1);
@@ -194,13 +194,13 @@ h5 {
 #modal-container .modal-background .modal {
     background: rgb(136, 123, 176);
     background: linear-gradient(141deg, rgba(136, 123, 176, 1) 12%, rgba(203, 157, 156, 1) 100%);
-    padding: 35px 50px 50px 50px;
+    padding: 35px 50px 35px 50px;
     display: inline-block;
     text-align: start;
-    border-radius: 3px;
+    border-radius: 5px;
     font-weight: 300;
     position: relative;
-    height: 27%;
+    height: auto;
     width: 30%;
 }
 
@@ -216,7 +216,7 @@ textarea:focus, input:focus{
 
 #modal-container .modal-background .modal input,
 #modal-container .modal-background .modal textarea{
-    margin: 0.5rem 0 0;
+    margin: 1% 0 0;
     font-size: 1.1rem;
 }
 
@@ -233,6 +233,7 @@ textarea:focus, input:focus{
     color: white;
     font-family: Quicksand;
     font-size: 1rem;
+    margin: 1rem 0;
 }
 
 #username{

@@ -20,9 +20,9 @@ $(document).ready(function () {
     });
 });
 
-function loadProfile(){
+/*function loadProfile(){
     var user = 
-}
+}*/
 
 function changeProfilePic(e){
     var file = e.target.files[0];

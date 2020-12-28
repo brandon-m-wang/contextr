@@ -27,21 +27,21 @@
 }
 
 h3{
-    color: white;
+    color: black;
     font-weight: 300;
     font-size: 2rem;
     margin-bottom: 3rem;
 }
 
 h6{
-    color: white;
+    color: black;
     font-weight: 300;
     font-size: 1.35rem;
     margin: 0.35rem 0
 }
 
 p{
-    color: white;
+    color: black;
     font-weight: 100;
     margin: 0.35rem 0;
     font-size: 0.9rem;
@@ -49,14 +49,17 @@ p{
 
 h5{
     margin: 0.35rem 0;
-    color: white;
+    color:black;
     font-weight: 400;
 }
 
 .friends > .container{
     display: flex;
+    flex-direction: row;
     justify-content: center;
+    align-items: start;
     width: 100%;
+    min-height: 100vh;
 }
 
 .friends img{
@@ -71,13 +74,8 @@ h5{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 3rem;
     width: 70%;
-    padding: 1.75rem 1rem 1rem 1.75rem;
-    border-radius: 20px;
-    background: rgb(136, 123, 176);
-    background: linear-gradient(321deg, rgba(136, 123, 176, 1) 12%, rgba(203, 157, 156, 1) 100%);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), inset 0 -3px 3px rgba(0, 0, 0, 0.1);
+    padding: 1.75rem 0 1rem 0;
 }
 
 .friend{
@@ -109,4 +107,20 @@ h5{
     padding: 0 0.5rem;
     border-radius: 3px;
     margin-top: 0.25rem;
+}
+
+.sidebar{
+    align-self: stretch;
+    width: 30%;
+    background: rgb(136, 123, 176);
+    background: linear-gradient(321deg, rgba(136, 123, 176, 1) 12%, rgba(203, 157, 156, 1) 100%);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), inset 0 -3px 3px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar > input{
+    font-family: Quicksand;
+}
+
+input:focus{
+    outline: none;
 }
