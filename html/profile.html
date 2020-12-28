@@ -11,9 +11,12 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
 </head>
 <body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../js/profile.js"></script>
 <div class="company">
     <img src="../assets/square-logo-white.png" style="width: 75px; height: 75px;"/>
 </div>
@@ -26,24 +29,51 @@
         <h3 id="Help"><i class="fas fa-question-circle"></i> <a href="help.html">Help</a></h3>
     </div>
 </section>
-<section class="profile-area">
-    <div class="container">
-    <div class="profile-container">
-        <img src="https://media-exp1.licdn.com/dms/image/C4D03AQGJ3fh0NLyfAA/profile-displayphoto-shrink_200_200/0/1606170723424?e=1613606400&v=beta&t=J5B7GZhV0JNE3OUCuFNXyR219dHqxyfaTIaQR6reFHQ"/>
-        <div class="username-and-details">
-            <h3>@Username</h3>
-            <div class="details">
-                <h6><span>12 </span>Citations</h6>
-                <h6><span>142 </span>Likes</h6>
-                <h6><span>15 </span>Friends</h6>
-            </div>
-            <p>Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+<div id="modal-container">
+    <div class="modal-background">
+        <div class="modal" id="the-modal">
+            <form action="">
+                <label for="username">New username:</label><br>
+                <input type="text" id="username" name="username" placeholder="Username..."><br><br>
+                <label for="bio">Bio:</label><br>
+                <textarea id="bio" rows="4" placeholder="Bio..."></textarea><br>
+                <input id="submit" type="submit" style="margin-top: 1rem;">
+            </form>
+            <rect x="0" y="0" fill="none" width="226" height="162" rx="3" ry="3"></rect>
+            </svg>
         </div>
     </div>
 </div>
-<div class="profile-posts">
-    <h6 class="fancy-header"><span>POSTS</span></h6>
-</div>
+<section class="profile-area">
+    <div class="container">
+        <div class="profile-container">
+            <div class="pfp-container">
+                <img id="pfp"
+                     src="https://media-exp1.licdn.com/dms/image/C4D03AQGJ3fh0NLyfAA/profile-displayphoto-shrink_200_200/0/1606170723424?e=1613606400&v=beta&t=J5B7GZhV0JNE3OUCuFNXyR219dHqxyfaTIaQR6reFHQ"/>
+                <div class="change-pfp">
+                    <input id="new-pfp" type="file" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom:
+                     0; right: 0; width: 100%; height:100%;"/>
+                    <h5>Change picture</h5>
+                </div>
+            </div>
+            <div class="username-and-details">
+                <h3>@Username</h3>
+                <div class="details">
+                    <h6><span>12 </span>Citations</h6>
+                    <h6><span>142 </span>Likes</h6>
+                    <h6><span>15 </span>Friends</h6>
+                </div>
+                <p>Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                    labore et dolore magna aliqua.</p>
+            </div>
+            <div class="edit-profile" id="five">
+                Edit
+            </div>
+        </div>
+    </div>
+    <div class="profile-posts">
+        <h6 class="fancy-header"><span>POSTS</span></h6>
+    </div>
 </section>
 <section class="content-area">
     <div class="container">

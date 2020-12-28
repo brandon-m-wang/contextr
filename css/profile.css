@@ -8,7 +8,7 @@
     opacity: 1;
 }
 
-#Notifications{
+#Notifications {
     text-shadow: none;
 }
 
@@ -16,7 +16,7 @@
     text-shadow: none;
 }
 
-#Friends{
+#Friends {
     text-shadow: none;
 }
 
@@ -27,13 +27,13 @@
 
 }
 
-.profile-area img{
+.profile-area img {
     border-radius: 100%;
     height: 160px;
     width: auto;
 }
 
-.profile-area > .container{
+.profile-area > .container {
     display: flex;
     justify-content: center;
 }
@@ -50,18 +50,17 @@
     background: rgb(136, 123, 176);
     background: linear-gradient(321deg, rgba(136, 123, 176, 1) 12%, rgba(203, 157, 156, 1) 100%);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), inset 0 -3px 3px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
-.username-and-details{
+.username-and-details {
     margin-left: 2rem;
     display: flex;
     flex-direction: column;
-
 }
 
 
-
-.username-and-details h3{
+.username-and-details h3 {
     color: white;
     margin-top: 0;
     margin-bottom: 0.8rem;
@@ -69,38 +68,38 @@
     font-weight: 100;
 }
 
-.username-and-details h6{
+.username-and-details h6 {
     color: white;
     margin: 0;
     font-weight: 100;
 }
 
-.details{
+.details {
     margin: 0;
     display: flex;
     align-items: center;
     justify-content: flex-start;
 }
 
-.details span{
+.details span {
     font-weight: 600;
 }
 
-.details > h6{
+.details > h6 {
     font-size: 1rem;
     margin: 0.8rem;
 }
 
-p{
+p {
     color: white;
     font-weight: 100;
 }
 
-.details h6:first-child{
+.details h6:first-child {
     margin-left: 0.25rem !important;
 }
 
-.fancy-header{
+.fancy-header {
     margin-top: 5rem;
     margin-bottom: 2rem;
     font-weight: 100;
@@ -110,13 +109,13 @@ p{
     color: rgb(88, 88, 88);
 }
 
-.fancy-header > span{
+.fancy-header > span {
     display: inline-block;
     position: relative;
 }
 
 .fancy-header::before,
-.fancy-header::after{
+.fancy-header::after {
     content: "";
     position: absolute;
     height: 6px;
@@ -124,12 +123,569 @@ p{
     width: 33%;
 }
 
-.fancy-header::before{
+.fancy-header::before {
     right: 10%;
     margin-right: 1%;
 }
 
-.fancy-header::after{
+.fancy-header::after {
     left: 10%;
     margin-left: 1%;
+}
+
+h5 {
+    margin: 0.35rem 0;
+    color: white;
+    font-weight: 400;
+}
+
+.edit-profile {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    right: 5%;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 0.25rem 0.4rem;
+    border-radius: 5px;
+    color: white;
+}
+
+.pfp-container {
+    width: 160px;
+    height: 160px;
+    position: relative;
+}
+
+.change-pfp {
+    visibility: hidden;
+    position: absolute;
+    display: block;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    border-radius: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.change-pfp h5 {
+    opacity: 1;
+    user-select: none;
+}
+
+.pfp-container:hover .change-pfp {
+    visibility: visible;
+}
+
+/* modal */
+
+#modal-container .modal-background {
+    display: table-cell;
+    background: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    vertical-align: middle;
+}
+
+#modal-container .modal-background .modal {
+    background: rgb(136, 123, 176);
+    background: linear-gradient(141deg, rgba(136, 123, 176, 1) 12%, rgba(203, 157, 156, 1) 100%);
+    padding: 35px 50px 50px 50px;
+    display: inline-block;
+    text-align: start;
+    border-radius: 3px;
+    font-weight: 300;
+    position: relative;
+    height: 27%;
+    width: 30%;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+#modal-container .modal-background .modal label{
+    font-weight: 400;
+    color: white;
+    font-size: 1.5rem;
+}
+
+#modal-container .modal-background .modal input,
+#modal-container .modal-background .modal textarea{
+    margin: 0.5rem 0 0;
+    font-size: 1.1rem;
+}
+
+#submit{
+    border:none;
+    background-image:none;
+    background-color:transparent;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 0.25rem 0.4rem;
+    border-radius: 5px;
+    color: white;
+    font-family: Quicksand;
+    font-size: 1rem;
+}
+
+#username{
+    width: 30%;
+    font-family: Quicksand;
+}
+
+#bio{
+    width: 100%;
+    resize: none;
+    height: auto;
+    font-family: Quicksand;
+}
+
+#modal-container .modal-background .modal h2 {
+    font-size: 25px;
+    line-height: 25px;
+    margin-bottom: 15px;
+}
+
+#modal-container .modal-background .modal p {
+    font-size: 18px;
+    line-height: 22px;
+}
+
+#modal-container .modal-background .modal .modal-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 3px;
+}
+
+#modal-container .modal-background .modal .modal-svg rect {
+    stroke: #fff;
+    stroke-width: 2px;
+    stroke-dasharray: 778;
+    stroke-dashoffset: 778;
+}
+
+html.modal-active, body.modal-active {
+    position: fixed;
+    overflow-y: scroll
+}
+
+#modal-container {
+    position: fixed;
+    display: table;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transform: scale(0);
+    z-index: 1;
+}
+
+#modal-container.six {
+    transform: scale(1);
+}
+
+#modal-container.six .modal-background {
+    background: rgba(0, 0, 0, 0);
+    animation: fadeIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#modal-container.six .modal-background .modal {
+    background-color: transparent;
+    animation: modalFadeIn 0.5s 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#modal-container.six .modal-background .modal h2, #modal-container.six .modal-background .modal p {
+    opacity: 0;
+    position: relative;
+    animation: modalContentFadeIn 0.5s 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#modal-container.six .modal-background .modal .modal-svg rect {
+    animation: sketchIn 0.5s 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#modal-container.six.out {
+    animation: quickScaleDown 0s 0.5s linear forwards;
+}
+
+#modal-container.six.out .modal-background {
+    animation: fadeOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#modal-container.six.out .modal-background .modal {
+    animation: modalFadeOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#modal-container.six.out .modal-background .modal h2, #modal-container.six.out .modal-background .modal p {
+    animation: modalContentFadeOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#modal-container.six.out .modal-background .modal .modal-svg rect {
+    animation: sketchOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#modal-container.five {
+    transform: scale(1);
+}
+
+#modal-container.five .modal-background {
+    background: rgba(0, 0, 0, 0);
+    animation: fadeIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#modal-container.five .modal-background .modal {
+    transform: translateX(-1500px);
+    animation: roadRunnerIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#modal-container.five.out {
+    animation: quickScaleDown 0s 0.5s linear forwards;
+}
+
+#modal-container.five.out .modal-background {
+    animation: fadeOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#modal-container.five.out .modal-background .modal {
+    animation: roadRunnerOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+@keyframes unfoldIn {
+    0% {
+        transform: scaleY(0.005) scaleX(0);
+    }
+    50% {
+        transform: scaleY(0.005) scaleX(1);
+    }
+    100% {
+        transform: scaleY(1) scaleX(1);
+    }
+}
+
+@keyframes unfoldOut {
+    0% {
+        transform: scaleY(1) scaleX(1);
+    }
+    50% {
+        transform: scaleY(0.005) scaleX(1);
+    }
+    100% {
+        transform: scaleY(0.005) scaleX(0);
+    }
+}
+
+@keyframes zoomIn {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes zoomOut {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        background: rgba(0, 0, 0, 0);
+    }
+    100% {
+        background: rgba(0, 0, 0, 0.7);
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        background: rgba(0, 0, 0, 0.7);
+    }
+    100% {
+        background: rgba(0, 0, 0, 0);
+    }
+}
+
+@keyframes scaleUp {
+    0% {
+        transform: scale(0.8) translateY(1000px);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) translateY(0px);
+        opacity: 1;
+    }
+}
+
+@keyframes scaleDown {
+    0% {
+        transform: scale(1) translateY(0px);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.8) translateY(1000px);
+        opacity: 0;
+    }
+}
+
+@keyframes scaleBack {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0.85);
+    }
+}
+
+@keyframes scaleForward {
+    0% {
+        transform: scale(0.85);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes quickScaleDown {
+    0% {
+        transform: scale(1);
+    }
+    99.9% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+
+@keyframes slideUpLarge {
+    0% {
+        transform: translateY(0%);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes slideDownLarge {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes moveUp {
+    0% {
+        transform: translateY(150px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes moveDown {
+    0% {
+        transform: translateY(0px);
+    }
+    100% {
+        transform: translateY(150px);
+    }
+}
+
+@keyframes blowUpContent {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    99.9% {
+        transform: scale(2);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+
+@keyframes blowUpContentTwo {
+    0% {
+        transform: scale(2);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes blowUpModal {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes blowUpModalTwo {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+@keyframes roadRunnerIn {
+    0% {
+        transform: translateX(-1500px) skewX(30deg) scaleX(1.3);
+    }
+    70% {
+        transform: translateX(30px) skewX(0deg) scaleX(0.9);
+    }
+    100% {
+        transform: translateX(0px) skewX(0deg) scaleX(1);
+    }
+}
+
+@keyframes roadRunnerOut {
+    0% {
+        transform: translateX(0px) skewX(0deg) scaleX(1);
+    }
+    30% {
+        transform: translateX(-30px) skewX(-5deg) scaleX(0.9);
+    }
+    100% {
+        transform: translateX(1500px) skewX(30deg) scaleX(1.3);
+    }
+}
+
+@keyframes sketchIn {
+    0% {
+        stroke-dashoffset: 778;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes sketchOut {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 778;
+    }
+}
+
+@keyframes modalFadeIn {
+    0% {
+        background-color: transparent;
+    }
+    100% {
+        background-color: white;
+    }
+}
+
+@keyframes modalFadeOut {
+    0% {
+        background-color: white;
+    }
+    100% {
+        background-color: transparent;
+    }
+}
+
+@keyframes modalContentFadeIn {
+    0% {
+        opacity: 0;
+        top: -20px;
+    }
+    100% {
+        opacity: 1;
+        top: 0;
+    }
+}
+
+@keyframes modalContentFadeOut {
+    0% {
+        opacity: 1;
+        top: 0px;
+    }
+    100% {
+        opacity: 0;
+        top: -20px;
+    }
+}
+
+@keyframes bondJamesBond {
+    0% {
+        transform: translateX(1000px);
+    }
+    80% {
+        transform: translateX(0px);
+        border-radius: 75px;
+        height: 75px;
+        width: 75px;
+    }
+    90% {
+        border-radius: 3px;
+        height: 182px;
+        width: 247px;
+    }
+    100% {
+        border-radius: 3px;
+        height: 162px;
+        width: 227px;
+    }
+}
+
+@keyframes killShot {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(300px) rotate(45deg);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeToRed {
+    0% {
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+    100% {
+        background-color: rgba(255, 0, 0, 0.8);
+    }
+}
+
+@keyframes slowFade {
+    0% {
+        opacity: 1;
+    }
+    99.9% {
+        opacity: 0;
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
 }

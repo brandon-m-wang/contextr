@@ -362,8 +362,8 @@ a {
 }
 
 .heart{
-    background:-moz-linear-gradient(top, rgb(136, 123, 176) 0%, rgba(203, 157, 156, 1) 100%); 
-    background: -webkit-linear-gradient(top,rgb(136, 123, 176) 0%,rgba(203, 157, 156, 1) 100%); 
+    background:-moz-linear-gradient(top, rgb(136, 123, 176) 0%, rgba(203, 157, 156, 1) 100%);
+    background: -webkit-linear-gradient(top,rgb(136, 123, 176) 0%,rgba(203, 157, 156, 1) 100%);
     background: linear-gradient(to bottom, rgb(136, 123, 176) 0%, rgba(203, 157, 156, 1) 100%);
     -webkit-background-clip: text;
     -moz-background-clip: text;
