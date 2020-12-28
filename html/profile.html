@@ -15,6 +15,27 @@
           rel="stylesheet">
 </head>
 <body>
+    <!-- Firebase storage setup Start -->
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-storage.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+<script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyDlCzdF70uR7X2fZ7o0p0ga__0M3zCm1v4",
+        authDomain: "contextr.firebaseapp.com",
+        projectId: "contextr",
+        storageBucket: "contextr.appspot.com",
+        messagingSenderId: "794463682882",
+        appId: "1:794463682882:web:00e5cb985b2eb9f684c8db",
+        measurementId: "G-9EGE324T37"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+</script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="../js/profile.js"></script>
 <div class="company">
@@ -37,7 +58,7 @@
                 <input type="text" id="username" name="username" placeholder="Username..."><br><br>
                 <label for="bio">Bio:</label><br>
                 <textarea id="bio" rows="4" placeholder="Bio..."></textarea><br>
-                <input id="submit" type="submit" style="margin-top: 1rem;">
+                <input id="submit" onclick="changeUserInfo()" type="submit" style="margin-top: 1rem;">
             </form>
             <rect x="0" y="0" fill="none" width="226" height="162" rx="3" ry="3"></rect>
             </svg>
@@ -51,7 +72,7 @@
                 <img id="pfp"
                      src="https://media-exp1.licdn.com/dms/image/C4D03AQGJ3fh0NLyfAA/profile-displayphoto-shrink_200_200/0/1606170723424?e=1613606400&v=beta&t=J5B7GZhV0JNE3OUCuFNXyR219dHqxyfaTIaQR6reFHQ"/>
                 <div class="change-pfp">
-                    <input id="new-pfp" type="file" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom:
+                    <input id="new-pfp" type="file" accept="image/*" onchange='changeProfilePic(event)' style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom:
                      0; right: 0; width: 100%; height:100%;"/>
                     <h5>Change picture</h5>
                 </div>

@@ -20,3 +20,40 @@ $(document).ready(function () {
     });
 });
 
+function loadProfile(){
+    var user = 
+}
+
+function changeProfilePic(e){
+    var file = e.target.files[0];
+    var storageRef = firebase.storage().ref();
+    firebase.auth().onAuthStateChanged(function(user) {
+        if(user){
+            var imageRef = storageRef.child('users/' + firebase.auth().currentUser.uid + '/profile');
+            imageRef.put(file).then(function(snapshot) {
+                console.log('Uploaded image');
+            });
+        }
+    });
+}
+
+function changeUserInfo(){
+    var db = firebase.firestore();
+    var bioText = document.getElementById("bio").value;
+    var nameText = document.getElementById("username").value;
+    firebase.auth().onAuthStateChanged(function(user) {
+        if(user){
+            var userID = firebase.auth().currentUser.uid;
+            db.collection('users').doc('' + userID).set({
+                bio: bioText,
+                name: nameText
+            })
+            .then(function() {
+                console.log("Document successfully written!");
+            })
+            .catch(function(error) {
+                console.error("Error writing document: ", error);
+            });     
+        }
+    });
+}
