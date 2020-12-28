@@ -17,10 +17,10 @@ function logIn() {
 
 function signUp(){
     var db = firebase.firestore();
-    var name = document.getElementById("name_signup").value;
+    var nameIn = document.getElementById("name_signup").value;
     var email = document.getElementById("email_signup").value;
     var password = document.getElementById("password_signup").value;
-    console.log(name.value, email.value, password.value);
+    console.log(nameIn, email, password);
     firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(function(result) {
             firebase.auth().onAuthStateChanged(function(user) {
@@ -29,7 +29,7 @@ function signUp(){
                     var userID = firebase.auth().currentUser.uid;
                     db.collection('users').doc('' + userID).set({
                         bio: "",
-                        name: name
+                        name: nameIn
                         //gotta somehow add in the other folders here??
                     })
                     .then(function() {
@@ -40,7 +40,7 @@ function signUp(){
                     });     
                 }
             });
-            window.location.href = "../html/home.html";
+            // window.location.href = "../html/home.html";
             return result.user.updateProfile({
                 displayName: name
             })
