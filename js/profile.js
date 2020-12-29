@@ -41,19 +41,28 @@ function changeUserInfo(){
     var db = firebase.firestore();
     var bioText = document.getElementById("bio").value;
     var nameText = document.getElementById("username").value;
-    firebase.auth().onAuthStateChanged(function(user) {
-        if(user){
-            var userID = firebase.auth().currentUser.uid;
-            db.collection('users').doc('' + userID).set({
-                bio: bioText,
-                name: nameText
-            })
-            .then(function() {
-                console.log("Document successfully written!");
-            })
-            .catch(function(error) {
-                console.error("Error writing document: ", error);
-            });     
+    var username = db.collection("usernames").doc(nameText);
+    console.log(username);
+
+    username.get().then(function(doc) {
+        if (doc.exists) {
+            window.alert("This username is already in use");
+        } else {
+            firebase.auth().onAuthStateChanged(function(user) {
+                if(user){
+                    var userID = firebase.auth().currentUser.uid;
+                    db.collection('users').doc('' + userID).update({
+                        bio: bioText,
+                        name: nameText
+                    })
+                    .then(function() {
+                        console.log("Document successfully written!");
+                    })
+                    .catch(function(error) {
+                        console.error("Error writing document: ", error);
+                    });     
+                }
+            });
         }
     });
 }
