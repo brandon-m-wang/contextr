@@ -33,16 +33,24 @@ function signUp(){
                     console.log("2");
                     if(user){
                         var userID = firebase.auth().currentUser.uid;
-                        db.collection('users').doc('' + userID).set({
+                        db.collection('users').doc(userID).set({
                             bio: "",
-                            name: nameIn
+                            name: nameIn,
+                            friends: {},
+                            requestsIn: {},
+                            requestsOut: {},
+                            notifications: {},
+                            posts: {}
                             //gotta somehow add in the other folders here??
                         })
                         .then(function() {
-                            console.log("Document successfully written!");
+                            console.log("User successfully written!");
                         })
                         .catch(function(error) {
                             console.error("Error writing document: ", error);
+                        });
+                        db.collection('usernames').doc(nameIn).set({
+                            username: userID
                         });     
                     }
                 });
