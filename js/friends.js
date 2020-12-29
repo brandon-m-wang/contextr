@@ -18,3 +18,25 @@ $(document).ready(function () {
         $('.search-bar').css("display", "flex")
     })
 });
+
+function addFriend(){
+    var friendName = document.getElementById("query").value;
+    var username = db.collection("usernames").doc(friendName);
+
+    firebase.auth().onAuthStateChanged(function(user) {
+        if(user){
+            var userID = firebase.auth().currentUser.uid;
+            username.get().then(function(doc) {
+                if (doc.exists) {
+                    db.collection("users").document(userID).update({
+                        friendsOut: firebase.firestore.FieldValue.arrayUnion(username)
+                    });
+                }else{
+                    window.alert("This username doesn't exist!");
+                }
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+        }
+    });
+}
