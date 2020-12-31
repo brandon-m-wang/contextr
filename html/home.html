@@ -13,11 +13,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
           rel="stylesheet">
     <!-- Connect js files -->
-    <script src="../js/home.js"></script>
-    <script src="../js/posts.js"></script>
 </head>
 <!--<body onload="getPosts()">-->
 <!-- Firebase storage setup Start -->
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../js/home.js"></script>
+<script src="../js/posts.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
@@ -50,6 +52,55 @@
         <h3 id="Help"><i class="fas fa-question-circle"></i> <a href="help.html">Help</a></h3>
     </div>
 </section>
+<div id="modal-container">
+    <div class="modal-background">
+        <div class="modal" id="the-modal">
+            <h3>Friends:</h3>
+            <div class="requests">
+                <div class="request">
+                    <img src="https://prod.wp.cdn.aws.wfu.edu/sites/202/2017/11/empty-avatar-700x480.png"/>
+                    <div class="request-info">
+                    <h6>@Username</h6>
+                    </div>
+                    <div class="request-actions">
+                        <a><h5>Cite</h5></a>
+                        <a><h5>View</h5></a>
+                    </div>
+                </div>
+                <div class="request">
+                    <img src="https://prod.wp.cdn.aws.wfu.edu/sites/202/2017/11/empty-avatar-700x480.png"/>
+                    <div class="request-info">
+                    <h6>@Username</h6>
+                    </div>
+                    <div class="request-actions">
+                        <a><h5>Cite</h5></a>
+                        <a><h5>View</h5></a>
+                    </div>
+                </div>
+                <div class="request">
+                    <img src="https://prod.wp.cdn.aws.wfu.edu/sites/202/2017/11/empty-avatar-700x480.png"/>
+                    <div class="request-info">
+                    <h6>@Username</h6>
+                    </div>
+                    <div class="request-actions">
+                        <a><h5>Cite</h5></a>
+                        <a><h5>View</h5></a>
+                    </div>
+                </div>
+                <div class="request">
+                    <img src="https://prod.wp.cdn.aws.wfu.edu/sites/202/2017/11/empty-avatar-700x480.png"/>
+                    <div class="request-info">
+                    <h6>@Username</h6>
+                    </div>
+                    <div class="request-actions">
+                        <a><h5>Cite</h5></a>
+                        <a><h5>View</h5></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <section class="content-area">
     <div class="container">
         <div class="prompt">
@@ -82,8 +133,7 @@
                     </div>
                 </div>
             </div>
-            <button id="see-all"><p style="margin: 0; color: white; font-weight: 100;">See all friends (9)</p>
-            </button>
+            <button class="see-all" id="five">See all friends (9)</button>
         </div>
         <div class="post man-im-dead">
             <div class="post-header">

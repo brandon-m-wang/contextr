@@ -78,7 +78,7 @@ h5{
 }
 
 .friends-container h3{
-    font-weight: 300;
+    font-weight: 400;
     background: linear-gradient(321deg, rgb(59, 52, 78) 12%, rgb(129, 99, 99) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -114,6 +114,7 @@ h5{
     border-radius: 3px;
     margin-top: 0.25rem;
     width: 45px;
+    cursor: pointer;
     text-align: center;
 }
 
@@ -226,10 +227,11 @@ input:focus{
 .request-actions > *{
     text-align: center;
     background: rgba(0, 0, 0, 0.5);
-    padding: 0 0.5rem;
+    padding: 0.35rem;
     border-radius: 3px;
     margin: 0.1rem 0;
     width: 45px;
+    cursor: pointer;
 }
 
 .request-actions > a > h5{
