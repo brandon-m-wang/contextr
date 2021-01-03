@@ -12,7 +12,8 @@
         "source": "/users/**",
         "function": "loadUser"
       }
-    ]
+    ],
+    "cleanUrls": true
   },
   "functions": {
     "predeploy": [
