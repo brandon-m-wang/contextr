@@ -1,18 +1,16 @@
 const functions = require('firebase-functions');
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
+const admin = require('firebase-admin');
+admin.initializeApp();
+
 exports.helloWorld = functions.https.onRequest((request, response) => {
     functions.logger.info("Hello logs!", {structuredData: true});
     response.send("Hello from Firebase!");
 });
 
 exports.loadUser = functions.https.onRequest((req, res) => {
-    const pfp = 'https://i.imgur.com/mowPHY9.jpg'
-    //firebase.storage().ref('users/' + '/profile.png').getDownloadURL()
     res.status(200).send(`<!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="visibility: hidden;">
 <head>
     <meta charset="UTF-8">
     <title>contextr.io / Home</title>
@@ -25,8 +23,12 @@ exports.loadUser = functions.https.onRequest((req, res) => {
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet">
+          rel="stylesheet"/>
 </head>
+<div id="loading-gif" style="visibility: visible; height: 100vh; width: 100vw;">
+<img src="https://media.tenor.com/images/3a10caa07d3684023e0418b4096eec55/tenor.gif" style="position: absolute;
+    top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%);"/>
+</div>
 <body>
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
@@ -49,17 +51,17 @@ exports.loadUser = functions.https.onRequest((req, res) => {
 </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="../js/profile.js"></script>
+<script src="../js/otherprofile.js"></script>
 <div class="company">
     <img src="../assets/square-logo-white.png" style="width: 75px; height: 75px;"/>
 </div>
 <section class="sidebar-nav">
     <div class="container">
-        <h3 id="Home"><i class="fas fa-home"></i> <a href="home.html">Home</a></h3>
-        <h3 id="Profile"><i class="fas fa-user"></i> <a href="profile.html">Profile</a></h3>
-        <h3 id="Friends"><i class="fas fa-users"></i> <a href="friends.html">Friends</a></h3>
-        <h3 id="Notifications"><i class="fas fa-bell"></i> <a href="notifications.html">Notifications</a></h3>
-        <h3 id="Help"><i class="fas fa-question-circle"></i> <a href="help.html">Help</a></h3>
+        <h3 id="Home"><i class="fas fa-home"></i> <a href="../html/home.html">Home</a></h3>
+        <h3 id="Profile"><i class="fas fa-user"></i> <a href="../html/profile.html">Profile</a></h3>
+        <h3 id="Friends"><i class="fas fa-users"></i> <a href="../html/friends.html">Friends</a></h3>
+        <h3 id="Notifications"><i class="fas fa-bell"></i> <a href="../html/notifications.html">Notifications</a></h3>
+        <h3 id="Help"><i class="fas fa-question-circle"></i> <a href="../html/help.html">Help</a></h3>
     </div>
 </section>
 <div id="modal-container">
@@ -82,12 +84,7 @@ exports.loadUser = functions.https.onRequest((req, res) => {
         <div class="profile-container">
             <div class="pfp-container">
                 <img id="pfp"
-                     src=${pfp}/>
-                <div class="change-pfp">
-                    <input id="new-pfp" type="file" accept="image/*" onchange='changeProfilePic(event)' style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom:
-                     0; right: 0; width: 100%; height:100%;"/>
-                    <h5>Change picture</h5>
-                </div>
+                     src=/>
             </div>
             <div class="username-and-details">
                 <h3>@Username</h3>
@@ -98,9 +95,6 @@ exports.loadUser = functions.https.onRequest((req, res) => {
                 </div>
                 <p>Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                     labore et dolore magna aliqua.</p>
-            </div>
-            <div class="edit-profile" id="five">
-                Edit
             </div>
         </div>
     </div>
@@ -274,6 +268,7 @@ exports.loadUser = functions.https.onRequest((req, res) => {
         </div>
     </div>
 </section>
+<script src="../js/buffer.js"></script>
 </body>
 </html>`);
 });
