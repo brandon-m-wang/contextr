@@ -52,11 +52,11 @@ exports.loadUser = functions.https.onRequest((req, res) => {
 </div>
 <section class="sidebar-nav">
     <div class="container">
-        <h3 id="Home"><i class="fas fa-home"></i> <a href="../html/home.html">Home</a></h3>
-        <h3 id="Profile"><i class="fas fa-user"></i> <a href="../html/profile.html">Profile</a></h3>
-        <h3 id="Friends"><i class="fas fa-users"></i> <a href="../html/friends.html">Friends</a></h3>
-        <h3 id="Notifications"><i class="fas fa-bell"></i> <a href="../html/notifications.html">Notifications</a></h3>
-        <h3 id="Help"><i class="fas fa-question-circle"></i> <a href="../html/help.html">Help</a></h3>
+        <h3 id="Home"><i class="fas fa-home"></i> <a href="../index.html">Home</a></h3>
+        <h3 id="Profile"><i class="fas fa-user"></i> <a href="../profile.html">Profile</a></h3>
+        <h3 id="Friends"><i class="fas fa-users"></i> <a href="../friends.html">Friends</a></h3>
+        <h3 id="Notifications"><i class="fas fa-bell"></i> <a href="../notifications.html">Notifications</a></h3>
+        <h3 id="Help"><i class="fas fa-question-circle"></i> <a href="../help.html">Help</a></h3>
     </div>
 </section>
 <div id="modal-container">

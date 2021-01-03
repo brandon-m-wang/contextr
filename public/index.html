@@ -1,21 +1,308 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Welcome to Firebase Hosting</title>
-  </head>
-  <body>
-  <script>
-    window.onload=function() {
-      window.location = 'html/home.html'
-    }
-  </script>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>contextr.io / Home</title>
+    <link rel="icon" type="image/png" href="../assets/square-logo-cutout.png"/>
+    <link rel="stylesheet" href="../css/home.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+    <link href="https://fonts.googleapis.com/css2?family=Yantramanav:wght@100;300;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+    <!-- Connect js files -->
+</head>
+<!--<body onload="getPosts()">-->
+<!-- Firebase storage setup Start -->
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../js/home.js"></script>
+<script src="../js/posts.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-storage.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+<script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyDlCzdF70uR7X2fZ7o0p0ga__0M3zCm1v4",
+        authDomain: "contextr.firebaseapp.com",
+        projectId: "contextr",
+        storageBucket: "contextr.appspot.com",
+        messagingSenderId: "794463682882",
+        appId: "1:794463682882:web:00e5cb985b2eb9f684c8db",
+        measurementId: "G-9EGE324T37"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+</script>
+
+<div class="company">
+    <img src="../assets/square-logo-white.png" style="width: 75px; height: 75px;"/>
+</div>
+<section class="sidebar-nav">
+    <div class="container">
+        <h3 id="Home"><i class="fas fa-home"></i> <a href="home.html">Home</a></h3>
+        <h3 id="Profile"><i class="fas fa-user"></i> <a href="profile.html">Profile</a></h3>
+        <h3 id="Friends"><i class="fas fa-users"></i> <a href="friends.html">Friends</a></h3>
+        <h3 id="Notifications"><i class="fas fa-bell"></i> <a href="notifications.html">Notifications</a></h3>
+        <h3 id="Help"><i class="fas fa-question-circle"></i> <a href="help.html">Help</a></h3>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
-  </body>
+</section>
+<div id="modal-container">
+    <div class="modal-background">
+        <div class="modal" id="the-modal">
+            <h3>Friends:</h3>
+            <div class="requests">
+                <div class="request">
+                    <img src="https://prod.wp.cdn.aws.wfu.edu/sites/202/2017/11/empty-avatar-700x480.png"/>
+                    <div class="request-info">
+                    <h6>@Username</h6>
+                    </div>
+                    <div class="request-actions">
+                        <a><h5>Cite</h5></a>
+                        <a><h5>View</h5></a>
+                    </div>
+                </div>
+                <div class="request">
+                    <img src="https://prod.wp.cdn.aws.wfu.edu/sites/202/2017/11/empty-avatar-700x480.png"/>
+                    <div class="request-info">
+                    <h6>@Username</h6>
+                    </div>
+                    <div class="request-actions">
+                        <a><h5>Cite</h5></a>
+                        <a><h5>View</h5></a>
+                    </div>
+                </div>
+                <div class="request">
+                    <img src="https://prod.wp.cdn.aws.wfu.edu/sites/202/2017/11/empty-avatar-700x480.png"/>
+                    <div class="request-info">
+                    <h6>@Username</h6>
+                    </div>
+                    <div class="request-actions">
+                        <a><h5>Cite</h5></a>
+                        <a><h5>View</h5></a>
+                    </div>
+                </div>
+                <div class="request">
+                    <img src="https://prod.wp.cdn.aws.wfu.edu/sites/202/2017/11/empty-avatar-700x480.png"/>
+                    <div class="request-info">
+                    <h6>@Username</h6>
+                    </div>
+                    <div class="request-actions">
+                        <a><h5>Cite</h5></a>
+                        <a><h5>View</h5></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="content-area">
+    <div class="container">
+        <div class="prompt">
+            <h3>Cite a friend...</h3>
+            <div class="prompt-images-container">
+                <div class="prompt-images">
+                    <div class="prompt-name-image" id="prompt1">
+                        <img src="https://calhacks-sierra.s3-us-west-2.amazonaws.com/assets/profile_images/abdullahi.jpg"/>
+                        <p>Abdullahi</p>
+                    </div>
+                    <div class="prompt-name-image" id="prompt2">
+                        <img src="https://calhacks-sierra.s3-us-west-2.amazonaws.com/assets/profile_images/brandon.jpg"/>
+                        <p>Brandon</p>
+                    </div>
+                    <div class="prompt-name-image" id="prompt3">
+                        <img src="https://calhacks-sierra.s3-us-west-2.amazonaws.com/assets/profile_images/adnaan.jpg"/>
+                        <p>Adnaan</p>
+                    </div>
+                    <div class="prompt-name-image" id="prompt4">
+                        <img src="https://calhacks-sierra.s3-us-west-2.amazonaws.com/assets/profile_images/avinash.jpg"/>
+                        <p>Avinash</p>
+                    </div>
+                    <div class="prompt-name-image" id="prompt5">
+                        <img src="https://calhacks-sierra.s3-us-west-2.amazonaws.com/assets/profile_images/ali.jpg"/>
+                        <p>Ali</p>
+                    </div>
+                    <div class="prompt-name-image" id="prompt6">
+                        <img src="https://calhacks-sierra.s3-us-west-2.amazonaws.com/assets/profile_images/alex.jpg"/>
+                        <p>Alex</p>
+                    </div>
+                </div>
+            </div>
+            <button class="see-all" id="five">See all friends (9)</button>
+        </div>
+        <div class="post man-im-dead">
+            <div class="post-header">
+                <h3>@Username</h3>
+                <h4>Quoted by: @Username</h4>
+            </div>
+            <div class="post-quote">
+                <img class="funky-quote-open" src="../assets/quote-open.png"/>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.</p>
+                <img class="funky-quote-close" src="../assets/quote-close.png"/>
+            </div>
+            <div class="post-footer">
+                <div class="post-actions">
+                    <i class="fab fa-gratipay heart"></i>
+                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
+                </div>
+                <div class="post-stats">
+                    <i class="fab fa-gratipay heart"></i>
+                    <h6>Likes</h6>
+                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
+                    <h6>Comments</h6>
+                </div>
+            </div>
+            <div class="post-comments">
+                <h6>Leave a comment...</h6>
+            </div>
+        </div>
+        <div class="post taking-a-look">
+            <div class="post-header">
+                <h3>@Username</h3>
+                <h4>Quoted by: @Username</h4>
+            </div>
+            <div class="post-quote">
+                <img class="funky-quote-open" src="../assets/quote-open.png"/>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.</p>
+                <img class="funky-quote-close" src="../assets/quote-close.png"/>
+            </div>
+            <div class="post-footer">
+                <div class="post-actions">
+                    <i class="fab fa-gratipay heart"></i>
+                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
+                </div>
+                <div class="post-stats">
+                    <i class="fab fa-gratipay heart"></i>
+                    <h6>Likes</h6>
+                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
+                    <h6>Comments</h6>
+                </div>
+            </div>
+            <div class="post-comments">
+                <h6>Leave a comment...</h6>
+            </div>
+        </div>
+        <div class="post what-did-he-say">
+            <div class="post-header">
+                <h3>@Username</h3>
+                <h4>Quoted by: @Username</h4>
+            </div>
+            <div class="post-quote">
+                <img class="funky-quote-open" src="../assets/quote-open.png"/>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.</p>
+                <img class="funky-quote-close" src="../assets/quote-close.png"/>
+            </div>
+            <div class="post-footer">
+                <div class="post-actions">
+                    <i class="fab fa-gratipay heart"></i>
+                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
+                </div>
+                <div class="post-stats">
+                    <i class="fab fa-gratipay heart"></i>
+                    <h6>Likes</h6>
+                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
+                    <h6>Comments</h6>
+                </div>
+            </div>
+            <div class="post-comments">
+                <h6>Leave a comment...</h6>
+            </div>
+        </div>
+        <div class="post built-different">
+            <div class="post-header">
+                <h3>@Username</h3>
+                <h4>Quoted by: @Username</h4>
+            </div>
+            <div class="post-quote">
+                <img class="funky-quote-open" src="../assets/quote-open.png"/>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.</p>
+                <img class="funky-quote-close" src="../assets/quote-close.png"/>
+            </div>
+            <div class="post-footer">
+                <div class="post-actions">
+                    <i class="fab fa-gratipay heart"></i>
+                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
+                </div>
+                <div class="post-stats">
+                    <i class="fab fa-gratipay heart"></i>
+                    <h6>Likes</h6>
+                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
+                    <h6>Comments</h6>
+                </div>
+            </div>
+            <div class="post-comments">
+                <h6>Leave a comment...</h6>
+            </div>
+        </div>
+        <div class="post my-oh-my">
+            <div class="post-header">
+                <h3>@Username</h3>
+                <h4>Quoted by: @Username</h4>
+            </div>
+            <div class="post-quote">
+                <img class="funky-quote-open" src="../assets/quote-open.png"/>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.</p>
+                <img class="funky-quote-close" src="../assets/quote-close.png"/>
+            </div>
+            <div class="post-footer">
+                <div class="post-actions">
+                    <i class="fab fa-gratipay heart"></i>
+                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
+                </div>
+                <div class="post-stats">
+                    <i class="fab fa-gratipay heart"></i>
+                    <h6>Likes</h6>
+                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
+                    <h6>Comments</h6>
+                </div>
+            </div>
+            <div class="post-comments">
+                <h6>Leave a comment...</h6>
+            </div>
+        </div>
+        <div class="post so-so-sad">
+            <div class="post-header">
+                <h3>@Username</h3>
+                <h4>Quoted by: @Username</h4>
+            </div>
+            <div class="post-quote">
+                <img class="funky-quote-open" src="../assets/quote-open.png"/>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.</p>
+                <img class="funky-quote-close" src="../assets/quote-close.png"/>
+            </div>
+            <div class="post-footer">
+                <div class="post-actions">
+                    <i class="fab fa-gratipay heart"></i>
+                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
+                </div>
+                <div class="post-stats">
+                    <i class="fab fa-gratipay heart"></i>
+                    <h6>Likes</h6>
+                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
+                    <h6>Comments</h6>
+                </div>
+            </div>
+            <div class="post-comments">
+                <h6>Leave a comment...</h6>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="footer">
+    <div class="footer-container">
+        <h6>© 2020 contextr L.L.C. | build v0.0.1</h6>
+    </div>
+</section>
+</body>
 </html>
