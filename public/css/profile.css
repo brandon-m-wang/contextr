@@ -30,8 +30,7 @@
 .profile-area img {
     border-radius: 100%;
     height: 160px;
-    width: 160px;
-    object-fit: cover;
+    width: auto;
 }
 
 .profile-area > .container {

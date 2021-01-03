@@ -1,0 +1,240 @@
+#Home{
+    text-shadow: none;
+    opacity: 0.6;
+}
+
+#Profile{
+    text-shadow: none;
+}
+
+#Notifications{
+    text-shadow: none;
+}
+
+#Help {
+    text-shadow: none;
+}
+
+#Friends{
+    text-shadow: 0px 0px 5px #fff;
+    opacity: 1;
+}
+
+.friends {
+    position: relative;
+    left: 30%;
+    width: 70%;
+}
+
+h3{
+    color: black;
+    font-weight: 300;
+    font-size: 2rem;
+    margin-bottom: 3rem;
+}
+
+h6{
+    color: black;
+    font-weight: 300;
+    font-size: 1.35rem;
+    margin: 0.35rem 0
+}
+
+p{
+    color: black;
+    font-weight: 100;
+    margin: 0.35rem 0;
+    font-size: 0.9rem;
+}
+
+h5{
+    margin: 0.35rem 0;
+    color:black;
+    font-weight: 400;
+}
+
+.friends > .container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: start;
+    width: 70%;
+    min-height: 100vh;
+}
+
+.friends img{
+    border-radius: 100%;
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+}
+
+.friends-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.friends-container h3{
+    font-weight: 400;
+    background: linear-gradient(321deg, rgb(59, 52, 78) 12%, rgb(129, 99, 99) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.friend{
+    position: relative;
+    display: flex;
+    justify-content: start;
+    width: 70%;
+    align-items: start;
+    margin-bottom: 1.5rem;
+}
+
+.friend-info{
+    display: flex;
+    flex-direction: column;
+    margin-left: 2rem;
+}
+
+.friend-actions{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    right: 1%;
+}
+
+.friend-actions > *{
+    background: linear-gradient(321deg, rgba(136, 123, 176, 1) 12%, rgba(203, 157, 156, 1) 100%);
+    padding: 0 0.5rem;
+    border-radius: 3px;
+    margin-top: 0.25rem;
+    width: 45px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.friend-actions h5{
+    color: white;
+}
+
+.sidebar{
+    position: fixed;
+    left: 80%;
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    height: 100%;
+    background: rgb(136, 123, 176);
+    background: linear-gradient(321deg, rgba(136, 123, 176, 1) 12%, rgba(203, 157, 156, 1) 100%);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), inset 0 -3px 3px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-select{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+#search-toggle{
+    position: absolute;
+    left: 20%;
+    color: white;
+    text-shadow: 0px 0px 5px #fff;
+    opacity: 1;
+    font-size: 1.1rem;
+}
+
+#requests-toggle{
+    position: absolute;
+    right: 20%;
+    opacity: 0.6;
+    color: white;
+    font-size: 1.1rem;
+}
+
+.search-bar{
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-bar > input{
+    font-family: Quicksand;
+    width: 70%;
+}
+
+input:focus{
+    outline: none;
+}
+
+.requests{
+    margin-top: 2rem;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.request{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 70%;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.request img{
+    height: 60px;
+    width: 60px;
+    margin-right: 0.3rem;
+}
+
+.request h6{
+    font-size: 1rem;
+    color: white;
+}
+
+.request p{
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+.request-info{
+    display: flex;
+    flex-direction: column;
+    margin-left: 0.5rem;
+}
+
+.request-actions{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    margin-left: 1rem;
+}
+
+.request-actions > *{
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0.35rem;
+    border-radius: 3px;
+    margin: 0.1rem 0;
+    width: 45px;
+    cursor: pointer;
+}
+
+.request-actions > a > h5{
+    color: white;
+    font-size: 0.75rem;
+}

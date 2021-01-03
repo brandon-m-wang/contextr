@@ -23,5 +23,4 @@ $(document).ready(function () {
             $('body').removeClass('modal-active');
         }
     });
-
 });
