@@ -20,10 +20,6 @@ $(document).ready(function () {
     });
 });
 
-/*function loadProfile(){
-    var user = 
-}*/
-
 function changeProfilePic(e){
     var file = e.target.files[0];
     var storageRef = firebase.storage().ref();
@@ -32,6 +28,7 @@ function changeProfilePic(e){
             var imageRef = storageRef.child('users/' + firebase.auth().currentUser.uid + '/profile');
             imageRef.put(file).then(function(snapshot) {
                 console.log('Uploaded image');
+            document.getElementById('pfp').src = file
             });
         }
     });
@@ -51,6 +48,8 @@ function changeUserInfo(){
             firebase.auth().onAuthStateChanged(function(user) {
                 if(user){
                     var userID = firebase.auth().currentUser.uid;
+                    document.getElementById('the-username').innerHTML = "@" + nameText;
+                    document.getElementById('user-bio').innerHTML = bioText
                     db.collection('users').doc('' + userID).update({
                         bio: bioText,
                         name: nameText

@@ -3,11 +3,6 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
 
-exports.helloWorld = functions.https.onRequest((request, response) => {
-    functions.logger.info("Hello logs!", {structuredData: true});
-    response.send("Hello from Firebase!");
-});
-
 exports.loadUser = functions.https.onRequest((req, res) => {
     res.status(200).send(`<!DOCTYPE html>
 <html lang="en" style="visibility: hidden;">
@@ -87,13 +82,13 @@ exports.loadUser = functions.https.onRequest((req, res) => {
                      src=/>
             </div>
             <div class="username-and-details">
-                <h3>@Username</h3>
+                <h3 id="the-username">@Username</h3>
                 <div class="details">
                     <h6><span>12 </span>Citations</h6>
                     <h6><span>142 </span>Likes</h6>
                     <h6><span>15 </span>Friends</h6>
                 </div>
-                <p>Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                <p id="user-bio">Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                     labore et dolore magna aliqua.</p>
             </div>
         </div>

@@ -20,6 +20,9 @@
     text-shadow: none;
 }
 
+#user-bio{
+}
+
 .profile-area {
     position: relative;
     left: 30%;
@@ -32,6 +35,8 @@
     height: 160px;
     width: 160px;
     object-fit: cover;
+    position: relative;
+    align-self: center;
 }
 
 .profile-area > .container {
@@ -44,9 +49,9 @@
     margin-top: 3rem;
     justify-self: center;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-start;
     width: 70%;
-    padding: 1.75rem 1rem 1rem 1.75rem;
+    padding: 1.75rem;
     border-radius: 5px;
     background: rgb(136, 123, 176);
     background: linear-gradient(321deg, rgba(136, 123, 176, 1) 12%, rgba(203, 157, 156, 1) 100%);
