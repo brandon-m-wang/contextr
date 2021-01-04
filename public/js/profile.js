@@ -38,6 +38,9 @@ function changeProfilePic(e) {
     });
 }
 
+// **01/04 needs support for updating requestsOut (on current user), requestsIn (on other users) for when username
+// gets changed.
+
 function changeUserInfo() {
     var db = firebase.firestore();
     var bioText = document.getElementById("bio").value;
