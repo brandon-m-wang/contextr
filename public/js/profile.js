@@ -39,7 +39,7 @@ function changeProfilePic(e) {
 }
 
 // **01/04 needs support for updating requestsOut (on current user), requestsIn (on other users) for when username
-// gets changed.
+// gets changed. Also split edit into edit username and edit bio.
 
 function changeUserInfo() {
     var db = firebase.firestore();
