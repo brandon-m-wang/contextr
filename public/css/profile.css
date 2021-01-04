@@ -160,6 +160,20 @@ h5 {
     color: white;
 }
 
+.add-friend {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    right: 10%;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 0.25rem 0.4rem;
+    border-radius: 5px;
+    color: white;
+}
+
 .pfp-container {
     width: 160px;
     height: 160px;

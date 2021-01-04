@@ -71,12 +71,15 @@ function changeUserInfo() {
                                 db.collection('usernames').doc(nameText).set({
                                     username: userID
                                 });
-                            }
+                            };
                         });
+                    }).then(function(){
+                        const newUrl = nameText;
+                        history.pushState({}, null, newUrl);
                     });
-                }
-            })
-        }
-    })
+                };
+            });
+        };
+    });
 };
 

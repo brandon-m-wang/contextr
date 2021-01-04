@@ -26,8 +26,31 @@ $(document).ready(function () {
                         const editDetails = htmlToElement("<div class='edit-profile' id='five'>Edit</div>");
                         const container = document.getElementsByClassName('profile-container')[0]
                         container.appendChild(editDetails);
-                    }
-                }
+                    } else {
+                        firebase.firestore().collection("users").doc(userID).get().then(function (subdoc) {
+                            if (username in subdoc.data().friends) {
+                                const addFriend = htmlToElement("<div class='add-friend' id='five'" +
+                                    "style='background-color: rgba(82,169,88," +
+                                    " 0.5)'>Friends</div>");
+                                const container = document.getElementsByClassName('profile-container')[0]
+                                container.appendChild(addFriend);
+                            } else {
+                                if (!(username in subdoc.data().requestsOut)) {
+                                    const addFriend = htmlToElement("<div class='add-friend' id='five'" +
+                                        " onclick='addFriend()'>Add Friend</div>");
+                                    const container = document.getElementsByClassName('profile-container')[0]
+                                    container.appendChild(addFriend);
+                                } else {
+                                    const addFriend = htmlToElement("<div class='add-friend' id='five'" +
+                                        " onclick='addFriend()' style='background-color: rgba(82,169,88," +
+                                        " 0.5)'>Requested!</div>");
+                                    const container = document.getElementsByClassName('profile-container')[0]
+                                    container.appendChild(addFriend);
+                                }
+                            };
+                        });
+                    };
+                };
             });
             firebase.firestore().collection("users").doc(uid).get().then(function (doc) {
                 const bio = doc.data().bio
@@ -50,3 +73,36 @@ $(document).ready(function () {
         document.getElementsByTagName("html")[0].style.visibility = "visible";
     }
 });
+
+function addFriend() {
+
+    const pathArray = window.location.pathname.split('/');
+    var username = pathArray[2];
+
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            const uid = firebase.auth().currentUser.uid;
+            firebase.firestore().collection("usernames").doc(username).get().then(function (test) {
+                var friendUID = test.data().username;
+                console.log(friendUID);
+                firebase.firestore().collection("users").doc(uid).set({
+                    requestsOut: {
+                        [username]: friendUID
+                    }
+                }, {merge: true});
+                firebase.firestore().collection("users").doc(uid).get().then(function (subdoc) {
+                    var currUsername = subdoc.data().name
+                    firebase.firestore().collection("users").doc(friendUID).set({
+                        requestsIn: {
+                            [currUsername]: uid
+                        }
+                    }, {merge: true});
+                })
+            })
+        };
+    });
+
+    const button = document.getElementsByClassName("add-friend")[0];
+    button.innerHTML = "Requested!";
+    button.style.backgroundColor = "rgba(82,169,88, 0.5)";
+};
