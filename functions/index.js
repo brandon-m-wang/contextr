@@ -46,6 +46,7 @@ exports.loadUser = functions.https.onRequest((req, res) => {
 </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script src="../js/otherprofile.js"></script>
 <div class="company">
     <img src="../assets/square-logo-white.png" style="width: 75px; height: 75px;"/>
@@ -67,7 +68,7 @@ exports.loadUser = functions.https.onRequest((req, res) => {
                 <input type="text" id="username" name="username" placeholder="Username..."><br><br>
                 <label for="bio">Bio:</label><br>
                 <textarea id="bio" rows="4" placeholder="Bio..."></textarea><br>
-                <input id="submit" onclick="changeUserInfo()" type="submit" style="margin-top: 1rem;" value="Save">
+                <button id="submit" onclick="changeUserInfo(); return false">Save</button>
             </form>
             <rect x="0" y="0" fill="none" width="226" height="162" rx="3" ry="3"></rect>
             </svg>

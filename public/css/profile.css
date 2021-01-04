@@ -37,6 +37,7 @@
     object-fit: cover;
     position: relative;
     align-self: center;
+
 }
 
 .profile-area > .container {
@@ -151,7 +152,7 @@ h5 {
     flex-direction: column;
     align-items: flex-end;
     justify-content: center;
-    right: 5%;
+    right: 10%;
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0.5);
     padding: 0.25rem 0.4rem;
@@ -163,6 +164,7 @@ h5 {
     width: 160px;
     height: 160px;
     position: relative;
+    margin-left: 7%;
 }
 
 .change-pfp {
@@ -224,6 +226,7 @@ textarea:focus, input:focus{
 #modal-container .modal-background .modal textarea{
     margin: 1% 0 0;
     font-size: 1.1rem;
+    border: none;
 }
 
 #submit{
@@ -245,6 +248,8 @@ textarea:focus, input:focus{
 #username{
     width: 30%;
     font-family: Quicksand;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 5px;
 }
 
 #bio{
@@ -252,6 +257,8 @@ textarea:focus, input:focus{
     resize: none;
     height: auto;
     font-family: Quicksand;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 5px;
 }
 
 #modal-container .modal-background .modal h2 {

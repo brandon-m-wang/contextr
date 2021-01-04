@@ -5,7 +5,7 @@ function logIn() {
     return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(() => {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then((user) => {
-                window.location.href = "../html/home.html";
+                window.location.href = "../home.html";
             })
             .catch((error) => {
                 var errorCode = error.code;

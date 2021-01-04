@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="visibility: hidden;">
 <head>
     <meta charset="UTF-8">
     <title>contextr.io / Home</title>
@@ -14,6 +14,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
           rel="stylesheet">
 </head>
+<div id="loading-gif" style="visibility: visible; height: 100vh; width: 100vw;">
+<img src="https://media.tenor.com/images/3a10caa07d3684023e0418b4096eec55/tenor.gif" style="position: absolute;
+    top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%);"/>
+</div>
 <body>
     <!-- Firebase storage setup Start -->
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
@@ -38,6 +42,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="../js/profile.js"></script>
+<script src="../js/userprofile.js"></script>
 <div class="company">
     <img src="../assets/square-logo-white.png" style="width: 75px; height: 75px;"/>
 </div>
@@ -55,10 +60,10 @@
         <div class="modal" id="the-modal">
             <form action="">
                 <label for="username">New username:</label><br>
-                <input type="text" id="username" name="username" placeholder="Username..."><br><br>
+                <input type="text" id="username" name="username" placeholder="Username..." autocomplete="off"><br><br>
                 <label for="bio">Bio:</label><br>
                 <textarea id="bio" rows="4" placeholder="Bio..."></textarea><br>
-                <input id="submit" onclick="changeUserInfo()" type="submit" style="margin-top: 1rem;" value="Save">
+                <button id="submit" onclick="changeUserInfo(); return false">Save</button>
             </form>
             <rect x="0" y="0" fill="none" width="226" height="162" rx="3" ry="3"></rect>
             </svg>
