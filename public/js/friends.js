@@ -21,18 +21,24 @@ $(document).ready(function () {
 
 function addFriend(){
     var friendName = document.getElementById("query").value;
+    if(freindName = ""){
+        return;
+    }
     var db = firebase.firestore();
-    var username = db.collection("usernames").doc(friendName);
-    console.log(username);
+    var friendID = db.collection("usernames").doc(friendName);
+    console.log(friendID);
     firebase.auth().onAuthStateChanged(function(user) {
         if(user){
             var userID = firebase.auth().currentUser.uid;
-            username.get().then(function(doc) {
+            friendID.get().then(function(doc) {
                 if (doc.exists) {
+                        var friendActualID = doc.data().username;
                     db.collection("users").doc(userID).update({
-                        requestsOut: firebase.firestore.FieldValue.arrayUnion(friendName)
+                        requestsOut: firebase.firestore.FieldValue.arrayUnion(friendActualID)
                     });
-                    console.log("hpwdy");
+                    db.collection("userspublic").doc(friendActualID).update({
+                        requestsIn: firebase.firestore.FieldValue.arrayUnion(userID)
+                    });
                 }else{
                     window.alert("This username doesn't exist!");
                 }
