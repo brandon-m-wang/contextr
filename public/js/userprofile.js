@@ -12,6 +12,10 @@ $(document).ready(function () {
             });
             firebase.storage().ref().child('users/' + uid + '/profile').getDownloadURL().then(function (result) {
                 document.getElementById('pfp').src = result;
+            }).catch(function (error) {
+                console.log("Error getting document:", error);
+                document.getElementById("loading-gif").style.display = "none";
+                document.getElementsByTagName("html")[0].style.visibility = "visible";
             });
         }
     });

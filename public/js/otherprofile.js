@@ -28,14 +28,14 @@ $(document).ready(function () {
                         container.appendChild(editDetails);
                     } else {
                         firebase.firestore().collection("users").doc(userID).get().then(function (subdoc) {
-                            if (username in subdoc.data().friends) {
+                            if (subdoc.data().friends.includes(uid)) {
                                 const addFriend = htmlToElement("<div class='add-friend' id='five'" +
                                     "style='background-color: rgba(82,169,88," +
                                     " 0.5)'>Friends</div>");
                                 const container = document.getElementsByClassName('profile-container')[0]
                                 container.appendChild(addFriend);
                             } else {
-                                if (!(username in subdoc.data().requestsOut)) {
+                                if (!(subdoc.data().requestsOut.includes(uid))) {
                                     const addFriend = htmlToElement("<div class='add-friend' id='five'" +
                                         " onclick='addFriend()'>Add Friend</div>");
                                     const container = document.getElementsByClassName('profile-container')[0]
@@ -47,10 +47,10 @@ $(document).ready(function () {
                                     const container = document.getElementsByClassName('profile-container')[0]
                                     container.appendChild(addFriend);
                                 }
-                            };
+                            }
                         });
-                    };
-                };
+                    }
+                }
             });
             firebase.firestore().collection("users").doc(uid).get().then(function (doc) {
                 const bio = doc.data().bio
@@ -58,6 +58,11 @@ $(document).ready(function () {
             });
             firebase.storage().ref().child('users/' + uid + '/profile').getDownloadURL().then(function (result) {
                 document.getElementById('pfp').src = result;
+            }).catch(function (error) {
+                console.log(error);
+                document.getElementById("loading-gif").style.display = "none";
+                document.getElementsByTagName("html")[0].style.visibility = "visible";
+                document.getElementById('pfp').src = "https://iupac.org/wp-content/uploads/2018/05/default-avatar.png"
             });
             document.getElementById("the-username").innerHTML = '@' + username;
 
@@ -67,7 +72,6 @@ $(document).ready(function () {
             window.location.href = "../404.html";
         }
     });
-
     document.getElementById('pfp').onload = function () {
         document.getElementById("loading-gif").style.display = "none";
         document.getElementsByTagName("html")[0].style.visibility = "visible";
@@ -75,6 +79,39 @@ $(document).ready(function () {
 });
 
 function addFriend() {
+
+    const pathArray = window.location.pathname.split('/');
+    var friendName = pathArray[2];
+
+    var db = firebase.firestore();
+    var friendID = db.collection("usernames").doc(friendName);
+    console.log(friendID);
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            var userID = firebase.auth().currentUser.uid;
+            friendID.get().then(function (doc) {
+                if (doc.exists) {
+                    var friendActualID = doc.data().username;
+                    db.collection("users").doc(userID).update({
+                        requestsOut: firebase.firestore.FieldValue.arrayUnion(friendActualID)
+                    });
+                    db.collection("userspublic").doc(friendActualID).update({
+                        requestsIn: firebase.firestore.FieldValue.arrayUnion(userID)
+                    });
+                } else {
+                    window.alert("This username doesn't exist!");
+                }
+            }).catch(function (error) {
+                console.log("Error getting document:", error);
+            });
+        }
+    });
+    const button = document.getElementsByClassName("add-friend")[0];
+    button.innerHTML = "Requested!";
+    button.style.backgroundColor = "rgba(82,169,88, 0.5)";
+}
+
+/*function addFriend() {
 
     const pathArray = window.location.pathname.split('/');
     var username = pathArray[2];
@@ -105,4 +142,4 @@ function addFriend() {
     const button = document.getElementsByClassName("add-friend")[0];
     button.innerHTML = "Requested!";
     button.style.backgroundColor = "rgba(82,169,88, 0.5)";
-};
+};*/

@@ -80,7 +80,7 @@ exports.loadUser = functions.https.onRequest((req, res) => {
         <div class="profile-container">
             <div class="pfp-container">
                 <img id="pfp"
-                     src=/>
+                     src="https://iupac.org/wp-content/uploads/2018/05/default-avatar.png"/>
             </div>
             <div class="username-and-details">
                 <h3 id="the-username">@Username</h3>

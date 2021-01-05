@@ -27,15 +27,24 @@ $("#submit").submit(function (e) {
 function changeProfilePic(e) {
     var file = e.target.files[0];
     var storageRef = firebase.storage().ref();
+    var reader = new FileReader();
+
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             var imageRef = storageRef.child('users/' + firebase.auth().currentUser.uid + '/profile');
             imageRef.put(file).then(function (snapshot) {
                 console.log('Uploaded image');
-                document.getElementById('pfp').src = file
             });
         }
     });
+    var imgtag = document.getElementById("pfp");
+    imgtag.title = file.name;
+
+    reader.onload = function (e) {
+        imgtag.src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
 }
 
 // **01/04 needs support for updating requestsOut (on current user), requestsIn (on other users) for when username
@@ -74,15 +83,18 @@ function changeUserInfo() {
                                 db.collection('usernames').doc(nameText).set({
                                     username: userID
                                 });
-                            };
+                            }
+                            ;
                         });
-                    }).then(function(){
+                    }).then(function () {
                         const newUrl = nameText;
                         history.pushState({}, null, newUrl);
                     });
-                };
+                }
+                ;
             });
-        };
+        }
+        ;
     });
 };
 
