@@ -110,7 +110,7 @@ h5{
 
 .friend-actions > *{
     background: linear-gradient(321deg, rgba(136, 123, 176, 1) 12%, rgba(203, 157, 156, 1) 100%);
-    padding: 0 0.5rem;
+    padding: 0.25rem 0.5rem;
     border-radius: 3px;
     margin-top: 0.25rem;
     width: 45px;
@@ -118,8 +118,9 @@ h5{
     text-align: center;
 }
 
-.friend-actions h5{
+.friend-actions a{
     color: white;
+    font-size: 0.8rem;
 }
 
 .sidebar{
@@ -234,7 +235,7 @@ input:focus{
     cursor: pointer;
 }
 
-.request-actions > a > h5{
+.request-actions > a{
     color: white;
     font-size: 0.75rem;
 }
