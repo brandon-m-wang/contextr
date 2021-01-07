@@ -52,7 +52,7 @@
         <h3 id="Help"><i class="fas fa-question-circle"></i> <a href="help.html">Help</a></h3>
     </div>
 </section>
-<div id="modal-container">
+<div id="modal-container" style="z-index: 7777;">
     <div class="modal-background">
         <div class="modal" id="the-modal">
             <h3>Friends:</h3>
@@ -60,7 +60,7 @@
                 <div class="request">
                     <img src="https://prod.wp.cdn.aws.wfu.edu/sites/202/2017/11/empty-avatar-700x480.png"/>
                     <div class="request-info">
-                    <h6>@Username</h6>
+                        <h6>@Username</h6>
                     </div>
                     <div class="request-actions">
                         <a><h5>Cite</h5></a>
@@ -70,7 +70,7 @@
                 <div class="request">
                     <img src="https://prod.wp.cdn.aws.wfu.edu/sites/202/2017/11/empty-avatar-700x480.png"/>
                     <div class="request-info">
-                    <h6>@Username</h6>
+                        <h6>@Username</h6>
                     </div>
                     <div class="request-actions">
                         <a><h5>Cite</h5></a>
@@ -80,7 +80,7 @@
                 <div class="request">
                     <img src="https://prod.wp.cdn.aws.wfu.edu/sites/202/2017/11/empty-avatar-700x480.png"/>
                     <div class="request-info">
-                    <h6>@Username</h6>
+                        <h6>@Username</h6>
                     </div>
                     <div class="request-actions">
                         <a><h5>Cite</h5></a>
@@ -90,7 +90,7 @@
                 <div class="request">
                     <img src="https://prod.wp.cdn.aws.wfu.edu/sites/202/2017/11/empty-avatar-700x480.png"/>
                     <div class="request-info">
-                    <h6>@Username</h6>
+                        <h6>@Username</h6>
                     </div>
                     <div class="request-actions">
                         <a><h5>Cite</h5></a>
@@ -103,7 +103,7 @@
 </div>
 <section class="content-area">
     <div class="container">
-        <div class="prompt">
+        <div class="prompt" id="prompt-section">
             <h3>Cite a friend...</h3>
             <div class="prompt-images-container">
                 <div class="prompt-images">
@@ -134,6 +134,26 @@
                 </div>
             </div>
             <button class="see-all" id="five">See all friends (9)</button>
+        </div>
+        <div class="prompt-dropdown">
+            <textarea id="post-text" rows="3" placeholder="Be ruthless..."></textarea>
+            <i class="fas fa-chevron-circle-left" id="slide-left"></i>
+            <i class="fas fa-chevron-circle-right" id="slide-right"></i>
+            <div class="post-style-selections-container">
+                <div class="post-style-selections">
+                    <button class="prompt-dropdown-selection" id="man-im-dead">man i'm dead</button>
+                    <button class="prompt-dropdown-selection" id="taking-a-look">taking a look</button>
+                    <button class="prompt-dropdown-selection" id="what-did-he-say">what did he say??</button>
+                    <button class="prompt-dropdown-selection" id="built-different">built different</button>
+                    <button class="prompt-dropdown-selection" id="my-oh-my">my oh my</button>
+                    <button class="prompt-dropdown-selection" id="so-so-sad">so so sad</button>
+                </div>
+            </div>
+            <div class="prompt-dropdown-actions-container">
+                <h3 id="currently-citing">Currently citing: Username</h3>
+                <button class="prompt-dropdown-actions" id="cancel">Cancel</button>
+                <button class="prompt-dropdown-actions" id="confirm">Post</button>
+            </div>
         </div>
         <div class="post man-im-dead">
             <div class="post-header">

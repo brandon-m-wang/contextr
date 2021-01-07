@@ -106,6 +106,7 @@ a {
 }
 
 .content-area .prompt {
+    z-index: 500;
     position: relative;
     margin-top: 50px;
     width: 60%;
@@ -117,10 +118,186 @@ a {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), inset 0 -3px 3px rgba(0, 0, 0, 0.1);
 }
 
-.content-area .prompt h3 {
+.content-area .prompt-dropdown {
+    position: relative;
+    display: flex;
+    opacity: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    margin-top: -255px;
+    width: 59%;
+    padding: 0 1rem 1rem;
+    margin-bottom: 50px;
+    border-radius: 20px;
+    background: rgb(136, 123, 176);
+    background: linear-gradient(141deg, rgb(110, 101, 141) 12%, rgb(138, 105, 105) 100%);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), inset 0 -3px 3px rgba(0, 0, 0, 0.1);
+    transition: margin-top 1s, opacity 0.5s;
+}
+
+.content-area .prompt h3{
     color: white;
     font-size: 1.5rem;
     margin-left: 1rem;
+}
+
+.prompt-dropdown h3 {
+    color: white;
+    font-size: 1.5rem;
+    margin-left: 1rem;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  opacity: 0.5; /* Firefox */
+}
+
+#post-text:focus{
+    outline: none;
+}
+
+#post-text{
+    width: 93%;
+    justify-self: flex-start;
+    margin-top: 3.35rem;
+    margin-bottom: 1.35rem;
+    font-size: 1.35rem;
+    border: none;
+    background-color: transparent;
+    font-family: Quicksand;
+    color: white;
+    resize: none;
+}
+
+#slide-left{
+    position: absolute;
+    bottom: 27%;
+    left: 5%;
+    color: white;
+    opacity: 0.7;
+}
+
+#slide-right{
+    position: absolute;
+    bottom: 27%;
+    right: 5%;
+    color: white;
+    opacity: 0.7;
+}
+
+#man-im-dead{
+    background-image: url("../assets/man-im-dead.png");
+    background-repeat: repeat;
+    background-size: 500px auto;
+}
+
+#taking-a-look{
+    background-image: url("../assets/taking-a-look.png");
+    background-repeat: repeat;
+    background-size: 500px auto;
+}
+
+#what-did-he-say{
+    background-image: url("../assets/what-did-he-say.png");
+    background-repeat: repeat;
+    background-size: 500px auto;
+}
+
+#built-different{
+    background-image: url("../assets/built-different.png");
+    background-repeat: repeat;
+    background-size: 500px auto;
+}
+
+#my-oh-my{
+    background-image: url("../assets/my-oh-my.png");
+    background-repeat: repeat;
+    background-size: 500px auto;
+}
+
+#so-so-sad{
+    background-image: url("../assets/so-so-sad.png");
+    background-repeat: repeat;
+    background-size: 500px auto;
+}
+
+#currently-citing{
+    position: absolute;
+    bottom: 7.5%;
+    left: 7%;
+    margin: 0;
+    color: white;
+    font-size: 0.8rem;
+    opacity: 0.6;
+}
+
+.prompt-dropdown .post-style-selections-container{
+    display: flex;
+    flex-flow: row nowrap;
+    width: 80%;
+    overflow: hidden;
+    margin-top: 1.5rem;
+}
+
+.prompt-dropdown .post-style-selections{
+    position: relative;
+    width: 100%;
+    display: flex;
+    margin: auto 5px;
+    flex-flow: row nowrap;
+    transition: left 0.4s;
+    left: 0;
+}
+
+.prompt-dropdown-selection {
+    border: 0;
+    min-width: 150px !important;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 300;
+    font-family: Quicksand;
+    background-color: rgba(0, 0, 0, 0.25);
+    padding: 0.25rem 0.45rem;
+    cursor: pointer;
+    right: 0;
+    top: 75%;
+    margin-right: 0.5rem;
+    color: white;
+}
+
+.prompt-dropdown-selection:focus{
+    outline: none;
+    text-shadow: none;
+}
+
+.prompt-dropdown-actions-container{
+    display: flex;
+    justify-self: flex-end;
+    align-self: flex-end;
+    margin-top: 2rem;
+}
+
+.prompt-dropdown-actions{
+    border: 0;
+    width: 80px;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    font-weight: 300;
+    font-family: Quicksand;
+    background-color: rgba(0, 0, 0, 0.25);
+    padding: 0.25rem 0.45rem;
+    cursor: pointer;
+    right: 0;
+    top: 75%;
+    margin-right: 1.5rem;
+    color: white;
+}
+
+.prompt-dropdown-actions:focus{
+    outline: none;
+    text-shadow: none;
 }
 
 .prompt-images-container {
