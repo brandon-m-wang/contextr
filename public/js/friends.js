@@ -19,7 +19,7 @@ $(document).ready(function () {
                     var requestID = doc.data().requestsIn[i];
                     await firebase.firestore().collection("users").doc(requestID).get().then(function (doc) {
                         var name = '@' + doc.data().name
-                        let htmlString = `<div id = '${name}' class='${'request' + ' ' + i.toString()}'><div class='request-info'><h6>${name}</h6></div><div class='request-actions'> <a class='${'accept' + ' ' + 'accept' + i.toString()}'>Accept</a> <a class='reject'>Reject</a> </div> </div>`
+                        let htmlString = `<div id = '${name}' class='${'request' + ' ' + i.toString()}'><div class='request-info'><h6>${name}</h6></div><div class='request-actions'> <a class='${'accept' + ' ' + 'accept' + i.toString()}'>Accept</a> <a class='${'reject' + ' ' + 'reject' + i.toString()}'>Reject</a> </div> </div>`
                         let request = htmlToElement(htmlString);
                         friendRequests.appendChild(request);
                     })
@@ -83,15 +83,15 @@ $(document).ready(function () {
                                 }
                             })
                         })
-                        $('.reject').click(function () {
+                        $('.reject' + i.toString()).click(async function () {
                             var requestUsername = $(this).parent().parent().attr('id').replace("@", '');
-                            firebase.auth().onAuthStateChanged(function (user) {
+                            firebase.auth().onAuthStateChanged(async function (user) {
                                 if (user) {
                                     var userID = firebase.auth().currentUser.uid;
                                     console.log(userID);
                                     console.log("requestUsername: " + requestUsername)
-                                    firebase.firestore().collection("usernames").doc(requestUsername).get().then(function (doc) {
-                                        const requestID = doc.data().username
+                                    firebase.firestore().collection("usernames").doc(requestUsername).get().then(async function (doc) {
+                                        const requestID = await doc.data().username
                                         console.log(requestID)
                                         firebase.firestore().collection("users").doc(userID).update({
                                             requestsOut: firebase.firestore.FieldValue.arrayRemove(requestID)
@@ -105,6 +105,7 @@ $(document).ready(function () {
                                         firebase.firestore().collection("userspublic").doc(requestID).update({
                                             requestsIn: firebase.firestore.FieldValue.arrayRemove(userID)
                                         })
+                                        document.getElementById('@'+requestUsername).style.display = "none"
                                     })
                                 }
                             })
