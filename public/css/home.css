@@ -321,7 +321,7 @@ a {
 .prompt-images img {
     height: 75px;
     width: 75px;
-    object-fit: contain;
+    object-fit: cover;
     border-radius: 100%;
     margin: 1rem 1rem 0.4rem;
 }
@@ -331,6 +331,21 @@ a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.request-actions > *{
+    background: linear-gradient(321deg, rgba(136, 123, 176, 1) 12%, rgba(203, 157, 156, 1) 100%);
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    margin-top: 0.25rem;
+    width: 40px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.request-actions a{
+    color: white;
+    font-size: 0.6rem;
 }
 
 .see-all {
