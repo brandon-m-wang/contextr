@@ -9,108 +9,132 @@ $(document).ready(function () {
 
     var friendRequests = document.getElementsByClassName("requests")[0];
 
-    firebase.auth().onAuthStateChanged(function (user) {
+    firebase.auth().onAuthStateChanged(async function (user) {
         if (user) {
             var userID = firebase.auth().currentUser.uid;
             console.log(userID);
-            firebase.firestore().collection("userspublic").doc(userID).get().then(function (doc) {
+            firebase.firestore().collection("userspublic").doc(userID).get().then(async function (doc) {
                 for (let i = 0; i < doc.data().requestsIn.length; i++) {
                     console.log(i);
-                    const requestID = doc.data().requestsIn[i];
-                    firebase.firestore().collection("users").doc(requestID).get().then(function (doc) {
+                    var requestID = doc.data().requestsIn[i];
+                    await firebase.firestore().collection("users").doc(requestID).get().then(function (doc) {
                         var name = '@' + doc.data().name
-                        console.log(name);
-                        firebase.storage().ref().child('users/' + requestID + '/profile').getDownloadURL().then(function (result) {
-                            var imgUrl = result;
-                            let htmlString = `<div id = '${name}' class='request'><img src='${imgUrl}'/><div class='request-info'><h6>${name}</h6></div><div class='request-actions'> <a class='accept'>Accept</a> <a class='reject'>Reject</a> </div> </div>`
-                            let request = htmlToElement(htmlString);
-                            friendRequests.appendChild(request);
-                        }).catch(function (error) {
-                            console.log(error);
-                            let htmlString = `<div id = '${name}' class='request'><img src='https://prod.wp.cdn.aws.wfu.edu/sites/202/2017/11/empty-avatar-700x480.png'/><div class='request-info'><h6>${name}</h6></div><div class='request-actions'> <a class='accept'>Accept</a> <a class='reject'>Reject</a> </div> </div>`
-                            let request = htmlToElement(htmlString);
-                            friendRequests.appendChild(request);
-                        }).then(function (){
-                            $('.accept').click(function () {
-                                var requestUsername = $(this).parent().parent().attr('id').replace("@", '');
-                                firebase.auth().onAuthStateChanged(function (user) {
-                                    if (user) {
-                                        var userID = firebase.auth().currentUser.uid;
-                                        console.log(userID);
-                                        console.log("requestUsername: " + requestUsername)
-                                        firebase.firestore().collection("usernames").doc(requestUsername).get().then(function (doc){
-                                            const requestID = doc.data().username
-                                            console.log(requestID)
-                                            firebase.firestore().collection("users").doc(requestID).update({
-                                                friends: firebase.firestore.FieldValue.arrayUnion(userID)
-                                            })
-                                            firebase.firestore().collection("users").doc(userID).update({
-                                                friends: firebase.firestore.FieldValue.arrayUnion(requestID)
-                                            })
-                                            firebase.firestore().collection("users").doc(userID).update({
-                                                requestsOut: firebase.firestore.FieldValue.arrayRemove(requestID)
-                                            })
-                                            firebase.firestore().collection("users").doc(requestID).update({
-                                                requestsOut: firebase.firestore.FieldValue.arrayRemove(userID)
-                                            })
-                                            firebase.firestore().collection("userspublic").doc(userID).update({
-                                                requestsIn: firebase.firestore.FieldValue.arrayRemove(requestID)
-                                            })
-                                            firebase.firestore().collection("userspublic").doc(requestID).update({
-                                                requestsIn: firebase.firestore.FieldValue.arrayRemove(userID)
-                                            })
+                        let htmlString = `<div id = '${name}' class='${'request' + ' ' + i.toString()}'><div class='request-info'><h6>${name}</h6></div><div class='request-actions'> <a class='${'accept' + ' ' + 'accept' + i.toString()}'>Accept</a> <a class='reject'>Reject</a> </div> </div>`
+                        let request = htmlToElement(htmlString);
+                        friendRequests.appendChild(request);
+                    })
+                    await firebase.storage().ref().child('users/' + requestID + '/profile').getDownloadURL().then(function (result) {
+                        var imgUrl = result;
+                        let imgString = `<img src='${imgUrl}'/>`
+                        let request = htmlToElement(imgString);
+                        let target = document.getElementsByClassName(i.toString())[0]
+                        target.prepend(request)
+                    }).then(function () {
+                        $('.accept' + i.toString()).click(async function () {
+                            var requestUsername = $(this).parent().parent().attr('id').replace("@", '');
+                            firebase.auth().onAuthStateChanged(async function (user) {
+                                if (user) {
+                                    var userID = firebase.auth().currentUser.uid;
+                                    console.log(userID);
+                                    console.log("requestUsername: " + requestUsername)
+                                    await firebase.firestore().collection("usernames").doc(requestUsername).get().then(async function (doc) {
+                                        const requestID = await doc.data().username
+                                        console.log(requestID)
+                                        firebase.firestore().collection("users").doc(requestID).update({
+                                            friends: firebase.firestore.FieldValue.arrayUnion(userID)
                                         })
-                                    }
-                                })
-                                firebase.firestore().collection("users").doc(requestID).get().then(function (doc) {
-                                    var name = '@' + doc.data().name
-                                    var bio = doc.data().bio
-                                    firebase.storage().ref().child('users/' + requestID + '/profile').getDownloadURL().then(function (result) {
-                                        var imgUrl = result;
-                                let newFriend = htmlToElement(`<div class="friend">
-                                <img src="${imgUrl}"/>
+                                        firebase.firestore().collection("users").doc(userID).update({
+                                            friends: firebase.firestore.FieldValue.arrayUnion(requestID)
+                                        })
+                                        firebase.firestore().collection("users").doc(userID).update({
+                                            requestsOut: firebase.firestore.FieldValue.arrayRemove(requestID)
+                                        })
+                                        firebase.firestore().collection("users").doc(requestID).update({
+                                            requestsOut: firebase.firestore.FieldValue.arrayRemove(userID)
+                                        })
+                                        firebase.firestore().collection("userspublic").doc(userID).update({
+                                            requestsIn: firebase.firestore.FieldValue.arrayRemove(requestID)
+                                        })
+                                        firebase.firestore().collection("userspublic").doc(requestID).update({
+                                            requestsIn: firebase.firestore.FieldValue.arrayRemove(userID)
+                                        })
+                                        await firebase.firestore().collection("users").doc(requestID).get().then(function (doc) {
+                                            var name = '@' + doc.data().name
+                                            var bio = doc.data().bio
+                                            let newFriend = htmlToElement(`<div id = "${requestUsername}" class="friend">
                                 <div class="friend-info">
                                 <h6>${name}</h6>
                                 <p>${bio}</p>
                                 </div>
                                 <div class="friend-actions">
-                                    <a class="cite">Cite</a>
-                                    <a class="options">Options</a>
+                                    <a class="Remove">Remove</a>
+                                    <a class="Report">Report</a>
                                 </div>
                             </div>`)
-                                document.getElementById(name).style.display = "none"
-                                document.getElementsByClassName('friends-container')[0].appendChild(newFriend)
-                                })
-                            })
-                            })
-                            $('.reject').click(function () {
-                                var requestUsername = $(this).parent().parent().attr('id').replace("@", '');
-                                firebase.auth().onAuthStateChanged(function (user) {
-                                    if (user) {
-                                        var userID = firebase.auth().currentUser.uid;
-                                        console.log(userID);
-                                        console.log("requestUsername: " + requestUsername)
-                                        firebase.firestore().collection("usernames").doc(requestUsername).get().then(function (doc){
-                                            const requestID = doc.data().username
-                                            console.log(requestID)
-                                            firebase.firestore().collection("users").doc(userID).update({
-                                                requestsOut: firebase.firestore.FieldValue.arrayRemove(requestID)
-                                            })
-                                            firebase.firestore().collection("users").doc(requestID).update({
-                                                requestsOut: firebase.firestore.FieldValue.arrayRemove(userID)
-                                            })
-                                            firebase.firestore().collection("userspublic").doc(userID).update({
-                                                requestsIn: firebase.firestore.FieldValue.arrayRemove(requestID)
-                                            })
-                                            firebase.firestore().collection("userspublic").doc(requestID).update({
-                                                requestsIn: firebase.firestore.FieldValue.arrayRemove(userID)
+                                            document.getElementById(name).style.display = "none"
+                                            document.getElementsByClassName('friends-container')[0].appendChild(newFriend)
+                                            firebase.storage().ref().child('users/' + requestID + '/profile').getDownloadURL().then(function (result) {
+                                                var imgUrl = result;
+                                                let imgString = htmlToElement(`<img src="${imgUrl}"/>`)
+                                                document.getElementById(requestUsername).prepend(imgString);
                                             })
                                         })
-                                    }
-                                })
+                                    })
+                                }
                             })
                         })
-                    });
+                        $('.reject').click(function () {
+                            var requestUsername = $(this).parent().parent().attr('id').replace("@", '');
+                            firebase.auth().onAuthStateChanged(function (user) {
+                                if (user) {
+                                    var userID = firebase.auth().currentUser.uid;
+                                    console.log(userID);
+                                    console.log("requestUsername: " + requestUsername)
+                                    firebase.firestore().collection("usernames").doc(requestUsername).get().then(function (doc) {
+                                        const requestID = doc.data().username
+                                        console.log(requestID)
+                                        firebase.firestore().collection("users").doc(userID).update({
+                                            requestsOut: firebase.firestore.FieldValue.arrayRemove(requestID)
+                                        })
+                                        firebase.firestore().collection("users").doc(requestID).update({
+                                            requestsOut: firebase.firestore.FieldValue.arrayRemove(userID)
+                                        })
+                                        firebase.firestore().collection("userspublic").doc(userID).update({
+                                            requestsIn: firebase.firestore.FieldValue.arrayRemove(requestID)
+                                        })
+                                        firebase.firestore().collection("userspublic").doc(requestID).update({
+                                            requestsIn: firebase.firestore.FieldValue.arrayRemove(userID)
+                                        })
+                                    })
+                                }
+                            })
+                        })
+                    })
+                }
+            });
+            firebase.firestore().collection("users").doc(userID).get().then(async function (doc) {
+                for (let i = 0; i < doc.data().friends.length; i++) {
+                    var friendID = doc.data().friends[i]
+                    await firebase.firestore().collection("users").doc(friendID).get().then(function (doc) {
+                        var name = '@' + doc.data().name
+                        var bio = doc.data().bio
+                        let htmlString = htmlToElement(`<div class="friend" id=${"friend" + i.toString()}>
+                            <div class="friend-info">
+                                <h6>${name}</h6>
+                                <p>${bio}</p>
+                            </div>
+                            <div class="friend-actions">
+                                <a class="remove">Remove</a>
+                                <a class="report">Report</a>
+                            </div>
+                        </div>`)
+                        document.getElementsByClassName('friends-container')[0].appendChild(htmlString)
+                    })
+                    await firebase.storage().ref().child('users/' + friendID + '/profile').getDownloadURL().then(function (result) {
+                        var imgUrl = result
+                        let imgString = htmlToElement(`<img src='${imgUrl}'>`)
+                        document.getElementById("friend" + i.toString()).prepend(imgString)
+                    })
                 }
             });
         }

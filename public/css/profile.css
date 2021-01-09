@@ -20,6 +20,11 @@
     text-shadow: none;
 }
 
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: black;
+  opacity: 0.5; /* Firefox */
+}
+
 #user-bio{
 }
 

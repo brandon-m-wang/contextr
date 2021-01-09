@@ -26,6 +26,11 @@
     width: 70%;
 }
 
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: black;
+  opacity: 0.5; /* Firefox */
+}
+
 h3{
     color: black;
     font-weight: 300;
@@ -113,14 +118,14 @@ h5{
     padding: 0.25rem 0.5rem;
     border-radius: 3px;
     margin-top: 0.25rem;
-    width: 45px;
+    width: 40px;
     cursor: pointer;
     text-align: center;
 }
 
 .friend-actions a{
     color: white;
-    font-size: 0.8rem;
+    font-size: 0.6rem;
 }
 
 .sidebar{
