@@ -61,7 +61,7 @@ function createPost(){
                 theme: theme,
                 text: quote,
                 comments: [],
-                likes: []
+                likes: {}
             })
             db.collection('userspublic').doc(writer).update({
                 notifications: firebase.firestore.FieldValue.arrayUnion(postID) 
@@ -69,6 +69,54 @@ function createPost(){
             db.collection('users').doc(writer).update({
                 posts: firebase.firestore.FieldValue.arrayUnion(postID)                
             })
+        }
+    });
+}
+
+function likePost() {
+    firebase.auth().onAuthStateChanged(function(user) {
+        if(user){
+            var postID = ""; //Get from the front-end
+            var userID = firebase.auth().currentUser.uid;
+            var post = firebase.firestore().collection('posts').doc(postID);
+            post.get().then(async function (doc) {
+                // if(doc.data().likes.contains(userID)){
+                if(userID in doc.data().likes){
+                    //Unlike post if liked
+                    console.log("liked already");
+                    doc.update({
+                        userID: firebase.firestore.FieldValue.delete()
+                    });
+                }else{
+                    //Like post if not liked already
+                    console.log("not liked already");
+                    doc.update({
+                        userID: true
+                    });
+                }
+            })
+        }
+    });
+}
+
+function postNumLikes(){
+    firebase.auth().onAuthStateChanged(function(user) {
+        if(user){
+            var postID = ""; //Get from the front-end
+            var post = firebase.firestore().collection('posts').doc(postID);
+            post.get().then(async function (doc) {
+                return doc.size();
+            });
+        }
+    });
+}
+
+function getPostDate(){
+    firebase.auth().onAuthStateChanged(function(user) {
+        if(user){
+            var postID = ""; //put to postID from front end
+            var date = new Date(postID.substr(0, 7) + postID.substr(13));
+            return date.toString();
         }
     });
 }
