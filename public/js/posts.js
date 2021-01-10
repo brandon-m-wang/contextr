@@ -76,7 +76,7 @@ function createPost(){
 function likePost() {
     firebase.auth().onAuthStateChanged(function(user) {
         if(user){
-            var postID = ""; //Get from the front-end
+            var postID = "16101597126ELE744627"; //Get from the front-end
             var userID = firebase.auth().currentUser.uid;
             var post = firebase.firestore().collection('posts').doc(postID);
             post.get().then(async function (doc) {
@@ -84,15 +84,20 @@ function likePost() {
                 if(userID in doc.data().likes){
                     //Unlike post if liked
                     console.log("liked already");
-                    doc.update({
-                        userID: firebase.firestore.FieldValue.delete()
-                    });
+                    post.set({
+                        "likes":{
+                            [userID]: firebase.firestore.FieldValue.delete()
+                        } 
+                    }, {merge: true});
                 }else{
                     //Like post if not liked already
                     console.log("not liked already");
-                    doc.update({
-                        userID: true
-                    });
+                    console.log(userID);
+                    post.set({
+                        "likes":{
+                            [userID]: true
+                        }
+                    }, {merge: true});
                 }
             })
         }
@@ -102,7 +107,7 @@ function likePost() {
 function postNumLikes(){
     firebase.auth().onAuthStateChanged(function(user) {
         if(user){
-            var postID = ""; //Get from the front-end
+            var postID = "16101597126ELE744627"; //Get from the front-end
             var post = firebase.firestore().collection('posts').doc(postID);
             post.get().then(async function (doc) {
                 return doc.size();
@@ -114,8 +119,22 @@ function postNumLikes(){
 function getPostDate(){
     firebase.auth().onAuthStateChanged(function(user) {
         if(user){
-            var postID = ""; //put to postID from front end
-            var date = new Date(postID.substr(0, 7) + postID.substr(13));
+            var postID = "16101597126ELE744627"; //put to postID from front end
+            var postDate = postID.substr(0, 7) + postID.substr(14);
+            var date = new Date(parseInt(postDate));            
+
+            //Fri Jan 08 2021 20:35:44 GMT-0600 (Central Standard Time)
+            var temp = date.toString().substring(4, 10) + "," +  date.toString().substring(10, 15);
+            var hour = parseInt(date.toString().substring(16, 18));
+            var suffix = "am"
+            if(hour >= 12){
+                suffix = 'pm'
+            }
+            if(hour > 12){
+                hour -= 12;
+            }
+            temp += "| " + hour + date.toString().substring(18, 21) + " " + suffix;
+            console.log(temp);
             return date.toString();
         }
     });
