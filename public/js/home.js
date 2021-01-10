@@ -91,6 +91,34 @@ $(document).ready(function () {
             await $('#cancel').click(function () {
                 $('.prompt-dropdown').css({'margin-top': '-255px', 'opacity': '0'});
             })
+
+            await $('#confirm').click(function () {
+                firebase.auth().onAuthStateChanged(function(user) {
+                    if (user) {
+                        var db = firebase.firestore();
+                        var postID = createID();
+                        var writer = firebase.auth().currentUser.uid;
+                        //var cited =  document.getElementById('currently-citing').innerHTML.replace('@', '')
+                        var quote = document.getElementById('post-text').value
+                        var theme = "happy"; //Change to theme
+                        firebase.firestore().collection('usernames').
+                        db.collection('posts').doc(postID).set({
+                            poster: writer,
+                            postee: cited,
+                            theme: theme,
+                            text: quote,
+                            comments: [],
+                            likes: {}
+                        })
+                        db.collection('userspublic').doc(writer).update({
+                            notifications: firebase.firestore.FieldValue.arrayUnion(postID) 
+                        })
+                        db.collection('users').doc(writer).update({
+                            posts: firebase.firestore.FieldValue.arrayUnion(postID)                
+                        })
+                    }
+                });
+            })
         }
     })
 });
