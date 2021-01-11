@@ -265,6 +265,8 @@ a {
     top: 75%;
     margin-right: 0.5rem;
     color: white;
+    filter: brightness(100%);
+    transition: all 0.3s ease;
 }
 
 .prompt-dropdown-selection:focus{

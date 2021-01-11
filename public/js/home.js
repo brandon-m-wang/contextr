@@ -34,6 +34,27 @@ $(document).ready(function () {
         if (user) {
             var userID = firebase.auth().currentUser.uid;
             console.log(userID);
+            //write getPosts method
+            var postsToGenerate = []
+            await firebase.firestore().collection('users').doc(userID).get().then(async function (doc){
+                var friends = await doc.data().friends
+                for (let i = 0; i < friends.length; i++){
+                    await firebase.firestore().collection('users').doc(friends[i]).get().then(async function (doc){
+                        var allPosts = await doc.data().posts
+                        for (let i = 1; (i < 4 && i < allPosts.length+1) && i < 4; i++){
+                            if (new Date() - getPostDate(allPosts[allPosts.length - i])[1] < 604800000) {
+                                postsToGenerate.push(allPosts[allPosts.length - i])
+                            }
+                        }
+                    })
+                }
+            })
+            for (let i = 0; i < postsToGenerate.length; i++){
+                firebase.firestore().collection('posts').doc(postsToGenerate[i]).get().then(async function (doc){
+                    //taking a break
+                })
+
+            }
             await firebase.firestore().collection("users").doc(userID).get().then(async function (doc) {
                 for (let i = 0; i < doc.data().friends.length && i < 6; i++) {
                     var friendID = await doc.data().friends[i]
@@ -88,33 +109,76 @@ $(document).ready(function () {
                 document.getElementById('currently-citing').innerHTML = "Currently citing: " + $('p', this).attr('id')
             })
 
-            await $('#cancel').click(function () {
+            $('#cancel').click(function () {
                 $('.prompt-dropdown').css({'margin-top': '-255px', 'opacity': '0'});
+                $('.post-style-selections > button').css('filter', 'brightness(100%)');
+                document.getElementById('post-text').value = '';
+                $('#post-style-selections').attr('data-value', 'null')
             })
 
-            await $('#confirm').click(function () {
+            $('#man-im-dead').click(function () {
+                $(this).css('filter', 'brightness(150%)')
+                $('.post-style-selections > button:nth-child(n+2)').css('filter', 'brightness(100%)')
+                $('#post-style-selections').attr('data-value', 'man-im-dead')
+            })
+
+            $('#taking-a-look').click(function () {
+                $(this).css('filter', 'brightness(150%)')
+                $('.post-style-selections > button:not(:nth-child(2))').css('filter', 'brightness(100%)')
+                $('#post-style-selections').attr('data-value', 'taking-a-look')
+            })
+
+            $('#what-did-he-say').click(function () {
+                $(this).css('filter', 'brightness(150%)')
+                $('.post-style-selections > button:not(:nth-child(3))').css('filter', 'brightness(100%)')
+                $('#post-style-selections').attr('data-value', 'what-did-he-say')
+            })
+
+            $('#built-different').click(function () {
+                $(this).css('filter', 'brightness(150%)')
+                $('.post-style-selections > button:not(:nth-child(4))').css('filter', 'brightness(100%)')
+                $('#post-style-selections').attr('data-value', 'built-different')
+            })
+
+            $('#my-oh-my').click(function () {
+                $(this).css('filter', 'brightness(150%)')
+                $('.post-style-selections > button:not(:nth-child(5))').css('filter', 'brightness(100%)')
+                $('#post-style-selections').attr('data-value', 'my-oh-my')
+            })
+
+            $('#so-so-sad').click(function () {
+                $(this).css('filter', 'brightness(150%)')
+                $('.post-style-selections > button:not(:nth-child(6))').css('filter', 'brightness(100%)')
+                $('#post-style-selections').attr('data-value', 'so-so-sad')
+            })
+
+            $('#confirm').click(function () {
                 firebase.auth().onAuthStateChanged(function(user) {
                     if (user) {
-                        var db = firebase.firestore();
                         var postID = createID();
+                        var postDate = getPostDate(postID);
                         var writer = firebase.auth().currentUser.uid;
-                        //var cited =  document.getElementById('currently-citing').innerHTML.replace('@', '')
+                        var citedPre = document.getElementById('currently-citing').innerHTML.replace('@', '').slice(18);
                         var quote = document.getElementById('post-text').value
-                        var theme = "happy"; //Change to theme
-                        firebase.firestore().collection('usernames').
-                        db.collection('posts').doc(postID).set({
-                            poster: writer,
-                            postee: cited,
-                            theme: theme,
-                            text: quote,
-                            comments: [],
-                            likes: {}
-                        })
-                        db.collection('userspublic').doc(writer).update({
-                            notifications: firebase.firestore.FieldValue.arrayUnion(postID) 
-                        })
-                        db.collection('users').doc(writer).update({
-                            posts: firebase.firestore.FieldValue.arrayUnion(postID)                
+                        var theme = $('#post-style-selections').attr('data-value')
+                        firebase.firestore().collection('usernames').doc(citedPre).get().then(async function (doc){
+                            var cited = doc.data().username;
+                            firebase.firestore().collection('posts').doc(postID).set({
+                                poster: writer,
+                                postee: cited,
+                                theme: theme,
+                                text: quote,
+                                comments: [],
+                                likes: {},
+                                dateFormatted: postDate[0],
+                                dateRaw: postDate[1]
+                            })
+                            firebase.firestore().collection('userspublic').doc(writer).update({
+                                notifications: firebase.firestore.FieldValue.arrayUnion(postID)
+                            })
+                            firebase.firestore().collection('users').doc(writer).update({
+                                posts: firebase.firestore.FieldValue.arrayUnion(postID)
+                            })
                         })
                     }
                 });
