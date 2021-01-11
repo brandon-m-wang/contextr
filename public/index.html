@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="en" style="visibility: hidden">
 <head>
     <meta charset="UTF-8">
     <title>contextr.io / Home</title>
@@ -14,8 +14,10 @@
           rel="stylesheet">
     <!-- Connect js files -->
 </head>
-<!--<body onload="getPosts()">-->
-<!-- Firebase storage setup Start -->
+<div id="loading-gif" style="visibility: visible; height: 100vh; width: 100vw;">
+<img src="./assets/loading.gif" style="position: absolute; height: 100px; width: 100px;
+    top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); filter: drop-shadow(0 0 0.5rem dimgrey);"/>
+</div>
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="../js/home.js"></script>
@@ -93,168 +95,7 @@
                 <button class="prompt-dropdown-actions" id="confirm">Post</button>
             </div>
         </div>
-        <div class="post man-im-dead">
-            <div class="post-header">
-                <h3>@Username</h3>
-                <h4>Quoted by: @Username</h4>
-            </div>
-            <div class="post-quote">
-                <img class="funky-quote-open" src="../assets/quote-open.png"/>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.</p>
-                <img class="funky-quote-close" src="../assets/quote-close.png"/>
-            </div>
-            <div class="post-footer">
-                <div class="post-actions">
-                    <i class="fab fa-gratipay heart"></i>
-                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
-                </div>
-                <div class="post-stats">
-                    <i class="fab fa-gratipay heart"></i>
-                    <h6>Likes</h6>
-                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
-                    <h6>Comments</h6>
-                </div>
-            </div>
-            <div class="post-comments">
-                <h6>Leave a comment...</h6>
-            </div>
-        </div>
-        <div class="post taking-a-look">
-            <div class="post-header">
-                <h3>@Username</h3>
-                <h4>Quoted by: @Username</h4>
-            </div>
-            <div class="post-quote">
-                <img class="funky-quote-open" src="../assets/quote-open.png"/>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.</p>
-                <img class="funky-quote-close" src="../assets/quote-close.png"/>
-            </div>
-            <div class="post-footer">
-                <div class="post-actions">
-                    <i class="fab fa-gratipay heart"></i>
-                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
-                </div>
-                <div class="post-stats">
-                    <i class="fab fa-gratipay heart"></i>
-                    <h6>Likes</h6>
-                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
-                    <h6>Comments</h6>
-                </div>
-            </div>
-            <div class="post-comments">
-                <h6>Leave a comment...</h6>
-            </div>
-        </div>
-        <div class="post what-did-he-say">
-            <div class="post-header">
-                <h3>@Username</h3>
-                <h4>Quoted by: @Username</h4>
-            </div>
-            <div class="post-quote">
-                <img class="funky-quote-open" src="../assets/quote-open.png"/>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.</p>
-                <img class="funky-quote-close" src="../assets/quote-close.png"/>
-            </div>
-            <div class="post-footer">
-                <div class="post-actions">
-                    <i class="fab fa-gratipay heart"></i>
-                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
-                </div>
-                <div class="post-stats">
-                    <i class="fab fa-gratipay heart"></i>
-                    <h6>Likes</h6>
-                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
-                    <h6>Comments</h6>
-                </div>
-            </div>
-            <div class="post-comments">
-                <h6>Leave a comment...</h6>
-            </div>
-        </div>
-        <div class="post built-different">
-            <div class="post-header">
-                <h3>@Username</h3>
-                <h4>Quoted by: @Username</h4>
-            </div>
-            <div class="post-quote">
-                <img class="funky-quote-open" src="../assets/quote-open.png"/>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.</p>
-                <img class="funky-quote-close" src="../assets/quote-close.png"/>
-            </div>
-            <div class="post-footer">
-                <div class="post-actions">
-                    <i class="fab fa-gratipay heart"></i>
-                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
-                </div>
-                <div class="post-stats">
-                    <i class="fab fa-gratipay heart"></i>
-                    <h6>Likes</h6>
-                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
-                    <h6>Comments</h6>
-                </div>
-            </div>
-            <div class="post-comments">
-                <h6>Leave a comment...</h6>
-            </div>
-        </div>
-        <div class="post my-oh-my">
-            <div class="post-header">
-                <h3>@Username</h3>
-                <h4>Quoted by: @Username</h4>
-            </div>
-            <div class="post-quote">
-                <img class="funky-quote-open" src="../assets/quote-open.png"/>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.</p>
-                <img class="funky-quote-close" src="../assets/quote-close.png"/>
-            </div>
-            <div class="post-footer">
-                <div class="post-actions">
-                    <i class="fab fa-gratipay heart"></i>
-                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
-                </div>
-                <div class="post-stats">
-                    <i class="fab fa-gratipay heart"></i>
-                    <h6>Likes</h6>
-                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
-                    <h6>Comments</h6>
-                </div>
-            </div>
-            <div class="post-comments">
-                <h6>Leave a comment...</h6>
-            </div>
-        </div>
-        <div class="post so-so-sad">
-            <div class="post-header">
-                <h3>@Username</h3>
-                <h4>Quoted by: @Username</h4>
-            </div>
-            <div class="post-quote">
-                <img class="funky-quote-open" src="../assets/quote-open.png"/>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.</p>
-                <img class="funky-quote-close" src="../assets/quote-close.png"/>
-            </div>
-            <div class="post-footer">
-                <div class="post-actions">
-                    <i class="fab fa-gratipay heart"></i>
-                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
-                </div>
-                <div class="post-stats">
-                    <i class="fab fa-gratipay heart"></i>
-                    <h6>Likes</h6>
-                    <i class="fas fa-comment-dots" style="color: #4063a0;"></i>
-                    <h6>Comments</h6>
-                </div>
-            </div>
-            <div class="post-comments">
-                <h6>Leave a comment...</h6>
-            </div>
-        </div>
+        <!-- posts populate here -->
     </div>
 </section>
 <section class="footer">

@@ -128,6 +128,8 @@ a {
     z-index: 1;
     margin-top: -255px;
     width: 59%;
+    pointer-events: none;
+    cursor: default;
     padding: 0 1rem 1rem;
     margin-bottom: 50px;
     border-radius: 20px;
@@ -507,6 +509,10 @@ a {
     margin: 0 0 0 0.5rem;
 }
 
+.post-actions > i:hover{
+    cursor: pointer;
+}
+
 .post-stats {
     position: absolute;
     display: flex;
@@ -737,7 +743,7 @@ textarea:focus, input:focus{
 
 html.modal-active, body.modal-active {
     position: fixed;
-    overflow-y: scroll
+    width: 100%;
 }
 
 #modal-container {

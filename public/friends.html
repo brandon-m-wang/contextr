@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style='visibility: hidden;'>
 <head>
     <meta charset="UTF-8">
     <title>contextr.io / Home</title>
@@ -13,6 +13,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+<div id="loading-gif" style="visibility: visible; height: 100vh; width: 100vw;">
+<img src="./assets/loading.gif" style="position: absolute; height: 100px; width: 100px;
+    top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); filter: drop-shadow(0 0 0.5rem dimgrey);"/>
+</div>
 <body>
     <!-- Firebase storage setup Start -->
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
