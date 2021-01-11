@@ -197,14 +197,14 @@ $(document).ready(function () {
             })
 
             $('.prompt-name-image').click(function () {
-                $('.prompt-dropdown').css({'margin-top': '-85px', 'opacity': '1', 'pointer-events': 'all', 'cursor': 'pointer'});
+                $('.prompt-dropdown').css({'margin-top': '-35px', 'margin-bottom': '130px', 'opacity': '1', 'pointer-events': 'all', 'cursor': 'pointer'});
                 //write cite function
                 document.getElementById('currently-citing').innerHTML = "Currently citing: " + $('p', this).attr('id')
             })
 
             $('#cancel').click(function () {
-                $('.prompt-dropdown').css({'margin-top': '-255px', 'opacity': '0'});
-                $('.post-style-selections > button').css('filter', 'brightness(100%)');
+                $('.prompt-dropdown').css({'margin-top': '-205px', 'margin-bottom': '50px', 'opacity': '0', 'pointer-events' : 'none'});
+                $('.post-style-selections > button').css({'filter' : 'brightness(100%)'});
                 document.getElementById('post-text').value = '';
                 $('#post-style-selections').attr('data-value', 'null')
             })
