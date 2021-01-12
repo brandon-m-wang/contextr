@@ -178,6 +178,20 @@ textarea::placeholder{
     outline: none;
 }
 
+.container-individual-comments{
+    position: relative;
+}
+
+.see-all-comments{
+    font-size: 0.6rem;
+    text-decoration: underline;
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    right: 40px;
+    text-align: end;
+}
+
 .post-the-comment{
     position: absolute;
     top: 50%;
