@@ -164,7 +164,7 @@ $(document).ready(function () {
                                     let commentString = value[1]
                                     await firebase.firestore().collection('users').doc(commentUserID).get().then(async function (doc) {
                                         let commentUsername = await doc.data().name
-                                        let htmlString = htmlToElement(`<div class="individual-comments" id="${time+commentUserID}">
+                                        let htmlString = htmlToElement(`<div class="individual-comments" id="${time + commentUserID}">
                                         <div class="container-individual-comments">
                                             <a><h6>@${commentUsername}</h6></a>
                                             <p>${commentString}</p>
@@ -173,12 +173,12 @@ $(document).ready(function () {
                                         document.getElementById(postID).appendChild(htmlString)
                                     })
                                     await firebase.storage().ref().child('users/' + commentUserID + '/profile').getDownloadURL().then(async function (result) {
-                                            var imgUrl = await result
-                                            let imgString = htmlToElement(`<img src=${imgUrl}/>`)
-                                            document.getElementById(time+commentUserID).prepend(imgString)
+                                        var imgUrl = await result
+                                        let imgString = htmlToElement(`<img src=${imgUrl}/>`)
+                                        document.getElementById(time + commentUserID).prepend(imgString)
                                     })
                                 }
-                            }
+                            })
                     } else {
                         firebase.firestore().collection('posts').doc(postID).get().then(async function () {
                                 console.log("run")
