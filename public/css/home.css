@@ -135,7 +135,22 @@ a {
     background: rgb(136, 123, 176);
     background: linear-gradient(141deg, rgb(110, 101, 141) 12%, rgb(138, 105, 105) 100%);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), inset 0 -3px 3px rgba(0, 0, 0, 0.1);
-    transition: margin-top 1s, opacity 0.5s, margin-bottom 0.25s;
+    transition: margin-top 1s ease, opacity 0.5s, margin-bottom 0.4s ease-out;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+.post-comments textarea{
+    margin: 0 15% auto 35px;
+    font-size: 0.875rem;
+    border: none;
+    width: 90%;
+    resize: none;
+    height: 95%;
+    font-family: Quicksand;
+    line-height: 25px;
 }
 
 .content-area .prompt h3{
@@ -150,13 +165,30 @@ a {
     margin-left: 1rem;
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+#post-text::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: white;
   opacity: 0.5; /* Firefox */
 }
 
+textarea::placeholder{
+    color: grey;
+}
+
 #post-text:focus{
     outline: none;
+}
+
+.post-the-comment{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    right: 5%;
+    background:-moz-linear-gradient(top, rgb(136, 123, 176) 0%, rgba(203, 157, 156, 1) 100%);
+    background: -webkit-linear-gradient(top,rgb(136, 123, 176) 0%,rgba(203, 157, 156, 1) 100%);
+    background: linear-gradient(to bottom, rgb(136, 123, 176) 0%, rgba(203, 157, 156, 1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color:transparent;
 }
 
 #post-text{
@@ -534,6 +566,7 @@ a {
 }
 
 .post-comments {
+    position: relative;
     height: 30px;
     margin: 0 -1rem;
     width: calc(100% + 2rem);
@@ -544,12 +577,47 @@ a {
     1px 0 0 lightgray inset;
 }
 
-.post-comments h6{
-    position: absolute;
-    font-weight: 400;
-    left: 10px;
-    font-size: 0.8rem;
-    color: gray;
+.individual-comments{
+    height: auto;
+    margin: 0 -1rem;
+    width: calc(100% + 2rem);
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-shadow: -1px -1px 0px lightgray inset,
+    1px 0 0 lightgray inset;
+}
+
+.individual-comments > img{
+    height: 44px;
+    width: 44px;
+    margin-left: 37px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.individual-comments h6{
+    color: #222222 !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+    margin: 10px 0 !important;
+}
+
+.individual-comments p{
+    color: #222222 !important;
+    font-size: 0.825rem !important;
+    font-weight: 400 !important;
+    margin: 0 !important;
+    margin-bottom: 10px !important;
+    width: 90%;
+}
+
+.individual-comments > div{
+    display: flex;
+    flex-direction: column;
+    margin-left: 36px;
+    width: 100%;
 }
 
 .post h3 {
