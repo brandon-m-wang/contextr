@@ -17,6 +17,7 @@ $(document).ready(function () {
                 document.getElementById("loading-gif").style.display = "none";
                 document.getElementsByTagName("html")[0].style.visibility = "visible";
             });
+            //get deleteable posts
         }
     });
     document.getElementById('pfp').onload = function () {

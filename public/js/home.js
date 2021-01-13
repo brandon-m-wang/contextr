@@ -9,14 +9,14 @@ function htmlToElement(html) {
     return template.content.firstChild;
 }
 
-function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-}
+// function shuffleArray(array) {
+//     for (var i = array.length - 1; i > 0; i--) {
+//         var j = Math.floor(Math.random() * (i + 1));
+//         var temp = array[i];
+//         array[i] = array[j];
+//         array[j] = temp;
+//     }
+// }
 
 $(document).ready(function () {
 
@@ -48,26 +48,33 @@ $(document).ready(function () {
             var userID = firebase.auth().currentUser.uid;
             console.log(userID);
             //write getPosts method
-            var postsToGenerate = []
+            var unorderedPostsToGenerate = {}
             await firebase.firestore().collection('users').doc(userID).get().then(async function (doc) {
                 var friends = await doc.data().friends
                 for (let i = 0; i < friends.length; i++) {
                     await firebase.firestore().collection('users').doc(friends[i]).get().then(async function (doc) {
                         var allPosts = await doc.data().posts
                         for (let i = 1; (i < 4 && i < allPosts.length + 1) && i < 4; i++) {
-                            if (new Date() - getPostDate(allPosts[allPosts.length - i])[1] < 604800000) {
-                                postsToGenerate.push(allPosts[allPosts.length - i])
+                            if ((new Date().getTime() - getPostDate(allPosts[allPosts.length - i])[2]) < 604800000) {
+                                unorderedPostsToGenerate[getPostDate(allPosts[allPosts.length - i])[2]] = allPosts[allPosts.length - i]
                             }
                         }
                     })
                 }
             })
-            shuffleArray(postsToGenerate);
-            for (let i = 0; i < postsToGenerate.length; i++) {
-                firebase.firestore().collection('posts').doc(postsToGenerate[i]).get().then(async function (doc) {
+            var postsToGenerate = Object.keys(unorderedPostsToGenerate).sort().reverse().reduce(
+                (obj, key) => { 
+                  obj[key] = unorderedPostsToGenerate[key]; 
+                  return obj;
+                }, 
+                {}
+              );
+            console.log(postsToGenerate)
+            for (const [key, value] of Object.entries(postsToGenerate)) {
+                await firebase.firestore().collection('posts').doc(value).get().then(async function (doc) { //can remove await for performance
                     var poster = doc.data().poster
                     var postee = doc.data().postee
-                    var postID = postsToGenerate[i]
+                    var postID = value
                     var dateFormatted = doc.data().dateFormatted
                     var text = doc.data().text
                     var theme = doc.data().theme
@@ -92,7 +99,7 @@ $(document).ready(function () {
                         transformedComments.set(String(e), comments[e]);
                     });
                     var numComments = transformedComments.size
-                    await firebase.firestore().collection('users').doc(poster).get().then(function (doc) {
+                    firebase.firestore().collection('users').doc(poster).get().then(function (doc) {
                         var posterUsername = doc.data().name
                         firebase.firestore().collection('users').doc(postee).get().then(function (doc) {
                             var posteeUsername = doc.data().name
@@ -127,7 +134,6 @@ $(document).ready(function () {
                                     <textarea class="comment" placeholder="Leave a comment..."></textarea>
                                     <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                 </div>
-                                <div class="individual-comments">test</div>
                             </div>`)
                                 $('.content-area > .container').append(htmlString)
                                     }else{
@@ -159,7 +165,7 @@ $(document).ready(function () {
                                             <textarea class="comment" placeholder="Leave a comment..."></textarea>
                                             <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                         </div>
-                                        <div class="individual-comments">test</div>
+                                        
                                     </div>`)
                                         $('.content-area > .container').append(htmlString)
                                     }
@@ -193,7 +199,7 @@ $(document).ready(function () {
                                     <textarea class="comment" placeholder="Leave a comment..."></textarea>
                                     <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                 </div>
-                                <div class="individual-comments">test</div>
+                                
                             </div>`)
                                 $('.content-area > .container').append(htmlString)
                                     }else{
@@ -225,7 +231,7 @@ $(document).ready(function () {
                                             <textarea class="comment" placeholder="Leave a comment..."></textarea>
                                             <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                         </div>
-                                        <div class="individual-comments">test</div>
+                                        
                                     </div>`)
                                         $('.content-area > .container').append(htmlString)
                                     }

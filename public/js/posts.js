@@ -131,5 +131,5 @@ function getPostDate(postID){
             hour -= 12;
         }
         temp += " | " + hour + date.toString().substring(18, 21) + " " + suffix;
-        return [temp, date]
+        return [temp, date, postDate]
 }

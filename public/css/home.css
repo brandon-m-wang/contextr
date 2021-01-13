@@ -149,6 +149,7 @@ textarea:focus, input:focus{
     width: 90%;
     resize: none;
     height: 95%;
+    background-color: transparent;
     font-family: Quicksand;
     line-height: 25px;
 }
