@@ -7,6 +7,15 @@ $(document).ready(function () {
         $('body').addClass('modal-active');
     })
 
+    $(document).on('click', function (event) {
+        if (event.target.className == "comment" || $.inArray("post-the-comment", event.target.classList) !== -1) {
+            return
+        }
+        var $target = $(event.target);
+        console.log($target.parent())
+        $target.parent().find('.post-the-comment').css({'visibility': 'hidden', 'pointer-events': 'none'})
+    })
+
     function htmlToElement(html) {
         var template = document.createElement('template');
         html = html.trim(); // Never return a text node of whitespace as the result
