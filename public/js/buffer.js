@@ -31,4 +31,14 @@ $(document).on('click', 'post-the-comment', (e) => {
     })
 })
 
+$(document).on('click', '.post-actions > .comment', (e) => {
+    var elementTop = $(e.target).parent().parent().parent().find('textarea').offset().top
+    var elementHeight = $(e.target).parent().parent().parent().find('textarea').height()
+    var viewportHeight = $(window).height()
+    var scrollIt = elementTop - ((viewportHeight - elementHeight) / 2);
+    $('html,body').animate({
+        scrollTop: scrollIt
+    }, 500);
+})
+
 })

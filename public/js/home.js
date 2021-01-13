@@ -32,15 +32,13 @@ $(document).ready(function () {
     });
 
 
-    $(document).click(function (event) {
+    $(document).on('click', function (event) {
         if (event.target.className == "comment" || $.inArray("post-the-comment", event.target.classList) !== -1) {
             return
         }
         var $target = $(event.target);
         console.log($target.parent())
-        if ($target.parent().find('.post-the-comment').css('visibility') == 'visible') {
-            $target.parent().find('.post-the-comment').css({'visibility': 'hidden', 'pointer-events': 'none'})
-        }
+        $target.parent().find('.post-the-comment').css({'visibility': 'hidden', 'pointer-events': 'none'})
     })
 
     firebase.auth().onAuthStateChanged(async function (user) {
@@ -51,6 +49,12 @@ $(document).ready(function () {
             var unorderedPostsToGenerate = {}
             await firebase.firestore().collection('users').doc(userID).get().then(async function (doc) {
                 var friends = await doc.data().friends
+                var selfPosts = await doc.data().posts
+                for (let i = 1; (i < 4 && i < selfPosts.length +1) && i < 4; i++){
+                    if ((new Date().getTime() - getPostDate(selfPosts[selfPosts.length - i])[2]) < 604800000) {
+                        unorderedPostsToGenerate[getPostDate(selfPosts[selfPosts.length - i])[2]] = selfPosts[selfPosts.length - i]
+                    }
+                }
                 for (let i = 0; i < friends.length; i++) {
                     await firebase.firestore().collection('users').doc(friends[i]).get().then(async function (doc) {
                         var allPosts = await doc.data().posts
@@ -539,7 +543,13 @@ $(document).ready(function () {
             })
 
             $('.post-actions > .comment').on('click', (e) => {
-                $(e.target).parent().parent().parent().find('textarea').scrollIntoView()
+                var elementTop = $(e.target).parent().parent().parent().find('textarea').offset().top
+                var elementHeight = $(e.target).parent().parent().parent().find('textarea').height()
+                var viewportHeight = $(window).height()
+                var scrollIt = elementTop - ((viewportHeight - elementHeight) / 2);
+	            $('html,body').animate({
+                    scrollTop: scrollIt
+                }, 500);
             })
 
             $('#slide-left').click(function () {
