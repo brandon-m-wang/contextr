@@ -130,6 +130,10 @@ function getPostDate(postID){
         if(hour > 12){
             hour -= 12;
         }
-        temp += " | " + hour + date.toString().substring(18, 21) + " " + suffix;
+        if(hour == 0){
+            temp += " | " + 12 + date.toString().substring(18, 21) + " " + suffix;
+        }else{
+            temp += " | " + hour + date.toString().substring(18, 21) + " " + suffix;
+        }
         return [temp, date, postDate]
 }

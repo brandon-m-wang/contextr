@@ -9,6 +9,23 @@ function htmlToElement(html) {
     return template.content.firstChild;
 }
 
+function dhm(ms){
+    days = Math.floor(ms / (24*60*60*1000));
+    daysms=ms % (24*60*60*1000);
+    hours = Math.floor((daysms)/(60*60*1000));
+    hoursms=ms % (60*60*1000);
+    minutes = Math.floor((hoursms)/(60*1000));
+    minutesms=ms % (60*1000);
+    sec = Math.floor((minutesms)/(1000));
+    if (hours == 0 && days == 0){
+        return minutes+"m ago"
+    }else if (days == 0){
+        return hours+"h "+minutes+"m ago"
+    }else{
+        return days+"d " + hours + "h " + minutes + "m ago"
+    }
+    
+}
 // function shuffleArray(array) {
 //     for (var i = array.length - 1; i > 0; i--) {
 //         var j = Math.floor(Math.random() * (i + 1));
@@ -386,9 +403,10 @@ $(document).ready(function () {
                                             let commentUsername = await doc.data().name
                                             let htmlString = htmlToElement(`<div class="individual-comments" id="${time + commentUserID}">
                                             <div class="container-individual-comments">
-                                                <a><h6>@${commentUsername}</h6></a>
+                                                <a href="https://contextr.io/users/${commentUsername}"><h6>@${commentUsername}</h6></a>
                                                 <p>${commentString}</p>
                                             </div>
+                                            <h4>${dhm(new Date().getTime() - time)}</h4>
                                         </div>`)
                                             document.getElementById(postID).appendChild(htmlString)
                                         })
@@ -403,10 +421,11 @@ $(document).ready(function () {
                                             let commentUsername = await doc.data().name
                                             let htmlString = htmlToElement(`<div class="individual-comments" id="${time + commentUserID}">
                                             <div class="container-individual-comments">
-                                                <a><h6>@${commentUsername}</h6></a>
+                                                <a href="https://contextr.io/users/${commentUsername}"><h6>@${commentUsername}</h6></a>
                                                 <p>${commentString}</p>
                                                 <p class="see-all-comments" style="color: rgb(77, 77, 201) !important;">See all comments</p>
                                             </div>
+                                            <h4>${dhm(new Date().getTime() - time)}</h4>
                                         </div>`)
                                             document.getElementById(postID).appendChild(htmlString)
                                         })
@@ -421,9 +440,10 @@ $(document).ready(function () {
                                             let commentUsername = await doc.data().name
                                             let htmlString = htmlToElement(`<div style="display: none" class="individual-comments" id="${time + commentUserID}">
                                             <div class="container-individual-comments">
-                                                <a><h6>@${commentUsername}</h6></a>
+                                                <a href="https://contextr.io/users/${commentUsername}"><h6>@${commentUsername}</h6></a>
                                                 <p>${commentString}</p>
                                             </div>
+                                            <h4>${dhm(new Date().getTime() - time)}</h4>
                                         </div>`)
                                             document.getElementById(postID).appendChild(htmlString)
                                         })
@@ -446,9 +466,10 @@ $(document).ready(function () {
                                         let commentUsername = await doc.data().name
                                         let htmlString = htmlToElement(`<div class="individual-comments" id="${time+commentUserID}">
                                         <div class="container-individual-comments">
-                                            <a><h6>@${commentUsername}</h6></a>
+                                            <a href="https://contextr.io/users/${commentUsername}"><h6>@${commentUsername}</h6></a>
                                             <p>${commentString}</p>
                                         </div>
+                                        <h4>${dhm(new Date().getTime() - time)}</h4>
                                     </div>`)
                                         document.getElementById(postID).appendChild(htmlString)
                                     })
@@ -481,6 +502,7 @@ $(document).ready(function () {
                 }
                 document.getElementById("loading-gif").style.display = "none";
                 document.getElementsByTagName("html")[0].style.visibility = "visible";
+                document.getElementsByTagName("html")[0].style.overflow = '';
                 for (let i = 0; i < doc.data().friends.length; i++) {
                     var friendID = await doc.data().friends[i]
                     await firebase.firestore().collection("users").doc(friendID).get().then(async function (doc) {

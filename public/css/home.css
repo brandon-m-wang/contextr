@@ -518,6 +518,12 @@ textarea::placeholder{
     justify-content: center;
     text-align: left;
     margin-bottom: 1.5rem;
+    max-width: 80%;
+}
+
+.post-quote p{
+    overflow-wrap: break-word;
+    width: 100%;
 }
 
 .funky-quote-open {
@@ -626,6 +632,10 @@ textarea::placeholder{
     margin: 0 !important;
     margin-bottom: 10px !important;
     width: 90%;
+}
+
+.individual-comments h4{
+    align-self: start; margin: 10px 20px 0 0 !important; display: inline-block; font-weight: 300; white-space: nowrap; font-size: 0.8rem
 }
 
 .individual-comments > div{

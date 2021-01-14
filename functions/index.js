@@ -5,7 +5,7 @@ admin.initializeApp();
 
 exports.loadUser = functions.https.onRequest((req, res) => {
     res.status(200).send(`<!DOCTYPE html>
-<html lang="en" style="visibility: hidden;">
+<html lang="en" style="visibility: hidden; overflow: hidden;">
 <head>
     <meta charset="UTF-8">
     <title>contextr.io / Home</title>

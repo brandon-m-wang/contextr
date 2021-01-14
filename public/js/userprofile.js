@@ -23,5 +23,6 @@ $(document).ready(function () {
     document.getElementById('pfp').onload = function () {
         document.getElementById("loading-gif").style.display = "none";
         document.getElementsByTagName("html")[0].style.visibility = "visible";
+        document.getElementsByTagName("html")[0].style.overflow = '';
     }
 });
