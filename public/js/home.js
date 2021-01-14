@@ -680,7 +680,7 @@ $(document).ready(function () {
                                 dateFormatted: postDate[0],
                                 dateRaw: postDate[1]
                             })
-                            firebase.firestore().collection('userspublic').doc(writer).update({
+                            firebase.firestore().collection('userspublic').doc(cited).update({
                                 notifications: firebase.firestore.FieldValue.arrayUnion(postID)
                             })
                             firebase.firestore().collection('users').doc(writer).update({
