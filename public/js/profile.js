@@ -75,12 +75,16 @@ $(document).ready(function () {
             var postsToGenerate = {}
             await firebase.firestore().collection('users').doc(userID).get().then(async function (doc) {
                 var allPosts = await doc.data().posts
+                var friends = await doc.data().friends
+                document.getElementsByClassName('details')[0].children[2].innerHTML = "<span>" + friends.length.toString() + " "+"</span>Friends"
+                document.getElementsByClassName('details')[0].children[0].innerHTML = "<span>" + allPosts.length.toString() + " "+"</span>Citations"
                 for (let i = 1; i < allPosts.length + 1; i++) {
                     if ((new Date().getTime() - getPostDate(allPosts[allPosts.length - i])[2]) < 604800000) {
                         postsToGenerate[getPostDate(allPosts[allPosts.length - i])[2]] = allPosts[allPosts.length - i]
                     }
                 }
             })
+        var totalLikes = 0
     for (const [key, value] of Object.entries(postsToGenerate)) {
         console.log("ran")
         await firebase.firestore().collection('posts').doc(value).get().then(async function (doc) { //can remove await for performance
@@ -95,6 +99,7 @@ $(document).ready(function () {
             Object.keys(likes).forEach(e => {
                 transformedLikes.set(String(e), likes[e]);
             });
+            totalLikes += transformedLikes.size
             console.log(transformedLikes)
             var liked = transformedLikes.has(userID)
             console.log(liked)
@@ -475,6 +480,7 @@ $(document).ready(function () {
             }
         })
     }
+    document.getElementsByClassName('details')[0].children[1].innerHTML = "<span>" + totalLikes.toString() + " "+"</span>Likes"
 }
     })
 });

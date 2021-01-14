@@ -381,6 +381,7 @@ textarea::placeholder{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .request-actions > *{
@@ -686,7 +687,7 @@ textarea::placeholder{
 .request{
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
     align-items: center;
     margin-bottom: 1.5rem;
@@ -720,6 +721,8 @@ textarea::placeholder{
 .request-actions{
     display: flex;
     flex-direction: column;
+    position: absolute;
+    right: 0;
     align-items: flex-end;
     justify-content: center;
     margin-left: 1rem;

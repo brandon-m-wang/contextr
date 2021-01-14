@@ -58,6 +58,20 @@ $(document).ready(function () {
         $target.parent().find('.post-the-comment').css({'visibility': 'hidden', 'pointer-events': 'none'})
     })
 
+    $(document).on('click', '.request-actions > :first-child', function (event){
+        $('#modal-container').addClass('out');
+        $('body').removeClass('modal-active');
+        $('.prompt-dropdown').css({
+            'margin-top': '-35px',
+            'margin-bottom': '130px',
+            'opacity': '1',
+            'pointer-events': 'all',
+            'cursor': 'pointer'
+        });
+        //write cite function
+        document.getElementById('currently-citing').innerHTML = "Currently citing: " + $(event.target).parent().parent().find('h6').html()
+    })
+
     firebase.auth().onAuthStateChanged(async function (user) {
         if (user) {
             var userID = firebase.auth().currentUser.uid;
@@ -66,6 +80,7 @@ $(document).ready(function () {
             var unorderedPostsToGenerate = {}
             await firebase.firestore().collection('users').doc(userID).get().then(async function (doc) {
                 var friends = await doc.data().friends
+                document.getElementById('five').innerHTML = "See all friends (" + friends.length.toString() + ")"
                 var selfPosts = await doc.data().posts
                 for (let i = 1; (i < 4 && i < selfPosts.length +1) && i < 4; i++){
                     if ((new Date().getTime() - getPostDate(selfPosts[selfPosts.length - i])[2]) < 604800000) {
@@ -513,7 +528,7 @@ $(document).ready(function () {
                     </div>
                     <div class="request-actions">
                         <a>Cite</a>
-                        <a>View</a>
+                        <a href="https://contextr.io/users/${name.replace('@', '')}">View</a>
                     </div>
                 </div>`)
                         document.getElementsByClassName('requests')[0].appendChild(htmlString2)
