@@ -2,9 +2,17 @@ $(document).ready(function () {
 
     $('.edit-profile').click(function () {
         var buttonId = $(this).attr('id');
-        console.log(buttonId)
         $('#modal-container').removeAttr('class').addClass(buttonId);
         $('body').addClass('modal-active');
+        firebase.auth().onAuthStateChanged(async function (user) {
+            if (user) {
+                const userID = firebase.auth().currentUser.uid;
+                firebase.firestore().collection('users').doc(userID).get().then(function (doc) {
+                    $('#username').attr('value', doc.data().name)
+                    document.getElementById('bio').value = doc.data().bio
+                })
+            }
+        })
     })
 
     $(document).on('click', function (event) {
@@ -23,36 +31,36 @@ $(document).ready(function () {
         return template.content.firstChild;
     }
 
-    function dhm(ms){
-        days = Math.floor(ms / (24*60*60*1000));
-        daysms=ms % (24*60*60*1000);
-        hours = Math.floor((daysms)/(60*60*1000));
-        hoursms=ms % (60*60*1000);
-        minutes = Math.floor((hoursms)/(60*1000));
-        minutesms=ms % (60*1000);
-        sec = Math.floor((minutesms)/(1000));
-        if (hours == 0 && days == 0){
-            return minutes+"m ago"
-        }else if (days == 0){
-            return hours+"h "+minutes+"m ago"
-        }else{
-            return days+"d " + hours + "h " + minutes + "m ago"
+    function dhm(ms) {
+        days = Math.floor(ms / (24 * 60 * 60 * 1000));
+        daysms = ms % (24 * 60 * 60 * 1000);
+        hours = Math.floor((daysms) / (60 * 60 * 1000));
+        hoursms = ms % (60 * 60 * 1000);
+        minutes = Math.floor((hoursms) / (60 * 1000));
+        minutesms = ms % (60 * 1000);
+        sec = Math.floor((minutesms) / (1000));
+        if (hours == 0 && days == 0) {
+            return minutes + "m ago"
+        } else if (days == 0) {
+            return hours + "h " + minutes + "m ago"
+        } else {
+            return days + "d " + hours + "h " + minutes + "m ago"
         }
-        
+
     }
 
-    function getPostDate(postID){
+    function getPostDate(postID) {
         var postDate = postID.substr(0, 7) + postID.substr(14);
         var date = new Date(parseInt(postDate));
 
         //Fri Jan 08 2021 20:35:44 GMT-0600 (Central Standard Time)
-        var temp = date.toString().substring(4, 10) + "," +  date.toString().substring(10, 15);
+        var temp = date.toString().substring(4, 10) + "," + date.toString().substring(10, 15);
         var hour = parseInt(date.toString().substring(16, 18));
         var suffix = "am"
-        if(hour >= 12){
+        if (hour >= 12) {
             suffix = 'pm'
         }
-        if(hour > 12){
+        if (hour > 12) {
             hour -= 12;
         }
         temp += " | " + hour + date.toString().substring(18, 21) + " " + suffix;
@@ -76,54 +84,54 @@ $(document).ready(function () {
             await firebase.firestore().collection('users').doc(userID).get().then(async function (doc) {
                 var allPosts = await doc.data().posts
                 var friends = await doc.data().friends
-                document.getElementsByClassName('details')[0].children[2].innerHTML = "<span>" + friends.length.toString() + " "+"</span>Friends"
-                document.getElementsByClassName('details')[0].children[0].innerHTML = "<span>" + allPosts.length.toString() + " "+"</span>Citations"
+                document.getElementsByClassName('details')[0].children[2].innerHTML = "<span>" + friends.length.toString() + " " + "</span>Friends"
+                document.getElementsByClassName('details')[0].children[0].innerHTML = "<span>" + allPosts.length.toString() + " " + "</span>Citations"
                 for (let i = 1; i < allPosts.length + 1; i++) {
                     if ((new Date().getTime() - getPostDate(allPosts[allPosts.length - i])[2]) < 604800000) {
                         postsToGenerate[getPostDate(allPosts[allPosts.length - i])[2]] = allPosts[allPosts.length - i]
                     }
                 }
             })
-        var totalLikes = 0
-    for (const [key, value] of Object.entries(postsToGenerate)) {
-        console.log("ran")
-        await firebase.firestore().collection('posts').doc(value).get().then(async function (doc) { //can remove await for performance
-            var poster = doc.data().poster
-            var postee = doc.data().postee
-            var postID = value
-            var dateFormatted = doc.data().dateFormatted
-            var text = doc.data().text
-            var theme = doc.data().theme
-            var likes = doc.data().likes;
-            var transformedLikes = new Map();
-            Object.keys(likes).forEach(e => {
-                transformedLikes.set(String(e), likes[e]);
-            });
-            totalLikes += transformedLikes.size
-            console.log(transformedLikes)
-            var liked = transformedLikes.has(userID)
-            console.log(liked)
-            var unorderedComments = doc.data().comments
-            var comments = Object.keys(unorderedComments).sort().reduce(
-                (obj, key) => { 
-                  obj[key] = unorderedComments[key]; 
-                  return obj;
-                }, 
-                {}
-              );
-            var transformedComments = new Map();
-            Object.keys(comments).forEach(e => {
-                transformedComments.set(String(e), comments[e]);
-            });
-            var numComments = transformedComments.size
-            firebase.firestore().collection('users').doc(poster).get().then(function (doc) {
-                var posterUsername = doc.data().name
-                firebase.firestore().collection('users').doc(postee).get().then(function (doc) {
-                    var posteeUsername = doc.data().name
-                    if (!liked) {
-                        if (transformedLikes.size == 1){
-                            if (numComments == 1){
-                        let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
+            var totalLikes = 0
+            for (const [key, value] of Object.entries(postsToGenerate)) {
+                console.log("ran")
+                await firebase.firestore().collection('posts').doc(value).get().then(async function (doc) { //can remove await for performance
+                    var poster = doc.data().poster
+                    var postee = doc.data().postee
+                    var postID = value
+                    var dateFormatted = doc.data().dateFormatted
+                    var text = doc.data().text
+                    var theme = doc.data().theme
+                    var likes = doc.data().likes;
+                    var transformedLikes = new Map();
+                    Object.keys(likes).forEach(e => {
+                        transformedLikes.set(String(e), likes[e]);
+                    });
+                    totalLikes += transformedLikes.size
+                    console.log(transformedLikes)
+                    var liked = transformedLikes.has(userID)
+                    console.log(liked)
+                    var unorderedComments = doc.data().comments
+                    var comments = Object.keys(unorderedComments).sort().reduce(
+                        (obj, key) => {
+                            obj[key] = unorderedComments[key];
+                            return obj;
+                        },
+                        {}
+                    );
+                    var transformedComments = new Map();
+                    Object.keys(comments).forEach(e => {
+                        transformedComments.set(String(e), comments[e]);
+                    });
+                    var numComments = transformedComments.size
+                    firebase.firestore().collection('users').doc(poster).get().then(function (doc) {
+                        var posterUsername = doc.data().name
+                        firebase.firestore().collection('users').doc(postee).get().then(function (doc) {
+                            var posteeUsername = doc.data().name
+                            if (!liked) {
+                                if (transformedLikes.size == 1) {
+                                    if (numComments == 1) {
+                                        let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
                         <div class="post-header">
                             <h1 style="display: none" data-value = ${postID}></h1>
                             <a href="https://contextr.io/users/${posteeUsername}"><h3>@${posteeUsername}</h3></a>
@@ -152,9 +160,9 @@ $(document).ready(function () {
                             <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                         </div>
                     </div>`)
-                        $('.content-area > .container').append(htmlString)
-                            }else{
-                                let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
+                                        $('.content-area > .container').append(htmlString)
+                                    } else {
+                                        let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
                                 <div class="post-header">
                                     <h1 style="display: none" data-value = ${postID}></h1>
                                     <a href="https://contextr.io/users/${posteeUsername}"><h3>@${posteeUsername}</h3></a>
@@ -184,11 +192,11 @@ $(document).ready(function () {
                                 </div>
                                 
                             </div>`)
-                                $('.content-area > .container').append(htmlString)
-                            }
-                        }else{
-                            if (numComments ==1){
-                            let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
+                                        $('.content-area > .container').append(htmlString)
+                                    }
+                                } else {
+                                    if (numComments == 1) {
+                                        let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
                         <div class="post-header">
                             <h1 style="display: none" data-value = ${postID}></h1>
                             <a href="https://contextr.io/users/${posteeUsername}"><h3>@${posteeUsername}</h3></a>
@@ -218,9 +226,9 @@ $(document).ready(function () {
                         </div>
                         
                     </div>`)
-                        $('.content-area > .container').append(htmlString)
-                            }else{
-                                    let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
+                                        $('.content-area > .container').append(htmlString)
+                                    } else {
+                                        let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
                                 <div class="post-header">
                                     <h1 style="display: none" data-value = ${postID}></h1>
                                     <a href="https://contextr.io/users/${posteeUsername}"><h3>@${posteeUsername}</h3></a>
@@ -250,13 +258,13 @@ $(document).ready(function () {
                                 </div>
                                 
                             </div>`)
-                                $('.content-area > .container').append(htmlString)
-                            }
-                        }
-                    } else {
-                        if(transformedLikes.size == 1){
-                            if(numComments == 1){
-                        let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
+                                        $('.content-area > .container').append(htmlString)
+                                    }
+                                }
+                            } else {
+                                if (transformedLikes.size == 1) {
+                                    if (numComments == 1) {
+                                        let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
                         <div class="post-header">
                             <h1 style="display: none" data-value = ${postID}></h1>
                             <a href="https://contextr.io/users/${posteeUsername}"><h3>@${posteeUsername}</h3></a>
@@ -285,9 +293,9 @@ $(document).ready(function () {
                             <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                         </div>
                     </div>`)
-                        $('.content-area > .container').append(htmlString)
-                            }else{
-                                let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
+                                        $('.content-area > .container').append(htmlString)
+                                    } else {
+                                        let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
                         <div class="post-header">
                             <h1 style="display: none" data-value = ${postID}></h1>
                             <a href="https://contextr.io/users/${posteeUsername}"><h3>@${posteeUsername}</h3></a>
@@ -316,11 +324,11 @@ $(document).ready(function () {
                             <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                         </div>
                     </div>`)
-                        $('.content-area > .container').append(htmlString)
-                            }
-                        }else{
-                            if (numComments ==1){
-                            let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
+                                        $('.content-area > .container').append(htmlString)
+                                    }
+                                } else {
+                                    if (numComments == 1) {
+                                        let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
                         <div class="post-header">
                             <h1 style="display: none" data-value = ${postID}></h1>
                             <a href="https://contextr.io/users/${posteeUsername}"><h3>@${posteeUsername}</h3></a>
@@ -349,9 +357,9 @@ $(document).ready(function () {
                             <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                         </div>
                     </div>`)
-                        $('.content-area > .container').append(htmlString)
-                            }else{
-                                let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
+                                        $('.content-area > .container').append(htmlString)
+                                    } else {
+                                        let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
                         <div class="post-header">
                             <h1 style="display: none" data-value = ${postID}></h1>
                             <a href="https://contextr.io/users/${posteeUsername}"><h3>@${posteeUsername}</h3></a>
@@ -380,42 +388,42 @@ $(document).ready(function () {
                             <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                         </div>
                     </div>`)
-                        $('.content-area > .container').append(htmlString)
+                                        $('.content-area > .container').append(htmlString)
+                                    }
+                                }
                             }
-                        }
-                    }
-                })
-            })
-            if (numComments > 3) {
-                firebase.firestore().collection('posts').doc(postID).get().then(async function () {
-                        console.log("run")
-                        var count = 1
-                        for (const [key, value] of Object.entries(comments)) {
-                            let time = key
-                            let commentUserID = value[0]
-                            let commentString = value[1]
-                            if (count < 3){
-                                await firebase.firestore().collection('users').doc(commentUserID).get().then(async function (doc) {
-                                    let commentUsername = await doc.data().name
-                                    let htmlString = htmlToElement(`<div class="individual-comments" id="${time + commentUserID}">
+                        })
+                    })
+                    if (numComments > 3) {
+                        firebase.firestore().collection('posts').doc(postID).get().then(async function () {
+                            console.log("run")
+                            var count = 1
+                            for (const [key, value] of Object.entries(comments)) {
+                                let time = key
+                                let commentUserID = value[0]
+                                let commentString = value[1]
+                                if (count < 3) {
+                                    await firebase.firestore().collection('users').doc(commentUserID).get().then(async function (doc) {
+                                        let commentUsername = await doc.data().name
+                                        let htmlString = htmlToElement(`<div class="individual-comments" id="${time + commentUserID}">
                                     <div class="container-individual-comments">
                                         <a href="https://contextr.io/users/${commentUsername}"><h6>@${commentUsername}</h6></a>
                                         <p>${commentString}</p>
                                     </div>
                                     <h4>${dhm(new Date().getTime() - time)}</h4>
                                 </div>`)
-                                    document.getElementById(postID).appendChild(htmlString)
-                                })
-                                await firebase.storage().ref().child('users/' + commentUserID + '/profile').getDownloadURL().then(async function (result) {
-                                    var imgUrl = await result
-                                    let imgString = htmlToElement(`<img src=${imgUrl}/>`)
-                                    document.getElementById(time + commentUserID).prepend(imgString)
-                                })
-                                count += 1;
-                            }else if (count == 3){
-                                await firebase.firestore().collection('users').doc(commentUserID).get().then(async function (doc) {
-                                    let commentUsername = await doc.data().name
-                                    let htmlString = htmlToElement(`<div class="individual-comments" id="${time + commentUserID}">
+                                        document.getElementById(postID).appendChild(htmlString)
+                                    })
+                                    await firebase.storage().ref().child('users/' + commentUserID + '/profile').getDownloadURL().then(async function (result) {
+                                        var imgUrl = await result
+                                        let imgString = htmlToElement(`<img src=${imgUrl}/>`)
+                                        document.getElementById(time + commentUserID).prepend(imgString)
+                                    })
+                                    count += 1;
+                                } else if (count == 3) {
+                                    await firebase.firestore().collection('users').doc(commentUserID).get().then(async function (doc) {
+                                        let commentUsername = await doc.data().name
+                                        let htmlString = htmlToElement(`<div class="individual-comments" id="${time + commentUserID}">
                                     <div class="container-individual-comments">
                                         <a href="https://contextr.io/users/${commentUsername}"><h6>@${commentUsername}</h6></a>
                                         <p>${commentString}</p>
@@ -423,65 +431,65 @@ $(document).ready(function () {
                                     </div>
                                     <h4>${dhm(new Date().getTime() - time)}</h4>
                                 </div>`)
-                                    document.getElementById(postID).appendChild(htmlString)
-                                })
-                                await firebase.storage().ref().child('users/' + commentUserID + '/profile').getDownloadURL().then(async function (result) {
-                                    var imgUrl = await result
-                                    let imgString = htmlToElement(`<img src=${imgUrl}/>`)
-                                    document.getElementById(time + commentUserID).prepend(imgString)
-                                })
-                                count += 1
-                            }else{
-                                await firebase.firestore().collection('users').doc(commentUserID).get().then(async function (doc) {
-                                    let commentUsername = await doc.data().name
-                                    let htmlString = htmlToElement(`<div style="display: none" class="individual-comments" id="${time + commentUserID}">
+                                        document.getElementById(postID).appendChild(htmlString)
+                                    })
+                                    await firebase.storage().ref().child('users/' + commentUserID + '/profile').getDownloadURL().then(async function (result) {
+                                        var imgUrl = await result
+                                        let imgString = htmlToElement(`<img src=${imgUrl}/>`)
+                                        document.getElementById(time + commentUserID).prepend(imgString)
+                                    })
+                                    count += 1
+                                } else {
+                                    await firebase.firestore().collection('users').doc(commentUserID).get().then(async function (doc) {
+                                        let commentUsername = await doc.data().name
+                                        let htmlString = htmlToElement(`<div style="display: none" class="individual-comments" id="${time + commentUserID}">
                                     <div class="container-individual-comments">
                                         <a href="https://contextr.io/users/${commentUsername}"><h6>@${commentUsername}</h6></a>
                                         <p>${commentString}</p>
                                     </div>
                                     <h4>${dhm(new Date().getTime() - time)}</h4>
                                 </div>`)
-                                    document.getElementById(postID).appendChild(htmlString)
-                                })
-                                await firebase.storage().ref().child('users/' + commentUserID + '/profile').getDownloadURL().then(async function (result) {
-                                    var imgUrl = await result
-                                    let imgString = htmlToElement(`<img src=${imgUrl}/>`)
-                                    document.getElementById(time + commentUserID).prepend(imgString)
-                                })
+                                        document.getElementById(postID).appendChild(htmlString)
+                                    })
+                                    await firebase.storage().ref().child('users/' + commentUserID + '/profile').getDownloadURL().then(async function (result) {
+                                        var imgUrl = await result
+                                        let imgString = htmlToElement(`<img src=${imgUrl}/>`)
+                                        document.getElementById(time + commentUserID).prepend(imgString)
+                                    })
+                                }
                             }
-                        }
-                    })
-            } else {
-                firebase.firestore().collection('posts').doc(postID).get().then(async function () {
-                        console.log("run")
-                        for (const [key, value] of Object.entries(comments)) {
-                            let time = key
-                            let commentUserID = value[0]
-                            let commentString = value[1]
-                            await firebase.firestore().collection('users').doc(commentUserID).get().then(async function (doc) {
-                                let commentUsername = await doc.data().name
-                                let htmlString = htmlToElement(`<div class="individual-comments" id="${time+commentUserID}">
+                        })
+                    } else {
+                        firebase.firestore().collection('posts').doc(postID).get().then(async function () {
+                                console.log("run")
+                                for (const [key, value] of Object.entries(comments)) {
+                                    let time = key
+                                    let commentUserID = value[0]
+                                    let commentString = value[1]
+                                    await firebase.firestore().collection('users').doc(commentUserID).get().then(async function (doc) {
+                                        let commentUsername = await doc.data().name
+                                        let htmlString = htmlToElement(`<div class="individual-comments" id="${time + commentUserID}">
                                 <div class="container-individual-comments">
                                     <a href="https://contextr.io/users/${commentUsername}"><h6>@${commentUsername}</h6></a>
                                     <p>${commentString}</p>
                                 </div>
                                 <h4>${dhm(new Date().getTime() - time)}</h4>
                             </div>`)
-                                document.getElementById(postID).appendChild(htmlString)
-                            })
-                            await firebase.storage().ref().child('users/' + commentUserID + '/profile').getDownloadURL().then(async function (result) {
-                                    var imgUrl = await result
-                                    let imgString = htmlToElement(`<img src=${imgUrl}/>`)
-                                    document.getElementById(time+commentUserID).prepend(imgString)
-                            })
-                        }
+                                        document.getElementById(postID).appendChild(htmlString)
+                                    })
+                                    await firebase.storage().ref().child('users/' + commentUserID + '/profile').getDownloadURL().then(async function (result) {
+                                        var imgUrl = await result
+                                        let imgString = htmlToElement(`<img src=${imgUrl}/>`)
+                                        document.getElementById(time + commentUserID).prepend(imgString)
+                                    })
+                                }
+                            }
+                        )
                     }
-                )
+                })
             }
-        })
-    }
-    document.getElementsByClassName('details')[0].children[1].innerHTML = "<span>" + totalLikes.toString() + " "+"</span>Likes"
-}
+            document.getElementsByClassName('details')[0].children[1].innerHTML = "<span>" + totalLikes.toString() + " " + "</span>Likes"
+        }
     })
 });
 
@@ -515,14 +523,33 @@ function changeProfilePic(e) {
 // **01/04 needs support for updating requestsOut (on current user), requestsIn (on other users) for when username
 // gets changed. Also split edit into edit username and edit bio.
 
-function changeUserInfo() {
+async function changeUserInfo() {
     var db = firebase.firestore();
     var bioText = document.getElementById("bio").value;
     var nameText = document.getElementById("username").value;
     var username = db.collection("usernames").doc(nameText);
     var flag = false;
+    var bioOnly = false;
     console.log(username);
-
+    await firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            bioOnly = true;
+            const uid = firebase.auth().currentUser.uid;
+            firebase.firestore().collection('users').doc(uid).get().then(function (doc) {
+                document.getElementById('user-bio').innerHTML = bioText
+                if (doc.data().name == nameText) {
+                    db.collection('users').doc('' + uid).update({
+                        bio: bioText,
+                    })
+                }
+            })
+        }
+    })
+    if (bioOnly == true) {
+        $('#modal-container').addClass('out');
+        $('body').removeClass('modal-active');
+        return
+    }
     username.get().then(function (doc) {
         if (doc.exists) {
             window.alert("This username is already in use");
@@ -558,6 +585,10 @@ function changeUserInfo() {
                 }
                 ;
             });
+            document.getElementById('user-bio').innerHTML = bioText
+            document.getElementById('the-username').innerHTML = nameText
+            $('#modal-container').addClass('out');
+            $('body').removeClass('modal-active');
         }
         ;
     });

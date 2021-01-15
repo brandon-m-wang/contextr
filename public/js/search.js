@@ -16,9 +16,8 @@
 //     return result;
 // }
 
-async function findNames() {
+async function findNames(searchTerm) {
     var names = [];
-    var searchTerm = document.getElementById("query").value.toLowerCase();
     var numNames = 10; //Change to number that will fit on screen
     let usernames = firebase.firestore().collection('usernames');
     if(searchTerm.length != 0){

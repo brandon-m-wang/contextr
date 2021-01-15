@@ -85,9 +85,9 @@ top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); filter: drop-
             <div class="username-and-details">
                 <h3 id="the-username">@Username</h3>
                 <div class="details">
-                    <h6><span>12 </span>Citations</h6>
-                    <h6><span>142 </span>Likes</h6>
-                    <h6><span>15 </span>Friends</h6>
+                    <h6><span>- </span>Citations</h6>
+                    <h6><span>- </span>Likes</h6>
+                    <h6><span>- </span>Friends</h6>
                 </div>
                 <p id="user-bio">Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                     labore et dolore magna aliqua.</p>

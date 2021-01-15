@@ -262,6 +262,10 @@ textarea:focus, input:focus{
     margin: 1rem 0;
 }
 
+#submit:focus{
+    outline: none;
+}
+
 #username{
     width: 30%;
     font-family: Quicksand;

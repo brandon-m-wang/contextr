@@ -31,7 +31,7 @@ $(document).ready(async function () {
         }else{
             return days+"d " + hours + "h " + minutes + "m ago"
         }
-        
+
     }
 
     function getPostDate(postID){
@@ -83,6 +83,10 @@ $(document).ready(async function () {
                         container.appendChild(editDetails);
                     } else {
                         firebase.firestore().collection("users").doc(userID).get().then(function (subdoc) {
+                            let friends = subdoc.data().friends
+                            let allPosts = subdoc.data().posts
+                            document.getElementsByClassName('details')[0].children[2].innerHTML = "<span>" + friends.length.toString() + " "+"</span>Friends"
+                            document.getElementsByClassName('details')[0].children[0].innerHTML = "<span>" + allPosts.length.toString() + " "+"</span>Citations"
                             if (subdoc.data().friends.includes(uid)) {
                                 const addFriend = htmlToElement("<div class='add-friend' id='five'" +
                                     "style='background-color: rgba(82,169,88," +
@@ -124,10 +128,10 @@ $(document).ready(async function () {
                                 console.log(liked)
                                 var unorderedComments = doc.data().comments
                                 var comments = Object.keys(unorderedComments).sort().reduce(
-                                    (obj, key) => { 
-                                      obj[key] = unorderedComments[key]; 
+                                    (obj, key) => {
+                                      obj[key] = unorderedComments[key];
                                       return obj;
-                                    }, 
+                                    },
                                     {}
                                   );
                                 var transformedComments = new Map();
@@ -135,6 +139,7 @@ $(document).ready(async function () {
                                     transformedComments.set(String(e), comments[e]);
                                 });
                                 var numComments = transformedComments.size
+                                document.getElementsByClassName('details')[0].children[1].innerHTML = "<span>" + transformedLikes.size.toString() + " "+"</span>Likes"
                                 firebase.firestore().collection('users').doc(poster).get().then(function (doc) {
                                     var posterUsername = doc.data().name
                                     firebase.firestore().collection('users').doc(postee).get().then(function (doc) {

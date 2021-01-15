@@ -396,7 +396,7 @@ textarea::placeholder{
 
 .request-actions a{
     color: white;
-    font-size: 0.6rem;
+    font-size: 0.75rem;
 }
 
 .see-all {
@@ -731,7 +731,7 @@ textarea::placeholder{
 .request-actions > *{
     text-align: center;
     background: rgba(0, 0, 0, 0.5);
-    padding: 0.35rem;
+    padding: 0.2rem 0;
     border-radius: 3px;
     margin: 0.1rem 0;
     width: 45px;
@@ -871,7 +871,7 @@ textarea:focus, input:focus{
 }
 
 html.modal-active, body.modal-active {
-    position: fixed;
+    position: fixed; overflow-y:scroll;
     width: 100%;
 }
 

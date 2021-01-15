@@ -7,7 +7,26 @@ $(document).ready(function () {
         return template.content.firstChild;
     }
 
-    
+    async function findNames(searchTerm) {
+        var names = [];
+        var numNames = 10; //Change to number that will fit on screen
+        let usernames = firebase.firestore().collection('usernames');
+        if (searchTerm.length != 0) {
+            await usernames.get().then(async function (name) {
+                for (doc of name.docs) {
+                    if (names.length >= numNames) {
+                        break;
+                    }
+                    if (doc.id.substring(0, searchTerm.length) == searchTerm) {
+                        names.push(doc.data().username);
+                    }
+                }
+            });
+        }
+        return names;
+    }
+
+
     var friendRequests = document.getElementsByClassName("requests")[0];
 
     firebase.auth().onAuthStateChanged(async function (user) {
@@ -106,7 +125,7 @@ $(document).ready(function () {
                                         firebase.firestore().collection("userspublic").doc(requestID).update({
                                             requestsIn: firebase.firestore.FieldValue.arrayRemove(userID)
                                         })
-                                        document.getElementById('@'+requestUsername).style.display = "none"
+                                        document.getElementById('@' + requestUsername).style.display = "none"
                                     })
                                 }
                             })
@@ -151,7 +170,7 @@ $(document).ready(function () {
         $('#requests-toggle').css("opacity", "1").css("text-shadow", "0px 0px 5px #fff")
         $('#search-toggle').css("opacity", "0.6").css("text-shadow", "none")
         $('.requests').css("display", "flex")
-        $('.search-bar').css("display", "none")
+        $('.search-pop').css("display", "none")
     })
 
     $('#search-toggle').click(function () {
@@ -160,7 +179,72 @@ $(document).ready(function () {
         $('#search-toggle').css("opacity", "1").css("text-shadow", "0px 0px 5px #fff")
         $('#requests-toggle').css("opacity", "0.6").css("text-shadow", "none")
         $('.requests').css("display", "none")
-        $('.search-bar').css("display", "flex")
+        $('.search-pop').css("display", "flex")
+    })
+
+    let timeout = null;
+    $('#query').on('input', async function () {
+        clearTimeout(timeout);
+
+        timeout = setTimeout(async function () {
+            $('.search-pop').children().not(':first-child').remove();
+            var search = $('#query').val().toLowerCase()
+            var loadArray = await findNames(search)
+            console.log(loadArray)
+            if (loadArray.length == 0) {
+                let htmlString = htmlToElement(`<h6 style="margin: 2rem 0 0 0; color: white;">No results</h6>`)
+                $('.search-pop').append(htmlString)
+            }
+            for (let i = 0; i < loadArray.length; i++) {
+                await firebase.auth().onAuthStateChanged(async function (user) {
+                    if (user) {
+                        var userID = firebase.auth().currentUser.uid;
+                        await firebase.firestore().collection('users').doc(loadArray[i]).get().then(function (doc) {
+                            var searchedUser = doc.data().name
+                            var searchedUserFriends = doc.data().friends
+                            var searchedUserBio = doc.data().bio
+                            var searchedUserBioSub = doc.data().bio.substr(0, 19)
+                            if (searchedUserFriends.includes(userID)) {
+                                let htmlString = htmlToElement(`<div id = "${'search' + searchedUser}" class="friend" style="visibility: hidden">
+                                <div class="friend-info">
+                                <h6 style="margin: 0; color: white;">@${searchedUser}</h6>
+                                <p style="margin: 0.5rem 0; color: white; font-size: 0.75rem;">${(searchedUserBio.length > 19) ? searchedUserBioSub + "..." : searchedUserBio}</p>
+                                <i class="fas fa-check" style="color: green; margin: 0"></i>
+                                </div>
+                            </div>`
+                                )
+                                $('.search-pop').append(htmlString)
+                            } else {
+                                let htmlString = htmlToElement(`<div id = "${'search' + searchedUser}" class="friend" style="visibility: hidden">
+                                <div class="friend-info">
+                                <h6 style="margin: 0; color: white;">@${searchedUser}</h6>
+                                <p style="margin: 0.5rem 0; color: white; font-size: 0.75rem;">${(searchedUserBio.length > 19) ? searchedUserBioSub + "..." : searchedUserBio}</p>
+                                <a href="https://contextr.io/users/${searchedUser}" style="background: rgba(0, 0, 0, 0.3);
+                                color: white;
+                                text-align: center;
+                                border-radius: 5px;
+                                font-size: 0.9rem;
+                                width: 3.5rem;
+                                padding: 2px 0;">View</a>
+                                </div>
+                            </div>`
+                                )
+                                $('.search-pop').append(htmlString)
+                            }
+                            firebase.storage().ref().child('users/' + loadArray[i] + '/profile').getDownloadURL().then(function (result) {
+                                var imgUrl = result;
+                                let imgString = htmlToElement(`<img style="height: 75px; width: 75px; margin-top: 0.25rem" src="${imgUrl}"/>`)
+                                document.getElementById('search' + searchedUser).prepend(imgString);
+                                document.getElementById('search' + searchedUser).getElementsByTagName('img')[0].onload = function () {
+                                    document.getElementById('search' + searchedUser).style.visibility = 'visible'
+                                    document.getElementById('search' + searchedUser).style.margin = '2rem 0 0 0'
+                                };
+                            })
+                        })
+                    }
+                })
+            }
+        }, 1000);
     })
 
 });
