@@ -690,7 +690,7 @@ $(document).ready(function () {
                     }
                 });
             })
-            $('.like').on('click', (e) => {
+            $(document).on('click', '.like', (e) => {
                 firebase.auth().onAuthStateChanged(function (user) {
                     if (user) {
                         var postID = $(e.target).parent().parent().parent().find('h1').attr('data-value');
@@ -700,13 +700,21 @@ $(document).ready(function () {
                             // if(doc.data().likes.contains(userID)){
                             if (userID in doc.data().likes) {
                                 //Unlike post if liked
-                                console.log("liked already");
                                 $(e.target).css({
                                     'background': 'linear-gradient(to bottom, rgb(136, 123, 176) 0%,' +
                                         ' rgba(203, 157, 156, 1) 100%)',
                                     '-webkit-text-fill-color': 'transparent',
                                     '-webkit-background-clip': 'text'
                                 })
+                                let numLikesString = $(e.target).parent().parent().find('.post-stats').children().eq(1).html()
+                                let numLikes = numLikesString.match(/\d/g);
+                                numLikes = parseInt(numLikes.join(""))
+                                let newLikes = numLikes - 1
+                                if(numLikes == 2){
+                                    $(e.target).parent().parent().find('.post-stats').children().eq(1).html(newLikes.toString() + ' Like')
+                                }else{
+                                    $(e.target).parent().parent().find('.post-stats').children().eq(1).html(newLikes.toString() + ' Likes')
+                                }
                                 post.set({
                                     "likes": {
                                         [userID]: firebase.firestore.FieldValue.delete()
@@ -714,11 +722,19 @@ $(document).ready(function () {
                                 }, {merge: true});
                             } else {
                                 //Like post if not liked already
-                                console.log("not liked already");
                                 $(e.target).css({
                                     'background': 'transparent',
                                     '-webkit-text-fill-color': 'mediumvioletred'
                                 })
+                                let numLikesString = $(e.target).parent().parent().find('.post-stats').children().eq(1).html()
+                                let numLikes = numLikesString.match(/\d/g);
+                                numLikes = parseInt(numLikes.join(""))
+                                let newLikes = numLikes + 1
+                                if(numLikes == 0){
+                                    $(e.target).parent().parent().find('.post-stats').children().eq(1).html(newLikes.toString() + ' Like')
+                                }else{
+                                    $(e.target).parent().parent().find('.post-stats').children().eq(1).html(newLikes.toString() + ' Likes')
+                                }
                                 post.set({
                                     "likes": {
                                         [userID]: true

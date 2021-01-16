@@ -26,6 +26,31 @@ $(document).ready(function () {
         return names;
     }
 
+    let friendTimeout = null;
+    $(document).on('click', '.remove', function (e) {
+        clearTimeout(friendTimeout);
+        var friendToRemove = $(e.target).parent().parent().find('h6').html().substr(1)
+        console.log(friendToRemove)
+        firebase.auth().onAuthStateChanged(async function (user) {
+            if (user) {
+                var userID = firebase.auth().currentUser.uid;
+                firebase.firestore().collection('usernames').doc(friendToRemove).get().then(function (doc) {
+                    var friendToRemoveUID = doc.data().username
+                    firebase.firestore().collection('users').doc(friendToRemoveUID).update({
+                        friends: firebase.firestore.FieldValue.arrayRemove(userID)
+                    })
+                    firebase.firestore().collection('users').doc(userID).update({
+                        friends: firebase.firestore.FieldValue.arrayRemove(friendToRemoveUID)
+                    })
+                })
+            }
+        })
+        e.target.innerHTML = 'Removing...'
+        e.target.style.width = '50px'
+        friendTimeout = setTimeout(function () {
+            $(e.target).parent().parent().remove()
+        }, 1000)
+    })
 
     var friendRequests = document.getElementsByClassName("requests")[0];
 
@@ -88,7 +113,6 @@ $(document).ready(function () {
                                 </div>
                                 <div class="friend-actions">
                                     <a class="Remove">Remove</a>
-                                    <a class="Report">Report</a>
                                 </div>
                             </div>`)
                                             document.getElementById(name).style.display = "none"
@@ -146,7 +170,6 @@ $(document).ready(function () {
                             </div>
                             <div class="friend-actions">
                                 <a class="remove">Remove</a>
-                                <a class="report">Report</a>
                             </div>
                         </div>`)
                         document.getElementsByClassName('friends-container')[0].appendChild(htmlString)

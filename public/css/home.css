@@ -738,6 +738,20 @@ textarea::placeholder{
     cursor: pointer;
 }
 
+.delete-post{
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0.2rem 0;
+    border-radius: 3px;
+    margin: 0.1rem 0;
+    width: 60px;
+    position: absolute;
+    right: 1rem;
+    color: white;
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+
 .request-actions > a > h5{
     color: white;
     font-size: 0.75rem;

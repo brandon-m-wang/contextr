@@ -14,6 +14,80 @@ $(document).ready(function () {
             }
         })
     })
+    $(document).on('click', '.like', (e) => {
+                firebase.auth().onAuthStateChanged(function (user) {
+                    if (user) {
+                        var postID = $(e.target).parent().parent().parent().find('h1').attr('data-value');
+                        var userID = firebase.auth().currentUser.uid;
+                        var post = firebase.firestore().collection('posts').doc(postID);
+                        post.get().then(async function (doc) {
+                            // if(doc.data().likes.contains(userID)){
+                            if (userID in doc.data().likes) {
+                                //Unlike post if liked
+                                $(e.target).css({
+                                    'background': 'linear-gradient(to bottom, rgb(136, 123, 176) 0%,' +
+                                        ' rgba(203, 157, 156, 1) 100%)',
+                                    '-webkit-text-fill-color': 'transparent',
+                                    '-webkit-background-clip': 'text'
+                                })
+                                let numLikesString = $(e.target).parent().parent().find('.post-stats').children().eq(1).html()
+                                let numLikes = numLikesString.match(/\d/g);
+                                numLikes = parseInt(numLikes.join(""))
+                                let newLikes = numLikes - 1
+                                if(numLikes == 2){
+                                    $(e.target).parent().parent().find('.post-stats').children().eq(1).html(newLikes.toString() + ' Like')
+                                }else{
+                                    $(e.target).parent().parent().find('.post-stats').children().eq(1).html(newLikes.toString() + ' Likes')
+                                }
+                                post.set({
+                                    "likes": {
+                                        [userID]: firebase.firestore.FieldValue.delete()
+                                    }
+                                }, {merge: true});
+                            } else {
+                                //Like post if not liked already
+                                $(e.target).css({
+                                    'background': 'transparent',
+                                    '-webkit-text-fill-color': 'mediumvioletred'
+                                })
+                                let numLikesString = $(e.target).parent().parent().find('.post-stats').children().eq(1).html()
+                                let numLikes = numLikesString.match(/\d/g);
+                                numLikes = parseInt(numLikes.join(""))
+                                let newLikes = numLikes + 1
+                                if(numLikes == 0){
+                                    $(e.target).parent().parent().find('.post-stats').children().eq(1).html(newLikes.toString() + ' Like')
+                                }else{
+                                    $(e.target).parent().parent().find('.post-stats').children().eq(1).html(newLikes.toString() + ' Likes')
+                                }
+                                post.set({
+                                    "likes": {
+                                        [userID]: true
+                                    }
+                                }, {merge: true});
+                            }
+                        })
+                    }
+                });
+            })
+    let timeout = null;
+    $(document).on('click', '.delete-post', async function (e) {
+        clearTimeout(timeout);
+        var postToDelete = $(e.target).parent().parent().attr('id')
+        await firebase.auth().onAuthStateChanged(async function (user) {
+            if (user) {
+                const userID = firebase.auth().currentUser.uid;
+                firebase.firestore().collection('users').doc(userID).update({
+                    posts: firebase.firestore.FieldValue.arrayRemove(postToDelete)
+                })
+                firebase.firestore().collection('posts').doc(postToDelete).delete()
+            }
+        })
+        e.target.innerHTML = 'Removing...'
+        e.target.style.width = '75px';
+        timeout = setTimeout(async function () {
+            $(e.target).parent().parent().remove()
+        }, 1000)
+    })
 
     $(document).on('click', function (event) {
         if (event.target.className == "comment" || $.inArray("post-the-comment", event.target.classList) !== -1) {
@@ -137,6 +211,7 @@ $(document).ready(function () {
                             <a href="https://contextr.io/users/${posteeUsername}"><h3>@${posteeUsername}</h3></a>
                             <a href="https://contextr.io/users/${posterUsername}"><h4>Quoted by: @${posterUsername}</h4></a>
                             <h4>${dateFormatted}</h4>
+                            <a class="delete-post">Remove</a>
                         </div>
                         <div class="post-quote">
                             <img class="funky-quote-open" src="../assets/quote-open.png"/>
@@ -168,6 +243,7 @@ $(document).ready(function () {
                                     <a href="https://contextr.io/users/${posteeUsername}"><h3>@${posteeUsername}</h3></a>
                                     <a href="https://contextr.io/users/${posterUsername}"><h4>Quoted by: @${posterUsername}</h4></a>
                                     <h4>${dateFormatted}</h4>
+                                    <a class="delete-post">Remove</a>
                                 </div>
                                 <div class="post-quote">
                                     <img class="funky-quote-open" src="../assets/quote-open.png"/>
@@ -202,6 +278,7 @@ $(document).ready(function () {
                             <a href="https://contextr.io/users/${posteeUsername}"><h3>@${posteeUsername}</h3></a>
                             <a href="https://contextr.io/users/${posterUsername}"><h4>Quoted by: @${posterUsername}</h4></a>
                             <h4>${dateFormatted}</h4>
+                            <a class="delete-post">Remove</a>
                         </div>
                         <div class="post-quote">
                             <img class="funky-quote-open" src="../assets/quote-open.png"/>
@@ -234,6 +311,7 @@ $(document).ready(function () {
                                     <a href="https://contextr.io/users/${posteeUsername}"><h3>@${posteeUsername}</h3></a>
                                     <a href="https://contextr.io/users/${posterUsername}"><h4>Quoted by: @${posterUsername}</h4></a>
                                     <h4>${dateFormatted}</h4>
+                                    <a class="delete-post">Remove</a>
                                 </div>
                                 <div class="post-quote">
                                     <img class="funky-quote-open" src="../assets/quote-open.png"/>
@@ -270,6 +348,7 @@ $(document).ready(function () {
                             <a href="https://contextr.io/users/${posteeUsername}"><h3>@${posteeUsername}</h3></a>
                             <a href="https://contextr.io/users/${posterUsername}"><h4>Quoted by: @${posterUsername}</h4></a>
                             <h4>${dateFormatted}</h4>
+                            <a class="delete-post">Remove</a>
                         </div>
                         <div class="post-quote">
                             <img class="funky-quote-open" src="../assets/quote-open.png"/>
@@ -301,6 +380,7 @@ $(document).ready(function () {
                             <a href="https://contextr.io/users/${posteeUsername}"><h3>@${posteeUsername}</h3></a>
                             <a href="https://contextr.io/users/${posterUsername}"><h4>Quoted by: @${posterUsername}</h4></a>
                             <h4>${dateFormatted}</h4>
+                            <a class="delete-post">Remove</a>
                         </div>
                         <div class="post-quote">
                             <img class="funky-quote-open" src="../assets/quote-open.png"/>
@@ -334,6 +414,7 @@ $(document).ready(function () {
                             <a href="https://contextr.io/users/${posteeUsername}"><h3>@${posteeUsername}</h3></a>
                             <a href="https://contextr.io/users/${posterUsername}"><h4>Quoted by: @${posterUsername}</h4></a>
                             <h4>${dateFormatted}</h4>
+                            <a class="delete-post">Remove</a>
                         </div>
                         <div class="post-quote">
                             <img class="funky-quote-open" src="../assets/quote-open.png"/>
@@ -365,6 +446,7 @@ $(document).ready(function () {
                             <a href="https://contextr.io/users/${posteeUsername}"><h3>@${posteeUsername}</h3></a>
                             <a href="https://contextr.io/users/${posterUsername}"><h4>Quoted by: @${posterUsername}</h4></a>
                             <h4>${dateFormatted}</h4>
+                            <a class="delete-post">Remove</a>
                         </div>
                         <div class="post-quote">
                             <img class="funky-quote-open" src="../assets/quote-open.png"/>
