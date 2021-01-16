@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style='visibility: hidden; overflow: hidden'>
+<html lang="en" style="visibility: hidden; overflow-x: hidden; position:fixed;">
 <head>
     <meta charset="UTF-8">
     <title>contextr.io / Home</title>
@@ -11,14 +11,33 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
 </head>
 <div id="loading-gif" style="visibility: visible; height: 100vh; width: 100vw;">
-<img src="./assets/loading.gif" style="position: absolute; height: 100px; width: 100px;
-    top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); filter: drop-shadow(0 0 0.5rem dimgrey);"/>
+    <div class="company">
+        <img src="../assets/square-logo-white.png" style="width: 75px; height: 75px;"/>
+    </div>
+    <section class="sidebar-nav">
+        <div class="container">
+            <h3><i class="fas fa-home"></i> <a href="index.html">Home</a></h3>
+            <h3><i class="fas fa-user"></i> <a href="profile.html">Profile</a></h3>
+            <h3 style="text-shadow: 0px 0px 5px #fff;
+    opacity: 1; !important"><i class="fas fa-users"></i> <a href="friends.html">Friends</a></h3>
+            <h3><i class="fas fa-bell"></i> <a href="notifications.html">Notifications</a></h3>
+            <h3><i class="fas fa-question-circle"></i> <a href="help.html">Help</a></h3>
+        </div>
+    </section>
+    <img src="./assets/loading.gif" style="position: absolute; height: 100px; width: 100px;
+    top: 50%; left: 65%; transform: translateX(-50%) translateY(-50%); filter: drop-shadow(0 0 0.5rem dimgrey);"/>
+    <section class="footer">
+        <div class="footer-container">
+            <h6>© 2021 Brandon Wang | build v0.0.1</h6>
+        </div>
+    </section>
 </div>
 <body>
-    <!-- Firebase storage setup Start -->
+<!-- Firebase storage setup Start -->
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
@@ -55,7 +74,7 @@
 <section class="friends">
     <div class="container">
         <div class="friends-container">
-        <h3>FRIENDS LIST</h3>
+            <h3>FRIENDS LIST</h3>
         </div>
         <div class="sidebar">
             <div class="sidebar-select">
@@ -63,14 +82,19 @@
                 <h5 id="requests-toggle">Requests</h5>
             </div>
             <div class="search-pop">
-            <div class="search-bar">
-                <input type="text" id="query" name="query" placeholder="Search for friends..." autocomplete="off">
-            </div>
+                <div class="search-bar">
+                    <input type="text" id="query" name="query" placeholder="Search for friends..." autocomplete="off">
                 </div>
+            </div>
             <div class="requests">
                 <!-- requests will populate here -->
             </div>
-            </div>
+        </div>
+    </div>
+</section>
+<section class="footer">
+    <div class="footer-container">
+        <h6>© 2021 Brandon Wang | build v0.0.1</h6>
     </div>
 </section>
 </body>

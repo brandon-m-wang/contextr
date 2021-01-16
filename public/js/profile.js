@@ -231,7 +231,7 @@ $(document).ready(function () {
                             </div>
                         </div>
                         <div class="post-comments">
-                            <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                            <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                             <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                         </div>
                     </div>`)
@@ -263,7 +263,7 @@ $(document).ready(function () {
                                     </div>
                                 </div>
                                 <div class="post-comments">
-                                    <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                                    <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                                     <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                 </div>
                                 
@@ -298,7 +298,7 @@ $(document).ready(function () {
                             </div>
                         </div>
                         <div class="post-comments">
-                            <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                            <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                             <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                         </div>
                         
@@ -331,7 +331,7 @@ $(document).ready(function () {
                                     </div>
                                 </div>
                                 <div class="post-comments">
-                                    <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                                    <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                                     <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                 </div>
                                 
@@ -368,7 +368,7 @@ $(document).ready(function () {
                             </div>
                         </div>
                         <div class="post-comments">
-                            <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                            <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                             <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                         </div>
                     </div>`)
@@ -400,7 +400,7 @@ $(document).ready(function () {
                             </div>
                         </div>
                         <div class="post-comments">
-                            <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                            <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                             <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                         </div>
                     </div>`)
@@ -434,7 +434,7 @@ $(document).ready(function () {
                             </div>
                         </div>
                         <div class="post-comments">
-                            <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                            <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                             <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                         </div>
                     </div>`)
@@ -466,7 +466,7 @@ $(document).ready(function () {
                             </div>
                         </div>
                         <div class="post-comments">
-                            <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                            <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                             <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                         </div>
                     </div>`)

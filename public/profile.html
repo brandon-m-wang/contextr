@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="visibility: hidden; overflow: hidden;">
+<html lang="en" style="visibility: hidden; overflow-x: hidden; position:fixed;">
 <head>
     <meta charset="UTF-8">
     <title>contextr.io / Home</title>
@@ -15,11 +15,29 @@
           rel="stylesheet">
 </head>
 <div id="loading-gif" style="visibility: visible; height: 100vh; width: 100vw;">
-<img src="./assets/loading.gif" style="position: absolute; height: 100px; width: 100px;
-    top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); filter: drop-shadow(0 0 0.5rem dimgrey);"/>
+    <div class="company">
+        <img src="../assets/square-logo-white.png" style="width: 75px; height: 75px;"/>
+    </div>
+    <section class="sidebar-nav">
+        <div class="container">
+            <h3><i class="fas fa-home"></i> <a href="index.html">Home</a></h3>
+            <h3 style="text-shadow: 0px 0px 5px #fff;
+    opacity: 1; !important"><i class="fas fa-user"></i> <a href="profile.html">Profile</a></h3>
+            <h3><i class="fas fa-users"></i> <a href="friends.html">Friends</a></h3>
+            <h3><i class="fas fa-bell"></i> <a href="notifications.html">Notifications</a></h3>
+            <h3><i class="fas fa-question-circle"></i> <a href="help.html">Help</a></h3>
+        </div>
+    </section>
+    <img src="./assets/loading.gif" style="position: absolute; height: 100px; width: 100px;
+    top: 50%; left: 65%; transform: translateX(-50%) translateY(-50%); filter: drop-shadow(0 0 0.5rem dimgrey);"/>
+    <section class="footer">
+        <div class="footer-container">
+            <h6>© 2021 Brandon Wang | build v0.0.1</h6>
+        </div>
+    </section>
 </div>
 <body>
-    <!-- Firebase storage setup Start -->
+<!-- Firebase storage setup Start -->
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
@@ -60,9 +78,10 @@
         <div class="modal" id="the-modal">
             <form action="">
                 <label for="username">Username:</label><br>
-                <input type="text" id="username" name="username" placeholder="Username..." autocomplete="off"><br><br>
+                <input type="text" id="username" name="username" placeholder="Username..." autocomplete="off"
+                       maxlength=10><br><br>
                 <label for="bio">Bio:</label><br>
-                <textarea id="bio" rows="4" placeholder="Bio..."></textarea><br>
+                <textarea id="bio" rows="4" placeholder="Bio..." maxlength=80></textarea><br>
                 <button id="submit" onclick="changeUserInfo(); return false">Save</button>
             </form>
             <rect x="0" y="0" fill="none" width="226" height="162" rx="3" ry="3"></rect>
@@ -102,7 +121,12 @@
 </section>
 <section class="content-area">
     <div class="container">
-        
+
+    </div>
+</section>
+<section class="footer">
+    <div class="footer-container">
+        <h6>© 2021 Brandon Wang | build v0.0.1</h6>
     </div>
 </section>
 <script src="./js/buffer.js"></script>

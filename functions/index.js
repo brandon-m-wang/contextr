@@ -5,7 +5,7 @@ admin.initializeApp();
 
 exports.loadUser = functions.https.onRequest((req, res) => {
     res.status(200).send(`<!DOCTYPE html>
-<html lang="en" style="visibility: hidden; overflow: hidden;">
+<html lang="en" style="visibility: hidden; overflow-x: hidden; position: fixed">
 <head>
     <meta charset="UTF-8">
     <title>contextr.io / Home</title>
@@ -21,8 +21,26 @@ exports.loadUser = functions.https.onRequest((req, res) => {
           rel="stylesheet"/>
 </head>
 <div id="loading-gif" style="visibility: visible; height: 100vh; width: 100vw;">
-<img src="/loading.gif" style="position: absolute; height: 100px; width: 100px;
-top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); filter: drop-shadow(0 0 0.5rem dimgrey);"/>
+    <div class="company">
+        <img src="../assets/square-logo-white.png" style="width: 75px; height: 75px;"/>
+    </div>
+    <section class="sidebar-nav">
+        <div class="container">
+            <h3><i class="fas fa-home"></i> <a href="home.html">Home</a></h3>
+            <h3 style="text-shadow: 0px 0px 5px #fff;
+    opacity: 1; !important"><i class="fas fa-user"></i> <a href="profile.html">Profile</a></h3>
+            <h3><i class="fas fa-users"></i> <a href="friends.html">Friends</a></h3>
+            <h3><i class="fas fa-bell"></i> <a href="notifications.html">Notifications</a></h3>
+            <h3><i class="fas fa-question-circle"></i> <a href="help.html">Help</a></h3>
+        </div>
+    </section>
+    <img src="https://contextr.io/loading.gif" style="position: absolute; height: 100px; width: 100px;
+    top: 50%; left: 65%; transform: translateX(-50%) translateY(-50%); filter: drop-shadow(0 0 0.5rem dimgrey);"/>
+    <section class="footer">
+    <div class="footer-container">
+        <h6>© 2021 Brandon Wang | build v0.0.1</h6>
+    </div>
+</section>
 </div>
 <body>
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
@@ -101,6 +119,11 @@ top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); filter: drop-
 <section class="content-area">
     <div class="container">
         
+    </div>
+</section>
+<section class="footer">
+    <div class="footer-container">
+        <h6>© 2021 Brandon Wang | build v0.0.1</h6>
     </div>
 </section>
 <script src="../js/buffer.js"></script>

@@ -25,6 +25,8 @@
 }
 
 #user-bio{
+    overflow-wrap: break-word;
+    width: 90%;
 }
 
 .profile-area {
@@ -68,6 +70,7 @@
     margin-left: 2rem;
     display: flex;
     flex-direction: column;
+    width: 70%;
 }
 
 
@@ -723,4 +726,16 @@ html.modal-active, body.modal-active {
     100% {
         transform: scale(0);
     }
+}
+
+.footer{
+    position: fixed;
+    bottom: 0px;
+    width: 30%;
+    text-align: center;
+}
+
+.footer h6{
+    color: white;
+    font-weight: 300;
 }

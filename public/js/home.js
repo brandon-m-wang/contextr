@@ -167,7 +167,7 @@ $(document).ready(function () {
                                     </div>
                                 </div>
                                 <div class="post-comments">
-                                    <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                                    <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                                     <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                 </div>
                             </div>`)
@@ -198,7 +198,7 @@ $(document).ready(function () {
                                             </div>
                                         </div>
                                         <div class="post-comments">
-                                            <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                                            <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                                             <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                         </div>
                                         
@@ -232,7 +232,7 @@ $(document).ready(function () {
                                     </div>
                                 </div>
                                 <div class="post-comments">
-                                    <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                                    <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                                     <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                 </div>
                                 
@@ -264,7 +264,7 @@ $(document).ready(function () {
                                             </div>
                                         </div>
                                         <div class="post-comments">
-                                            <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                                            <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                                             <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                         </div>
                                         
@@ -300,7 +300,7 @@ $(document).ready(function () {
                                     </div>
                                 </div>
                                 <div class="post-comments">
-                                    <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                                    <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                                     <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                 </div>
                             </div>`)
@@ -331,7 +331,7 @@ $(document).ready(function () {
                                     </div>
                                 </div>
                                 <div class="post-comments">
-                                    <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                                    <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                                     <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                 </div>
                             </div>`)
@@ -364,7 +364,7 @@ $(document).ready(function () {
                                     </div>
                                 </div>
                                 <div class="post-comments">
-                                    <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                                    <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                                     <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                 </div>
                             </div>`)
@@ -395,7 +395,7 @@ $(document).ready(function () {
                                     </div>
                                 </div>
                                 <div class="post-comments">
-                                    <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                                    <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                                     <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                 </div>
                             </div>`)
@@ -500,6 +500,11 @@ $(document).ready(function () {
                 })
             }
             await firebase.firestore().collection("users").doc(userID).get().then(async function (doc) {
+                if (doc.data().friends.length == 0){
+                    $('.see-all').css('display', 'none');
+                    $('.prompt').find('h3').html("Add some friends in the 'Friends' tab");
+                    $('.prompt').css('padding-bottom', '0');
+                }
                 for (let i = 0; i < doc.data().friends.length && i < 6; i++) {
                     var friendID = await doc.data().friends[i]
                     await firebase.firestore().collection("users").doc(friendID).get().then(async function (doc) {
@@ -517,7 +522,7 @@ $(document).ready(function () {
                 }
                 document.getElementById("loading-gif").style.display = "none";
                 document.getElementsByTagName("html")[0].style.visibility = "visible";
-                document.getElementsByTagName("html")[0].style.overflow = '';
+                document.getElementsByTagName("html")[0].style.position = '';
                 for (let i = 0; i < doc.data().friends.length; i++) {
                     var friendID = await doc.data().friends[i]
                     await firebase.firestore().collection("users").doc(friendID).get().then(async function (doc) {
@@ -605,10 +610,14 @@ $(document).ready(function () {
                     'margin-bottom': '130px',
                     'opacity': '1',
                     'pointer-events': 'all',
-                    'cursor': 'pointer'
                 });
                 //write cite function
                 document.getElementById('currently-citing').innerHTML = "Currently citing: " + $('p', this).attr('id')
+            })
+
+            $('#post-text').on('input', function() {
+                var charCount = document.getElementById('post-text').value.length
+                document.getElementById('num-chars').innerHTML = "Characters: " + charCount.toString() + "/175"
             })
 
             $('#cancel').click(function () {

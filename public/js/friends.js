@@ -112,7 +112,7 @@ $(document).ready(function () {
                                 <p>${bio}</p>
                                 </div>
                                 <div class="friend-actions">
-                                    <a class="Remove">Remove</a>
+                                    <a class="remove">Remove</a>
                                 </div>
                             </div>`)
                                             document.getElementById(name).style.display = "none"
@@ -165,7 +165,7 @@ $(document).ready(function () {
                         var bio = doc.data().bio
                         let htmlString = htmlToElement(`<div class="friend" id=${"friend" + i.toString()}>
                             <div class="friend-info">
-                                <h6>${name}</h6>
+                                <a href="https://contextr.io/users/${name.replace('@', '')}"><h6>${name}</h6></a>
                                 <p>${bio}</p>
                             </div>
                             <div class="friend-actions">
@@ -182,7 +182,7 @@ $(document).ready(function () {
                 }
                 document.getElementById("loading-gif").style.display = "none";
                 document.getElementsByTagName("html")[0].style.visibility = "visible";
-                document.getElementsByTagName("html")[0].style.overflow = '';
+                document.getElementsByTagName("html")[0].style.position = '';
             });
         }
     });

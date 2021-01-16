@@ -1,4 +1,4 @@
-<html lang="en" style="visibility: hidden; overflow: hidden">
+<html lang="en" style="visibility: hidden; overflow-x: hidden; position: fixed;">
 <head>
     <meta charset="UTF-8">
     <title>contextr.io / Home</title>
@@ -15,8 +15,26 @@
     <!-- Connect js files -->
 </head>
 <div id="loading-gif" style="visibility: visible; height: 100vh; width: 100vw;">
+    <div class="company">
+        <img src="../assets/square-logo-white.png" style="width: 75px; height: 75px;"/>
+    </div>
+    <section class="sidebar-nav">
+        <div class="container">
+            <h3 style="text-shadow: 0px 0px 5px #fff;
+    opacity: 1; !important"><i class="fas fa-home"></i> <a href="index.html">Home</a></h3>
+            <h3><i class="fas fa-user"></i> <a href="profile.html">Profile</a></h3>
+            <h3><i class="fas fa-users"></i> <a href="friends.html">Friends</a></h3>
+            <h3><i class="fas fa-bell"></i> <a href="notifications.html">Notifications</a></h3>
+            <h3><i class="fas fa-question-circle"></i> <a href="help.html">Help</a></h3>
+        </div>
+    </section>
     <img src="./assets/loading.gif" style="position: absolute; height: 100px; width: 100px;
-    top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); filter: drop-shadow(0 0 0.5rem dimgrey);"/>
+    top: 50%; left: 65%; transform: translateX(-50%) translateY(-50%); filter: drop-shadow(0 0 0.5rem dimgrey);"/>
+    <section class="footer">
+    <div class="footer-container">
+        <h6>© 2021 Brandon Wang | build v0.0.1</h6>
+    </div>
+</section>
 </div>
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -76,7 +94,7 @@
             <button class="see-all" id="five"></button>
         </div>
         <div class="prompt-dropdown">
-            <textarea id="post-text" rows="3" placeholder="Be ruthless..."></textarea>
+            <textarea id="post-text" rows="3" placeholder="Be ruthless..." maxlength=175></textarea>
             <i class="fas fa-chevron-circle-left" id="slide-left"></i>
             <i class="fas fa-chevron-circle-right" id="slide-right"></i>
             <div class="post-style-selections-container">
@@ -91,6 +109,7 @@
             </div>
             <div class="prompt-dropdown-actions-container">
                 <h3 id="currently-citing">Currently citing: Username</h3>
+                <h3 id="num-chars">Characters: 0/175</h3>
                 <button class="prompt-dropdown-actions" id="cancel">Cancel</button>
                 <button class="prompt-dropdown-actions" id="confirm">Post</button>
             </div>

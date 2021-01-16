@@ -138,10 +138,6 @@ $(document).ready(async function () {
                             });
                         })
                         firebase.firestore().collection("users").doc(userID).get().then(function (subdoc) {
-                            let friends = subdoc.data().friends
-                            let allPosts = subdoc.data().posts
-                            document.getElementsByClassName('details')[0].children[2].innerHTML = "<span>" + friends.length.toString() + " " + "</span>Friends"
-                            document.getElementsByClassName('details')[0].children[0].innerHTML = "<span>" + allPosts.length.toString() + " " + "</span>Citations"
                             if (subdoc.data().friends.includes(uid)) {
                                 const addFriend = htmlToElement("<div class='add-friend' id='five'" +
                                     "style='background-color: rgba(82,169,88," +
@@ -163,7 +159,17 @@ $(document).ready(async function () {
                                 }
                             }
                         });
+                        firebase.firestore().collection('users').doc(uid).get().then(function (subdoc){
+                            let friends = subdoc.data().friends
+                            let allPosts = subdoc.data().posts
+                            document.getElementsByClassName('details')[0].children[2].innerHTML = "<span>" + friends.length.toString() + " " + "</span>Friends"
+                            document.getElementsByClassName('details')[0].children[0].innerHTML = "<span>" + allPosts.length.toString() + " " + "</span>Citations"
+                        })
                         //generate nondeleteable posts
+                        if (Object.entries(postsToGenerate).length == 0){
+                            document.getElementsByClassName('details')[0].children[1].innerHTML = "<span>" + "0 " + "</span>Likes"
+                        }
+                        var totalLikes = 0;
                         for (const [key, value] of Object.entries(postsToGenerate)) {
                             console.log("ran")
                             await firebase.firestore().collection('posts').doc(value).get().then(async function (doc) { //can remove await for performance
@@ -180,6 +186,7 @@ $(document).ready(async function () {
                                 });
                                 console.log(transformedLikes)
                                 var liked = transformedLikes.has(userID)
+                                totalLikes += transformedLikes.size;
                                 console.log(liked)
                                 var unorderedComments = doc.data().comments
                                 var comments = Object.keys(unorderedComments).sort().reduce(
@@ -194,7 +201,6 @@ $(document).ready(async function () {
                                     transformedComments.set(String(e), comments[e]);
                                 });
                                 var numComments = transformedComments.size
-                                document.getElementsByClassName('details')[0].children[1].innerHTML = "<span>" + transformedLikes.size.toString() + " " + "</span>Likes"
                                 firebase.firestore().collection('users').doc(poster).get().then(function (doc) {
                                     var posterUsername = doc.data().name
                                     firebase.firestore().collection('users').doc(postee).get().then(function (doc) {
@@ -227,7 +233,7 @@ $(document).ready(async function () {
                                                 </div>
                                             </div>
                                             <div class="post-comments">
-                                                <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                                                <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                                                 <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                             </div>
                                         </div>`)
@@ -258,7 +264,7 @@ $(document).ready(async function () {
                                                         </div>
                                                     </div>
                                                     <div class="post-comments">
-                                                        <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                                                        <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                                                         <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                                     </div>
                                                     
@@ -292,7 +298,7 @@ $(document).ready(async function () {
                                                 </div>
                                             </div>
                                             <div class="post-comments">
-                                                <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                                                <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                                                 <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                             </div>
                                             
@@ -324,7 +330,7 @@ $(document).ready(async function () {
                                                         </div>
                                                     </div>
                                                     <div class="post-comments">
-                                                        <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                                                        <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                                                         <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                                     </div>
                                                     
@@ -360,7 +366,7 @@ $(document).ready(async function () {
                                                 </div>
                                             </div>
                                             <div class="post-comments">
-                                                <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                                                <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                                                 <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                             </div>
                                         </div>`)
@@ -391,7 +397,7 @@ $(document).ready(async function () {
                                                 </div>
                                             </div>
                                             <div class="post-comments">
-                                                <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                                                <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                                                 <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                             </div>
                                         </div>`)
@@ -424,7 +430,7 @@ $(document).ready(async function () {
                                                 </div>
                                             </div>
                                             <div class="post-comments">
-                                                <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                                                <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                                                 <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                             </div>
                                         </div>`)
@@ -455,7 +461,7 @@ $(document).ready(async function () {
                                                 </div>
                                             </div>
                                             <div class="post-comments">
-                                                <textarea class="comment" placeholder="Leave a comment..."></textarea>
+                                                <textarea class="comment" placeholder="Leave a comment..." maxlength=90></textarea>
                                                 <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                             </div>
                                         </div>`)
@@ -559,6 +565,7 @@ $(document).ready(async function () {
                                 }
                             })
                         }
+                        document.getElementsByClassName('details')[0].children[1].innerHTML = "<span>" + totalLikes.toString() + " " + "</span>Likes"
                     }
                 }
             });
@@ -586,7 +593,7 @@ $(document).ready(async function () {
     document.getElementById('pfp').onload = function () {
         document.getElementById("loading-gif").style.display = "none";
         document.getElementsByTagName("html")[0].style.visibility = "visible";
-        document.getElementsByTagName('html')[0].style.overflow = '';
+        document.getElementsByTagName("html")[0].style.position = '';
     }
 });
 

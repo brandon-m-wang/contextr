@@ -271,10 +271,20 @@ textarea::placeholder{
     background-size: 500px auto;
 }
 
-#currently-citing{
+#currently-citing {
     position: absolute;
     bottom: 7.5%;
-    left: 7%;
+    left: 40px;
+    margin: 0;
+    color: white;
+    font-size: 0.8rem;
+    opacity: 0.6;
+}
+
+#num-chars{
+    position: absolute;
+    bottom: 7.5%;
+    left: 250px;
     margin: 0;
     color: white;
     font-size: 0.8rem;
