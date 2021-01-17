@@ -81,6 +81,14 @@ a {
     font-weight: 300;
 }
 
+.sidebar-nav > .container > i {
+    color: white;
+    opacity: 0.6;
+    font-size: 1.5rem;
+    margin: 1rem 3rem 1rem 0;
+    cursor: pointer;
+}
+
 .sidebar-nav > .container > h3 > i {
     margin-right: 0.5rem;
 }

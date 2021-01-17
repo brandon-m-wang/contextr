@@ -30,6 +30,7 @@ function logIn() {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then((user) => {
                 // window.location.href = "../index.html";
+                window.location.replace('https://contextr.io/')
             })
             .catch((error) => {
                 var errorCode = error.code;
@@ -54,7 +55,6 @@ function signUp() {
             firebase.auth().createUserWithEmailAndPassword(email, password)
                 .then(function (result) {
                     firebase.auth().onAuthStateChanged(function (user) {
-                        console.log("2");
                         if (user) {
                             var userID = firebase.auth().currentUser.uid;
                             db.collection('userspublic').doc(userID).set({
@@ -85,10 +85,7 @@ function signUp() {
                             }
                         }
                     );
-                    // window.location.href = "../index.html";
-                    return result.user.updateProfile({
-                        displayName: name
-                    })
+                    window.location.replace('https://contextr.io/')
                 }).catch(function (error) {
                 var errorCode = error.code;
                 var errorMessage = error.message;

@@ -12,6 +12,7 @@ loginBtn.addEventListener('click', (e) => {
 		}else{
 			signupBtn.parentNode.classList.add('slide-up')
 			parent.classList.remove('slide-up')
+			document.getElementById('landing-logo').style.display = "none"
 		}
 	});
 });
@@ -24,6 +25,7 @@ signupBtn.addEventListener('click', (e) => {
 		}else{
 			loginBtn.parentNode.parentNode.classList.add('slide-up')
 			parent.classList.remove('slide-up')
+			document.getElementById('landing-logo').style.display = ""
 		}
 	});
 });

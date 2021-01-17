@@ -1,5 +1,13 @@
 $(document).ready(async function () {
 
+    $(document).on('click', '#Logout', function (e) {
+        firebase.auth().signOut().then(function () {
+            window.location.replace('https://contextr.io/landing')
+        }, function (error) {
+            // An error happened.
+        });
+    })
+
     function htmlToElement(html) {
         var template = document.createElement('template');
         html = html.trim(); // Never return a text node of whitespace as the result

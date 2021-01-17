@@ -9,23 +9,24 @@ function htmlToElement(html) {
     return template.content.firstChild;
 }
 
-function dhm(ms){
-    days = Math.floor(ms / (24*60*60*1000));
-    daysms=ms % (24*60*60*1000);
-    hours = Math.floor((daysms)/(60*60*1000));
-    hoursms=ms % (60*60*1000);
-    minutes = Math.floor((hoursms)/(60*1000));
-    minutesms=ms % (60*1000);
-    sec = Math.floor((minutesms)/(1000));
-    if (hours == 0 && days == 0){
-        return minutes+"m ago"
-    }else if (days == 0){
-        return hours+"h "+minutes+"m ago"
-    }else{
-        return days+"d " + hours + "h " + minutes + "m ago"
+function dhm(ms) {
+    days = Math.floor(ms / (24 * 60 * 60 * 1000));
+    daysms = ms % (24 * 60 * 60 * 1000);
+    hours = Math.floor((daysms) / (60 * 60 * 1000));
+    hoursms = ms % (60 * 60 * 1000);
+    minutes = Math.floor((hoursms) / (60 * 1000));
+    minutesms = ms % (60 * 1000);
+    sec = Math.floor((minutesms) / (1000));
+    if (hours == 0 && days == 0) {
+        return minutes + "m ago"
+    } else if (days == 0) {
+        return hours + "h " + minutes + "m ago"
+    } else {
+        return days + "d " + hours + "h " + minutes + "m ago"
     }
-    
+
 }
+
 // function shuffleArray(array) {
 //     for (var i = array.length - 1; i > 0; i--) {
 //         var j = Math.floor(Math.random() * (i + 1));
@@ -36,6 +37,14 @@ function dhm(ms){
 // }
 
 $(document).ready(function () {
+
+    $(document).on('click', '#Logout', function (e) {
+        firebase.auth().signOut().then(function () {
+            window.location.replace('https://contextr.io/landing')
+        }, function (error) {
+            // An error happened.
+        });
+    })
 
     $(document).click(function (event) {
         if (event.target.id == "five" || event.target.className == "see-all") {
@@ -58,7 +67,7 @@ $(document).ready(function () {
         $target.parent().find('.post-the-comment').css({'visibility': 'hidden', 'pointer-events': 'none'})
     })
 
-    $(document).on('click', '.request-actions > :first-child', function (event){
+    $(document).on('click', '.request-actions > :first-child', function (event) {
         $('#modal-container').addClass('out');
         $('body').removeClass('modal-active');
         $('.prompt-dropdown').css({
@@ -82,7 +91,7 @@ $(document).ready(function () {
                 var friends = await doc.data().friends
                 document.getElementById('five').innerHTML = "See all friends (" + friends.length.toString() + ")"
                 var selfPosts = await doc.data().posts
-                for (let i = 1; (i < 4 && i < selfPosts.length +1) && i < 4; i++){
+                for (let i = 1; (i < 4 && i < selfPosts.length + 1) && i < 4; i++) {
                     if ((new Date().getTime() - getPostDate(selfPosts[selfPosts.length - i])[2]) < 604800000) {
                         unorderedPostsToGenerate[getPostDate(selfPosts[selfPosts.length - i])[2]] = selfPosts[selfPosts.length - i]
                     }
@@ -99,12 +108,12 @@ $(document).ready(function () {
                 }
             })
             var postsToGenerate = Object.keys(unorderedPostsToGenerate).sort().reverse().reduce(
-                (obj, key) => { 
-                  obj[key] = unorderedPostsToGenerate[key]; 
-                  return obj;
-                }, 
+                (obj, key) => {
+                    obj[key] = unorderedPostsToGenerate[key];
+                    return obj;
+                },
                 {}
-              );
+            );
             console.log(postsToGenerate)
             for (const [key, value] of Object.entries(postsToGenerate)) {
                 await firebase.firestore().collection('posts').doc(value).get().then(async function (doc) { //can remove await for performance
@@ -124,12 +133,12 @@ $(document).ready(function () {
                     console.log(liked)
                     var unorderedComments = doc.data().comments
                     var comments = Object.keys(unorderedComments).sort().reduce(
-                        (obj, key) => { 
-                          obj[key] = unorderedComments[key]; 
-                          return obj;
-                        }, 
+                        (obj, key) => {
+                            obj[key] = unorderedComments[key];
+                            return obj;
+                        },
                         {}
-                      );
+                    );
                     var transformedComments = new Map();
                     Object.keys(comments).forEach(e => {
                         transformedComments.set(String(e), comments[e]);
@@ -140,9 +149,9 @@ $(document).ready(function () {
                         firebase.firestore().collection('users').doc(postee).get().then(function (doc) {
                             var posteeUsername = doc.data().name
                             if (!liked) {
-                                if (transformedLikes.size == 1){
-                                    if (numComments == 1){
-                                let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
+                                if (transformedLikes.size == 1) {
+                                    if (numComments == 1) {
+                                        let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
                                 <div class="post-header">
                                     <h1 style="display: none" data-value = ${postID}></h1>
                                     <a href="https://contextr.io/users/${posteeUsername}"><h3>@${posteeUsername}</h3></a>
@@ -171,8 +180,8 @@ $(document).ready(function () {
                                     <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                 </div>
                             </div>`)
-                                $('.content-area > .container').append(htmlString)
-                                    }else{
+                                        $('.content-area > .container').append(htmlString)
+                                    } else {
                                         let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
                                         <div class="post-header">
                                             <h1 style="display: none" data-value = ${postID}></h1>
@@ -205,9 +214,9 @@ $(document).ready(function () {
                                     </div>`)
                                         $('.content-area > .container').append(htmlString)
                                     }
-                                }else{
-                                    if (numComments ==1){
-                                    let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
+                                } else {
+                                    if (numComments == 1) {
+                                        let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
                                 <div class="post-header">
                                     <h1 style="display: none" data-value = ${postID}></h1>
                                     <a href="https://contextr.io/users/${posteeUsername}"><h3>@${posteeUsername}</h3></a>
@@ -237,9 +246,9 @@ $(document).ready(function () {
                                 </div>
                                 
                             </div>`)
-                                $('.content-area > .container').append(htmlString)
-                                    }else{
-                                            let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
+                                        $('.content-area > .container').append(htmlString)
+                                    } else {
+                                        let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
                                         <div class="post-header">
                                             <h1 style="display: none" data-value = ${postID}></h1>
                                             <a href="https://contextr.io/users/${posteeUsername}"><h3>@${posteeUsername}</h3></a>
@@ -273,9 +282,9 @@ $(document).ready(function () {
                                     }
                                 }
                             } else {
-                                if(transformedLikes.size == 1){
-                                    if(numComments == 1){
-                                let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
+                                if (transformedLikes.size == 1) {
+                                    if (numComments == 1) {
+                                        let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
                                 <div class="post-header">
                                     <h1 style="display: none" data-value = ${postID}></h1>
                                     <a href="https://contextr.io/users/${posteeUsername}"><h3>@${posteeUsername}</h3></a>
@@ -304,8 +313,8 @@ $(document).ready(function () {
                                     <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                 </div>
                             </div>`)
-                                $('.content-area > .container').append(htmlString)
-                                    }else{
+                                        $('.content-area > .container').append(htmlString)
+                                    } else {
                                         let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
                                 <div class="post-header">
                                     <h1 style="display: none" data-value = ${postID}></h1>
@@ -335,11 +344,11 @@ $(document).ready(function () {
                                     <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                 </div>
                             </div>`)
-                                $('.content-area > .container').append(htmlString)
+                                        $('.content-area > .container').append(htmlString)
                                     }
-                                }else{
-                                    if (numComments ==1){
-                                    let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
+                                } else {
+                                    if (numComments == 1) {
+                                        let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
                                 <div class="post-header">
                                     <h1 style="display: none" data-value = ${postID}></h1>
                                     <a href="https://contextr.io/users/${posteeUsername}"><h3>@${posteeUsername}</h3></a>
@@ -368,8 +377,8 @@ $(document).ready(function () {
                                     <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                 </div>
                             </div>`)
-                                $('.content-area > .container').append(htmlString)
-                                    }else{
+                                        $('.content-area > .container').append(htmlString)
+                                    } else {
                                         let htmlString = htmlToElement(`<div class="post ${theme}" id="${postID}">
                                 <div class="post-header">
                                     <h1 style="display: none" data-value = ${postID}></h1>
@@ -399,7 +408,7 @@ $(document).ready(function () {
                                     <i style="pointer-events: none; visibility: hidden;" class="fas fa-paper-plane post-the-comment"></i>
                                 </div>
                             </div>`)
-                                $('.content-area > .container').append(htmlString)
+                                        $('.content-area > .container').append(htmlString)
                                     }
                                 }
                             }
@@ -407,34 +416,34 @@ $(document).ready(function () {
                     })
                     if (numComments > 3) {
                         firebase.firestore().collection('posts').doc(postID).get().then(async function () {
-                                console.log("run")
-                                var count = 1
-                                for (const [key, value] of Object.entries(comments)) {
-                                    let time = key
-                                    let commentUserID = value[0]
-                                    let commentString = value[1]
-                                    if (count < 3){
-                                        await firebase.firestore().collection('users').doc(commentUserID).get().then(async function (doc) {
-                                            let commentUsername = await doc.data().name
-                                            let htmlString = htmlToElement(`<div class="individual-comments" id="${time + commentUserID}">
+                            console.log("run")
+                            var count = 1
+                            for (const [key, value] of Object.entries(comments)) {
+                                let time = key
+                                let commentUserID = value[0]
+                                let commentString = value[1]
+                                if (count < 3) {
+                                    await firebase.firestore().collection('users').doc(commentUserID).get().then(async function (doc) {
+                                        let commentUsername = await doc.data().name
+                                        let htmlString = htmlToElement(`<div class="individual-comments" id="${time + commentUserID}">
                                             <div class="container-individual-comments">
                                                 <a href="https://contextr.io/users/${commentUsername}"><h6>@${commentUsername}</h6></a>
                                                 <p>${commentString}</p>
                                             </div>
                                             <h4>${dhm(new Date().getTime() - time)}</h4>
                                         </div>`)
-                                            document.getElementById(postID).appendChild(htmlString)
-                                        })
-                                        await firebase.storage().ref().child('users/' + commentUserID + '/profile').getDownloadURL().then(async function (result) {
-                                            var imgUrl = await result
-                                            let imgString = htmlToElement(`<img src=${imgUrl}/>`)
-                                            document.getElementById(time + commentUserID).prepend(imgString)
-                                        })
-                                        count += 1;
-                                    }else if (count == 3){
-                                        await firebase.firestore().collection('users').doc(commentUserID).get().then(async function (doc) {
-                                            let commentUsername = await doc.data().name
-                                            let htmlString = htmlToElement(`<div class="individual-comments" id="${time + commentUserID}">
+                                        document.getElementById(postID).appendChild(htmlString)
+                                    })
+                                    await firebase.storage().ref().child('users/' + commentUserID + '/profile').getDownloadURL().then(async function (result) {
+                                        var imgUrl = await result
+                                        let imgString = htmlToElement(`<img src=${imgUrl}/>`)
+                                        document.getElementById(time + commentUserID).prepend(imgString)
+                                    })
+                                    count += 1;
+                                } else if (count == 3) {
+                                    await firebase.firestore().collection('users').doc(commentUserID).get().then(async function (doc) {
+                                        let commentUsername = await doc.data().name
+                                        let htmlString = htmlToElement(`<div class="individual-comments" id="${time + commentUserID}">
                                             <div class="container-individual-comments">
                                                 <a href="https://contextr.io/users/${commentUsername}"><h6>@${commentUsername}</h6></a>
                                                 <p>${commentString}</p>
@@ -442,34 +451,34 @@ $(document).ready(function () {
                                             </div>
                                             <h4>${dhm(new Date().getTime() - time)}</h4>
                                         </div>`)
-                                            document.getElementById(postID).appendChild(htmlString)
-                                        })
-                                        await firebase.storage().ref().child('users/' + commentUserID + '/profile').getDownloadURL().then(async function (result) {
-                                            var imgUrl = await result
-                                            let imgString = htmlToElement(`<img src=${imgUrl}/>`)
-                                            document.getElementById(time + commentUserID).prepend(imgString)
-                                        })
-                                        count += 1
-                                    }else{
-                                        await firebase.firestore().collection('users').doc(commentUserID).get().then(async function (doc) {
-                                            let commentUsername = await doc.data().name
-                                            let htmlString = htmlToElement(`<div style="display: none" class="individual-comments" id="${time + commentUserID}">
+                                        document.getElementById(postID).appendChild(htmlString)
+                                    })
+                                    await firebase.storage().ref().child('users/' + commentUserID + '/profile').getDownloadURL().then(async function (result) {
+                                        var imgUrl = await result
+                                        let imgString = htmlToElement(`<img src=${imgUrl}/>`)
+                                        document.getElementById(time + commentUserID).prepend(imgString)
+                                    })
+                                    count += 1
+                                } else {
+                                    await firebase.firestore().collection('users').doc(commentUserID).get().then(async function (doc) {
+                                        let commentUsername = await doc.data().name
+                                        let htmlString = htmlToElement(`<div style="display: none" class="individual-comments" id="${time + commentUserID}">
                                             <div class="container-individual-comments">
                                                 <a href="https://contextr.io/users/${commentUsername}"><h6>@${commentUsername}</h6></a>
                                                 <p>${commentString}</p>
                                             </div>
                                             <h4>${dhm(new Date().getTime() - time)}</h4>
                                         </div>`)
-                                            document.getElementById(postID).appendChild(htmlString)
-                                        })
-                                        await firebase.storage().ref().child('users/' + commentUserID + '/profile').getDownloadURL().then(async function (result) {
-                                            var imgUrl = await result
-                                            let imgString = htmlToElement(`<img src=${imgUrl}/>`)
-                                            document.getElementById(time + commentUserID).prepend(imgString)
-                                        })
-                                    }
+                                        document.getElementById(postID).appendChild(htmlString)
+                                    })
+                                    await firebase.storage().ref().child('users/' + commentUserID + '/profile').getDownloadURL().then(async function (result) {
+                                        var imgUrl = await result
+                                        let imgString = htmlToElement(`<img src=${imgUrl}/>`)
+                                        document.getElementById(time + commentUserID).prepend(imgString)
+                                    })
                                 }
-                            })
+                            }
+                        })
                     } else {
                         firebase.firestore().collection('posts').doc(postID).get().then(async function () {
                                 console.log("run")
@@ -479,7 +488,7 @@ $(document).ready(function () {
                                     let commentString = value[1]
                                     await firebase.firestore().collection('users').doc(commentUserID).get().then(async function (doc) {
                                         let commentUsername = await doc.data().name
-                                        let htmlString = htmlToElement(`<div class="individual-comments" id="${time+commentUserID}">
+                                        let htmlString = htmlToElement(`<div class="individual-comments" id="${time + commentUserID}">
                                         <div class="container-individual-comments">
                                             <a href="https://contextr.io/users/${commentUsername}"><h6>@${commentUsername}</h6></a>
                                             <p>${commentString}</p>
@@ -489,9 +498,9 @@ $(document).ready(function () {
                                         document.getElementById(postID).appendChild(htmlString)
                                     })
                                     await firebase.storage().ref().child('users/' + commentUserID + '/profile').getDownloadURL().then(async function (result) {
-                                            var imgUrl = await result
-                                            let imgString = htmlToElement(`<img src=${imgUrl}/>`)
-                                            document.getElementById(time+commentUserID).prepend(imgString)
+                                        var imgUrl = await result
+                                        let imgString = htmlToElement(`<img src=${imgUrl}/>`)
+                                        document.getElementById(time + commentUserID).prepend(imgString)
                                     })
                                 }
                             }
@@ -500,7 +509,7 @@ $(document).ready(function () {
                 })
             }
             await firebase.firestore().collection("users").doc(userID).get().then(async function (doc) {
-                if (doc.data().friends.length == 0){
+                if (doc.data().friends.length == 0) {
                     $('.see-all').css('display', 'none');
                     $('.prompt').find('h3').html("Add some friends in the 'Friends' tab");
                     $('.prompt').css('padding-bottom', '0');
@@ -589,7 +598,7 @@ $(document).ready(function () {
                 var elementHeight = $(e.target).parent().parent().parent().find('textarea').height()
                 var viewportHeight = $(window).height()
                 var scrollIt = elementTop - ((viewportHeight - elementHeight) / 2);
-	            $('html,body').animate({
+                $('html,body').animate({
                     scrollTop: scrollIt
                 }, 500);
             })
@@ -615,7 +624,7 @@ $(document).ready(function () {
                 document.getElementById('currently-citing').innerHTML = "Currently citing: " + $('p', this).attr('id')
             })
 
-            $('#post-text').on('input', function() {
+            $('#post-text').on('input', function () {
                 var charCount = document.getElementById('post-text').value.length
                 document.getElementById('num-chars').innerHTML = "Characters: " + charCount.toString() + "/175"
             })
@@ -719,9 +728,9 @@ $(document).ready(function () {
                                 let numLikes = numLikesString.match(/\d/g);
                                 numLikes = parseInt(numLikes.join(""))
                                 let newLikes = numLikes - 1
-                                if(numLikes == 2){
+                                if (numLikes == 2) {
                                     $(e.target).parent().parent().find('.post-stats').children().eq(1).html(newLikes.toString() + ' Like')
-                                }else{
+                                } else {
                                     $(e.target).parent().parent().find('.post-stats').children().eq(1).html(newLikes.toString() + ' Likes')
                                 }
                                 post.set({
@@ -739,9 +748,9 @@ $(document).ready(function () {
                                 let numLikes = numLikesString.match(/\d/g);
                                 numLikes = parseInt(numLikes.join(""))
                                 let newLikes = numLikes + 1
-                                if(numLikes == 0){
+                                if (numLikes == 0) {
                                     $(e.target).parent().parent().find('.post-stats').children().eq(1).html(newLikes.toString() + ' Like')
-                                }else{
+                                } else {
                                     $(e.target).parent().parent().find('.post-stats').children().eq(1).html(newLikes.toString() + ' Likes')
                                 }
                                 post.set({

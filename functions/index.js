@@ -32,6 +32,7 @@ exports.loadUser = functions.https.onRequest((req, res) => {
             <h3><i class="fas fa-users"></i> <a href="friends.html">Friends</a></h3>
             <h3><i class="fas fa-bell"></i> <a href="notifications.html">Notifications</a></h3>
             <h3><i class="fas fa-question-circle"></i> <a href="help.html">Help</a></h3>
+            <i class="fas fa-sign-out-alt"></i>
         </div>
     </section>
     <img src="https://contextr.io/loading.gif" style="position: absolute; height: 100px; width: 100px;
@@ -62,7 +63,17 @@ exports.loadUser = functions.https.onRequest((req, res) => {
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
 </script>
-
+<script>
+firebase.auth().onAuthStateChanged(async function (user) {
+        if (!window.HELP_HTML_) {
+            window.HELP_HTML_ = true;
+            if (!(user)) {
+                window.alert('Please log-in to continue')
+                window.location.replace("https://contextr.io/landing")
+            }
+        }
+    })
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script src="../js/otherprofile.js"></script>
@@ -76,6 +87,7 @@ exports.loadUser = functions.https.onRequest((req, res) => {
         <h3 id="Friends"><i class="fas fa-users"></i> <a href="../friends.html">Friends</a></h3>
         <h3 id="Notifications"><i class="fas fa-bell"></i> <a href="../notifications.html">Notifications</a></h3>
         <h3 id="Help"><i class="fas fa-question-circle"></i> <a href="../help.html">Help</a></h3>
+        <i id="Logout" class="fas fa-sign-out-alt"></i>
     </div>
 </section>
 <div id="modal-container">
