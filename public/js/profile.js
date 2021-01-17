@@ -622,7 +622,8 @@ async function changeUserInfo() {
     var bioOnly = false;
     console.log(username);
     await firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
+        var userID = firebase.auth().currentUser.uid
+        if (userID == nameText) {
             bioOnly = true;
             const uid = firebase.auth().currentUser.uid;
             firebase.firestore().collection('users').doc(uid).get().then(function (doc) {
