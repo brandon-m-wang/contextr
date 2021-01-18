@@ -85,6 +85,52 @@ $(document).ready(function () {
                 var userID = firebase.auth().currentUser.uid;
                 //write getPosts method
                 var unorderedPostsToGenerate = {}
+                firebase.firestore().collection("users").doc(userID).get().then(async function (doc) {
+                    if (doc.data().friends.length == 0) {
+                        $('.see-all').css('display', 'none');
+                        $('.prompt').find('h3').html("Add some friends in the 'Friends' tab");
+                        $('.prompt').css('padding-bottom', '0');
+                    }
+                    for (let i = 0; i < doc.data().friends.length && i < 6; i++) {
+                        var friendID = await doc.data().friends[i]
+                        await firebase.firestore().collection("users").doc(friendID).get().then(async function (doc) {
+                            var name = '@' + await doc.data().name
+                            let htmlString = htmlToElement(`<div class="prompt-name-image" id='${'prompt' + (i + 1).toString()}'>
+                        <p id="${name}">${name}</p>
+                    </div>`)
+                            document.getElementsByClassName('prompt-images')[0].appendChild(htmlString)
+                        })
+                        await firebase.storage().ref().child('users/' + friendID + '/profile').getDownloadURL().then(async function (result) {
+                            var imgUrl = await result
+                            let imgString = await htmlToElement(`<img src='${imgUrl}'>`)
+                            document.getElementById("prompt" + (i + 1).toString()).prepend(imgString);
+                        })
+                    }
+                    document.getElementById("loading-gif").style.display = "none";
+                    document.getElementsByTagName("html")[0].style.visibility = "visible";
+                    document.getElementsByTagName("html")[0].style.position = '';
+                    for (let i = 0; i < doc.data().friends.length; i++) {
+                        var friendID = await doc.data().friends[i]
+                        await firebase.firestore().collection("users").doc(friendID).get().then(async function (doc) {
+                            var name = '@' + await doc.data().name
+                            let htmlString2 = htmlToElement(`<div class="${'request' + ' ' + i.toString()}">
+                    <div class="request-info">
+                        <h6>${name}</h6>
+                    </div>
+                    <div class="request-actions">
+                        <a>Cite</a>
+                        <a href="https://contextr.io/users/${name.replace('@', '')}">View</a>
+                    </div>
+                </div>`)
+                            document.getElementsByClassName('requests')[0].appendChild(htmlString2)
+                        })
+                        await firebase.storage().ref().child('users/' + friendID + '/profile').getDownloadURL().then(async function (result) {
+                            var imgUrl = await result
+                            let imgString = await htmlToElement(`<img src='${imgUrl}'>`)
+                            document.getElementsByClassName(i.toString())[0].prepend(imgString);
+                        })
+                    }
+                });
                 await firebase.firestore().collection('users').doc(userID).get().then(async function (doc) {
                     var friends = await doc.data().friends
                     document.getElementById('five').innerHTML = "See all friends (" + friends.length.toString() + ")"
@@ -501,52 +547,6 @@ $(document).ready(function () {
                         }
                     })
                 }
-                await firebase.firestore().collection("users").doc(userID).get().then(async function (doc) {
-                    if (doc.data().friends.length == 0) {
-                        $('.see-all').css('display', 'none');
-                        $('.prompt').find('h3').html("Add some friends in the 'Friends' tab");
-                        $('.prompt').css('padding-bottom', '0');
-                    }
-                    for (let i = 0; i < doc.data().friends.length && i < 6; i++) {
-                        var friendID = await doc.data().friends[i]
-                        await firebase.firestore().collection("users").doc(friendID).get().then(async function (doc) {
-                            var name = '@' + await doc.data().name
-                            let htmlString = htmlToElement(`<div class="prompt-name-image" id='${'prompt' + (i + 1).toString()}'>
-                        <p id="${name}">${name}</p>
-                    </div>`)
-                            document.getElementsByClassName('prompt-images')[0].appendChild(htmlString)
-                        })
-                        await firebase.storage().ref().child('users/' + friendID + '/profile').getDownloadURL().then(async function (result) {
-                            var imgUrl = await result
-                            let imgString = await htmlToElement(`<img src='${imgUrl}'>`)
-                            document.getElementById("prompt" + (i + 1).toString()).prepend(imgString);
-                        })
-                    }
-                    document.getElementById("loading-gif").style.display = "none";
-                    document.getElementsByTagName("html")[0].style.visibility = "visible";
-                    document.getElementsByTagName("html")[0].style.position = '';
-                    for (let i = 0; i < doc.data().friends.length; i++) {
-                        var friendID = await doc.data().friends[i]
-                        await firebase.firestore().collection("users").doc(friendID).get().then(async function (doc) {
-                            var name = '@' + await doc.data().name
-                            let htmlString2 = htmlToElement(`<div class="${'request' + ' ' + i.toString()}">
-                    <div class="request-info">
-                        <h6>${name}</h6>
-                    </div>
-                    <div class="request-actions">
-                        <a>Cite</a>
-                        <a href="https://contextr.io/users/${name.replace('@', '')}">View</a>
-                    </div>
-                </div>`)
-                            document.getElementsByClassName('requests')[0].appendChild(htmlString2)
-                        })
-                        await firebase.storage().ref().child('users/' + friendID + '/profile').getDownloadURL().then(async function (result) {
-                            var imgUrl = await result
-                            let imgString = await htmlToElement(`<img src='${imgUrl}'>`)
-                            document.getElementsByClassName(i.toString())[0].prepend(imgString);
-                        })
-                    }
-                });
 
                 $('.see-all').click(function () {
                     var buttonId = $(this).attr('id');
