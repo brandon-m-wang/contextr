@@ -20,7 +20,6 @@ $(document).ready(async function () {
             return
         }
         var $target = $(event.target);
-        console.log($target.parent())
         $target.parent().find('.post-the-comment').css({'visibility': 'hidden', 'pointer-events': 'none'})
     })
 
@@ -78,7 +77,6 @@ $(document).ready(async function () {
                             }
                         }
                     })
-                    console.log(postsToGenerate)
                     if (userID === uid) {
                         var script = document.createElement('script');
                         script.src = '../js/profile.js';
@@ -179,7 +177,6 @@ $(document).ready(async function () {
                         }
                         var totalLikes = 0;
                         for (const [key, value] of Object.entries(postsToGenerate)) {
-                            console.log("ran")
                             await firebase.firestore().collection('posts').doc(value).get().then(async function (doc) { //can remove await for performance
                                 var poster = doc.data().poster
                                 var postee = doc.data().postee
@@ -192,10 +189,8 @@ $(document).ready(async function () {
                                 Object.keys(likes).forEach(e => {
                                     transformedLikes.set(String(e), likes[e]);
                                 });
-                                console.log(transformedLikes)
                                 var liked = transformedLikes.has(userID)
                                 totalLikes += transformedLikes.size;
-                                console.log(liked)
                                 var unorderedComments = doc.data().comments
                                 var comments = Object.keys(unorderedComments).sort().reduce(
                                     (obj, key) => {
@@ -481,7 +476,6 @@ $(document).ready(async function () {
                                 })
                                 if (numComments > 3) {
                                     firebase.firestore().collection('posts').doc(postID).get().then(async function () {
-                                        console.log("run")
                                         var count = 1
                                         for (const [key, value] of Object.entries(comments)) {
                                             let time = key
@@ -546,7 +540,6 @@ $(document).ready(async function () {
                                     })
                                 } else {
                                     firebase.firestore().collection('posts').doc(postID).get().then(async function () {
-                                            console.log("run")
                                             for (const [key, value] of Object.entries(comments)) {
                                                 let time = key
                                                 let commentUserID = value[0]
@@ -612,7 +605,6 @@ function addFriend() {
 
     var db = firebase.firestore();
     var friendID = db.collection("usernames").doc(friendName);
-    console.log(friendID);
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             var userID = firebase.auth().currentUser.uid;

@@ -1,5 +1,13 @@
 $(document).ready(function () {
 
+    document.getElementById('username').onkeydown = function (e) {
+        var value = e.target.value;
+        //only allow a-z, A-Z, digits 0-9 and comma, with only 1 consecutive comma ...
+        if (!e.key.match(/[a-zA-Z0-9,]/) || (e.key == ',' && value[value.length - 1] == ',')) {
+            e.preventDefault();
+        }
+    };
+
     $(document).on('click', '#Logout', function (e) {
         firebase.auth().signOut().then(function () {
             window.location.replace('https://contextr.io/landing')
@@ -23,60 +31,60 @@ $(document).ready(function () {
         })
     })
     $(document).on('click', '.like', (e) => {
-                firebase.auth().onAuthStateChanged(function (user) {
-                    if (user) {
-                        var postID = $(e.target).parent().parent().parent().find('h1').attr('data-value');
-                        var userID = firebase.auth().currentUser.uid;
-                        var post = firebase.firestore().collection('posts').doc(postID);
-                        post.get().then(async function (doc) {
-                            // if(doc.data().likes.contains(userID)){
-                            if (userID in doc.data().likes) {
-                                //Unlike post if liked
-                                $(e.target).css({
-                                    'background': 'linear-gradient(to bottom, rgb(136, 123, 176) 0%,' +
-                                        ' rgba(203, 157, 156, 1) 100%)',
-                                    '-webkit-text-fill-color': 'transparent',
-                                    '-webkit-background-clip': 'text'
-                                })
-                                let numLikesString = $(e.target).parent().parent().find('.post-stats').children().eq(1).html()
-                                let numLikes = numLikesString.match(/\d/g);
-                                numLikes = parseInt(numLikes.join(""))
-                                let newLikes = numLikes - 1
-                                if(numLikes == 2){
-                                    $(e.target).parent().parent().find('.post-stats').children().eq(1).html(newLikes.toString() + ' Like')
-                                }else{
-                                    $(e.target).parent().parent().find('.post-stats').children().eq(1).html(newLikes.toString() + ' Likes')
-                                }
-                                post.set({
-                                    "likes": {
-                                        [userID]: firebase.firestore.FieldValue.delete()
-                                    }
-                                }, {merge: true});
-                            } else {
-                                //Like post if not liked already
-                                $(e.target).css({
-                                    'background': 'transparent',
-                                    '-webkit-text-fill-color': 'mediumvioletred'
-                                })
-                                let numLikesString = $(e.target).parent().parent().find('.post-stats').children().eq(1).html()
-                                let numLikes = numLikesString.match(/\d/g);
-                                numLikes = parseInt(numLikes.join(""))
-                                let newLikes = numLikes + 1
-                                if(numLikes == 0){
-                                    $(e.target).parent().parent().find('.post-stats').children().eq(1).html(newLikes.toString() + ' Like')
-                                }else{
-                                    $(e.target).parent().parent().find('.post-stats').children().eq(1).html(newLikes.toString() + ' Likes')
-                                }
-                                post.set({
-                                    "likes": {
-                                        [userID]: true
-                                    }
-                                }, {merge: true});
-                            }
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                var postID = $(e.target).parent().parent().parent().find('h1').attr('data-value');
+                var userID = firebase.auth().currentUser.uid;
+                var post = firebase.firestore().collection('posts').doc(postID);
+                post.get().then(async function (doc) {
+                    // if(doc.data().likes.contains(userID)){
+                    if (userID in doc.data().likes) {
+                        //Unlike post if liked
+                        $(e.target).css({
+                            'background': 'linear-gradient(to bottom, rgb(136, 123, 176) 0%,' +
+                                ' rgba(203, 157, 156, 1) 100%)',
+                            '-webkit-text-fill-color': 'transparent',
+                            '-webkit-background-clip': 'text'
                         })
+                        let numLikesString = $(e.target).parent().parent().find('.post-stats').children().eq(1).html()
+                        let numLikes = numLikesString.match(/\d/g);
+                        numLikes = parseInt(numLikes.join(""))
+                        let newLikes = numLikes - 1
+                        if (numLikes == 2) {
+                            $(e.target).parent().parent().find('.post-stats').children().eq(1).html(newLikes.toString() + ' Like')
+                        } else {
+                            $(e.target).parent().parent().find('.post-stats').children().eq(1).html(newLikes.toString() + ' Likes')
+                        }
+                        post.set({
+                            "likes": {
+                                [userID]: firebase.firestore.FieldValue.delete()
+                            }
+                        }, {merge: true});
+                    } else {
+                        //Like post if not liked already
+                        $(e.target).css({
+                            'background': 'transparent',
+                            '-webkit-text-fill-color': 'mediumvioletred'
+                        })
+                        let numLikesString = $(e.target).parent().parent().find('.post-stats').children().eq(1).html()
+                        let numLikes = numLikesString.match(/\d/g);
+                        numLikes = parseInt(numLikes.join(""))
+                        let newLikes = numLikes + 1
+                        if (numLikes == 0) {
+                            $(e.target).parent().parent().find('.post-stats').children().eq(1).html(newLikes.toString() + ' Like')
+                        } else {
+                            $(e.target).parent().parent().find('.post-stats').children().eq(1).html(newLikes.toString() + ' Likes')
+                        }
+                        post.set({
+                            "likes": {
+                                [userID]: true
+                            }
+                        }, {merge: true});
                     }
-                });
-            })
+                })
+            }
+        });
+    })
     let timeout = null;
     $(document).on('click', '.delete-post', async function (e) {
         clearTimeout(timeout);
@@ -102,7 +110,6 @@ $(document).ready(function () {
             return
         }
         var $target = $(event.target);
-        console.log($target.parent())
         $target.parent().find('.post-the-comment').css({'visibility': 'hidden', 'pointer-events': 'none'})
     })
 
@@ -176,7 +183,6 @@ $(document).ready(function () {
             })
             var totalLikes = 0
             for (const [key, value] of Object.entries(postsToGenerate)) {
-                console.log("ran")
                 await firebase.firestore().collection('posts').doc(value).get().then(async function (doc) { //can remove await for performance
                     var poster = doc.data().poster
                     var postee = doc.data().postee
@@ -190,9 +196,7 @@ $(document).ready(function () {
                         transformedLikes.set(String(e), likes[e]);
                     });
                     totalLikes += transformedLikes.size
-                    console.log(transformedLikes)
                     var liked = transformedLikes.has(userID)
-                    console.log(liked)
                     var unorderedComments = doc.data().comments
                     var comments = Object.keys(unorderedComments).sort().reduce(
                         (obj, key) => {
@@ -486,7 +490,6 @@ $(document).ready(function () {
                     })
                     if (numComments > 3) {
                         firebase.firestore().collection('posts').doc(postID).get().then(async function () {
-                            console.log("run")
                             var count = 1
                             for (const [key, value] of Object.entries(comments)) {
                                 let time = key
@@ -551,7 +554,6 @@ $(document).ready(function () {
                         })
                     } else {
                         firebase.firestore().collection('posts').doc(postID).get().then(async function () {
-                                console.log("run")
                                 for (const [key, value] of Object.entries(comments)) {
                                     let time = key
                                     let commentUserID = value[0]
@@ -620,68 +622,64 @@ async function changeUserInfo() {
     var username = db.collection("usernames").doc(nameText);
     var flag = false;
     var bioOnly = false;
-    console.log(username);
     await firebase.auth().onAuthStateChanged(function (user) {
         var userID = firebase.auth().currentUser.uid
-        if (userID == nameText) {
-            bioOnly = true;
-            const uid = firebase.auth().currentUser.uid;
-            firebase.firestore().collection('users').doc(uid).get().then(function (doc) {
-                document.getElementById('user-bio').innerHTML = bioText
-                if (doc.data().name == nameText) {
-                    db.collection('users').doc('' + uid).update({
-                        bio: bioText,
-                    })
-                }
-            })
-        }
-    })
-    if (bioOnly == true) {
-        $('#modal-container').addClass('out');
-        $('body').removeClass('modal-active');
-        return
-    }
-    username.get().then(function (doc) {
-        if (doc.exists) {
-            window.alert("This username is already in use");
-            flag = true;
-        } else {
-            firebase.auth().onAuthStateChanged(function (user) {
-                if (user) {
-                    const uid = firebase.auth().currentUser.uid;
-                    firebase.firestore().collection("users").doc(uid).get().then(function (test) {
-                        const currUsername = test.data().name
-                        console.log(currUsername)
-                        db.collection('usernames').doc(currUsername).delete();
-                    }).then(function () {
+        firebase.firestore().collection('users').doc(userID).get().then(function (doc) {
+            if (doc.data().name == nameText) {
+                bioOnly = true;
+                const uid = firebase.auth().currentUser.uid;
+                firebase.firestore().collection('users').doc(uid).get().then(function (doc) {
+                    document.getElementById('user-bio').innerHTML = bioText
+                    if (doc.data().name == nameText) {
+                        db.collection('users').doc('' + uid).update({
+                            bio: bioText,
+                        })
+                    }
+                })
+                $('#modal-container').addClass('out');
+                $('body').removeClass('modal-active');
+                return
+            } else {
+                username.get().then(function (doc) {
+                    if (doc.exists) {
+                        window.alert("This username is already in use");
+                        flag = true;
+                    } else {
                         firebase.auth().onAuthStateChanged(function (user) {
-                            if (user && flag == false) {
-                                var userID = firebase.auth().currentUser.uid;
-                                document.getElementById('the-username').innerHTML = "@" + nameText;
-                                document.getElementById('user-bio').innerHTML = bioText;
-                                db.collection('users').doc('' + userID).update({
-                                    bio: bioText,
-                                    name: nameText
-                                });
-                                db.collection('usernames').doc(nameText).set({
-                                    username: userID
+                            if (user) {
+                                const uid = firebase.auth().currentUser.uid;
+                                firebase.firestore().collection("users").doc(uid).get().then(function (test) {
+                                    const currUsername = test.data().name
+                                    db.collection('usernames').doc(currUsername).delete();
+                                }).then(function () {
+                                    firebase.auth().onAuthStateChanged(function (user) {
+                                        if (user && flag == false) {
+                                            var userID = firebase.auth().currentUser.uid;
+                                            document.getElementById('the-username').innerHTML = "@" + nameText;
+                                            document.getElementById('user-bio').innerHTML = bioText;
+                                            db.collection('users').doc('' + userID).update({
+                                                bio: bioText,
+                                                name: nameText
+                                            });
+                                            db.collection('usernames').doc(nameText).set({
+                                                username: userID
+                                            });
+                                        }
+                                    });
+                                }).then(function () {
+                                    const newUrl = "users/" + nameText;
+                                    history.pushState({}, null, newUrl);
                                 });
                             }
-                            ;
                         });
-                    }).then(function () {
-                        const newUrl = nameText;
-                        history.pushState({}, null, newUrl);
-                    });
-                }
-                ;
-            });
-            document.getElementById('user-bio').innerHTML = bioText
-            document.getElementById('the-username').innerHTML = nameText
-            $('#modal-container').addClass('out');
-            $('body').removeClass('modal-active');
-        }
-        ;
-    });
+                        document.getElementById('user-bio').innerHTML = bioText
+                        document.getElementById('the-username').innerHTML = nameText
+                        $('#modal-container').addClass('out');
+                        $('body').removeClass('modal-active');
+                    }
+                });
+            }
+        })
+    })
 };
 

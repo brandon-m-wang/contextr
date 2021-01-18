@@ -91,7 +91,7 @@
             <form action="">
                 <label for="username">Username:</label><br>
                 <input type="text" id="username" name="username" placeholder="Username..." autocomplete="off"
-                       maxlength=10><br><br>
+                       maxlength=10 onpaste="return false;" pattern="[a-zA-Z0-9]+" required><br><br>
                 <label for="bio">Bio:</label><br>
                 <textarea id="bio" rows="4" placeholder="Bio..." maxlength=80></textarea><br>
                 <button id="submit" onclick="changeUserInfo(); return false">Save</button>

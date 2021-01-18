@@ -2,7 +2,6 @@ $(document).ready(function () {
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             const uid = firebase.auth().currentUser.uid;
-            console.log(uid);
 
             firebase.firestore().collection("users").doc(uid).get().then(function (doc) {
                 const bio = doc.data().bio

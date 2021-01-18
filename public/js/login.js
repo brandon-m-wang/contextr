@@ -40,38 +40,48 @@ function logIn() {
     })
 }
 
-function signUp() {
-    var db = firebase.firestore();
+function signUp(callback) {
     var nameIn = document.getElementById("name_signup").value;
     var email = document.getElementById("email_signup").value;
     var password = document.getElementById("password_signup").value;
-    console.log(nameIn, email, password);
 
-    var username = db.collection("usernames").doc(nameIn);
+    var username = firebase.firestore().collection("usernames").doc(nameIn);
     username.get().then(function (doc) {
         if (doc.exists) {
             window.alert("This username is already in use");
+            return
         } else {
             firebase.auth().createUserWithEmailAndPassword(email, password)
                 .then(function (result) {
                     firebase.auth().onAuthStateChanged(function (user) {
-                        if (user) {
-                            var userID = firebase.auth().currentUser.uid;
-                            db.collection('userspublic').doc(userID).set({
-                                requestsIn: [],
-                                notifications: []
-                            })
-                            db.collection('users').doc(userID).set({
-                                bio: "",
-                                name: nameIn,
-                                friends: [],
-                                requestsOut: [],
-                                posts: []
-                                //gotta somehow add in the other folders here??
-                            })
-                            loadXHR("default.png").then(function (blob) {
-                                var imageRef = firebase.storage().ref().child('users/' + firebase.auth().currentUser.uid + '/profile');
-                                    imageRef.put(blob).then(function (snapshot) {console.log('Uploaded image');
+                            if (user) {
+                                var userID = firebase.auth().currentUser.uid;
+                                firebase.firestore().collection('userspublic').doc(userID).set({
+                                    requestsIn: [],
+                                    notifications: []
+                                })
+                                firebase.firestore().collection('users').doc(userID).set({
+                                    bio: "",
+                                    name: nameIn,
+                                    friends: [],
+                                    requestsOut: [],
+                                    posts: []
+                                    //gotta somehow add in the other folders here??
+                                })
+                                firebase.firestore().collection('usernames').doc(nameIn).set({
+                                    username: userID
+                                });
+                            }
+                        }
+                    );
+                }).catch(function (error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                window.alert(errorMessage);
+            }).then(async function(){
+                await loadXHR("default.png").then(async function (blob) {
+                                var imageRef = await firebase.storage().ref().child('users/' + firebase.auth().currentUser.uid + '/profile');
+                                    await imageRef.put(blob).then(function (snapshot) {console.log('Uploaded image');
                                     })
                                 }).then(function () {
                                     console.log("User successfully written!");
@@ -79,21 +89,15 @@ function signUp() {
                                     .catch(function (error) {
                                         console.error("Error writing document: ", error);
                                     });
-                                db.collection('usernames').doc(nameIn).set({
-                                    username: userID
-                                });
-                            }
-                        }
-                    );
-                    window.location.replace('https://contextr.io/')
-                }).catch(function (error) {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                window.alert(errorMessage);
-            });
+            }).then(function () {
+                callback()
+            })
         }
     }).catch(function (error) {
         console.log("Error getting document:", error);
     });
 }
- 
+
+function redirect() {
+    window.location.replace('https://contextr.io/')
+}

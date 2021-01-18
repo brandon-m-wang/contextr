@@ -38,7 +38,6 @@ $(document).ready(function () {
     $(document).on('click', '.remove', function (e) {
         clearTimeout(friendTimeout);
         var friendToRemove = $(e.target).parent().parent().find('h6').html().substr(1)
-        console.log(friendToRemove)
         firebase.auth().onAuthStateChanged(async function (user) {
             if (user) {
                 var userID = firebase.auth().currentUser.uid;
@@ -65,10 +64,8 @@ $(document).ready(function () {
     firebase.auth().onAuthStateChanged(async function (user) {
         if (user) {
             var userID = firebase.auth().currentUser.uid;
-            console.log(userID);
             firebase.firestore().collection("userspublic").doc(userID).get().then(async function (doc) {
                 for (let i = 0; i < doc.data().requestsIn.length; i++) {
-                    console.log(i);
                     var requestID = doc.data().requestsIn[i];
                     await firebase.firestore().collection("users").doc(requestID).get().then(function (doc) {
                         var name = '@' + doc.data().name
@@ -88,11 +85,8 @@ $(document).ready(function () {
                             firebase.auth().onAuthStateChanged(async function (user) {
                                 if (user) {
                                     var userID = firebase.auth().currentUser.uid;
-                                    console.log(userID);
-                                    console.log("requestUsername: " + requestUsername)
                                     await firebase.firestore().collection("usernames").doc(requestUsername).get().then(async function (doc) {
                                         const requestID = await doc.data().username
-                                        console.log(requestID)
                                         firebase.firestore().collection("users").doc(requestID).update({
                                             friends: firebase.firestore.FieldValue.arrayUnion(userID)
                                         })
@@ -140,11 +134,8 @@ $(document).ready(function () {
                             firebase.auth().onAuthStateChanged(async function (user) {
                                 if (user) {
                                     var userID = firebase.auth().currentUser.uid;
-                                    console.log(userID);
-                                    console.log("requestUsername: " + requestUsername)
                                     firebase.firestore().collection("usernames").doc(requestUsername).get().then(async function (doc) {
                                         const requestID = await doc.data().username
-                                        console.log(requestID)
                                         firebase.firestore().collection("users").doc(userID).update({
                                             requestsOut: firebase.firestore.FieldValue.arrayRemove(requestID)
                                         })
@@ -197,7 +188,6 @@ $(document).ready(function () {
 
     $('#requests-toggle').click(function () {
         var buttonId = $(this).attr('id');
-        console.log(buttonId)
         $('#requests-toggle').css("opacity", "1").css("text-shadow", "0px 0px 5px #fff")
         $('#search-toggle').css("opacity", "0.6").css("text-shadow", "none")
         $('.requests').css("display", "flex")
@@ -206,7 +196,6 @@ $(document).ready(function () {
 
     $('#search-toggle').click(function () {
         var buttonId = $(this).attr('id');
-        console.log(buttonId)
         $('#search-toggle').css("opacity", "1").css("text-shadow", "0px 0px 5px #fff")
         $('#requests-toggle').css("opacity", "0.6").css("text-shadow", "none")
         $('.requests').css("display", "none")
@@ -221,7 +210,6 @@ $(document).ready(function () {
             $('.search-pop').children().not(':first-child').remove();
             var search = $('#query').val().toLowerCase()
             var loadArray = await findNames(search)
-            console.log(loadArray)
             if (loadArray.length == 0) {
                 let htmlString = htmlToElement(`<h6 style="margin: 2rem 0 0 0; color: white;">No results</h6>`)
                 $('.search-pop').append(htmlString)

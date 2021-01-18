@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
     <link href="https://fonts.googleapis.com/css2?family=Yantramanav:wght@100;300;900&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../js/landing.js"></script>
     <script src="../js/login.js"></script>
 </head>
@@ -44,11 +45,11 @@
 "/>
         <h2 class="form-title" id="signup" style="font-weight: 300">Sign up</h2>
         <div class="form-holder">
-            <input type="text" class="input" placeholder="Username" id="name_signup" maxlength=10/>
+            <input type="text" class="input" placeholder="Username" id="name_signup" maxlength=10 onpaste="return false;" pattern="[a-zA-Z0-9]+" required/>
             <input type="email" class="input" placeholder="Email" id="email_signup"/>
             <input type="password" class="input" placeholder="Password" id="password_signup"/>
         </div>
-        <button onclick="signUp()" class="submit-btn" style="font-weight: 300">Sign up</button>
+        <button onclick="signUp(redirect)" class="submit-btn" style="font-weight: 300">Sign up</button>
     </div>
     <div class="login slide-up">
         <div class="center">
