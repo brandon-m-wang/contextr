@@ -7,3 +7,5 @@ beta-testing v0.0.1 results:
 - like and delete comments
 - crop pfp function
 - no paste on bio
+- p tag on comments needs to shrink
+- fix timezones (should be easier than i previously thought?)
