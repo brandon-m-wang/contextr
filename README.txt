@@ -9,3 +9,5 @@ beta-testing v0.0.1 results:
 - no paste on bio
 - p tag on comments needs to shrink
 - fix timezones (should be easier than i previously thought?)
+- optimize friends page loading
+- optimize click events so they load with dynamically generated prompt images and not at the end of post loading
