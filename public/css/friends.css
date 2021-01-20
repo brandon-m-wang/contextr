@@ -1,13 +1,13 @@
-#Home{
+#Home {
     text-shadow: none;
     opacity: 0.6;
 }
 
-#Profile{
+#Profile {
     text-shadow: none;
 }
 
-#Notifications{
+#Notifications {
     text-shadow: none;
 }
 
@@ -15,7 +15,7 @@
     text-shadow: none;
 }
 
-#Friends{
+#Friends {
     text-shadow: 0px 0px 5px #fff;
     opacity: 1;
 }
@@ -27,38 +27,38 @@
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: black;
-  opacity: 0.5; /* Firefox */
+    color: black;
+    opacity: 0.5; /* Firefox */
 }
 
-h3{
+h3 {
     color: black;
     font-weight: 300;
     font-size: 2rem;
     margin-bottom: 3rem;
 }
 
-h6{
+h6 {
     color: black;
     font-weight: 300;
     font-size: 1.35rem;
     margin: 0.35rem 0
 }
 
-p{
+p {
     color: black;
     font-weight: 100;
     margin: 0.35rem 0;
     font-size: 0.9rem;
 }
 
-h5{
+h5 {
     margin: 0.35rem 0;
-    color:black;
+    color: black;
     font-weight: 400;
 }
 
-.friends > .container{
+.friends > .container {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -67,14 +67,14 @@ h5{
     min-height: 100vh;
 }
 
-.friends img{
+.friends img {
     border-radius: 100%;
     height: 100px;
     width: 100px;
     object-fit: cover;
 }
 
-.friends-container{
+.friends-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -82,14 +82,14 @@ h5{
     width: 100%;
 }
 
-.friends-container h3{
+.friends-container h3 {
     font-weight: 400;
     background: linear-gradient(321deg, rgb(59, 52, 78) 12%, rgb(129, 99, 99) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.friend{
+.friend {
     position: relative;
     display: flex;
     justify-content: start;
@@ -98,7 +98,7 @@ h5{
     margin-bottom: 1.5rem;
 }
 
-.friend-info{
+.friend-info {
     display: flex;
     flex-direction: column;
     margin-left: 2rem;
@@ -111,7 +111,7 @@ h5{
     font-size: 0.8rem;
 }
 
-.friend-actions{
+.friend-actions {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -120,7 +120,7 @@ h5{
     right: 1%;
 }
 
-.friend-actions > *{
+.friend-actions > * {
     background: linear-gradient(321deg, rgba(136, 123, 176, 1) 12%, rgba(203, 157, 156, 1) 100%);
     padding: 0.25rem 0.5rem;
     border-radius: 3px;
@@ -130,12 +130,12 @@ h5{
     text-align: center;
 }
 
-.friend-actions a{
+.friend-actions a {
     color: white;
     font-size: 0.6rem;
 }
 
-.sidebar{
+.sidebar {
     position: fixed;
     left: 80%;
     display: flex;
@@ -147,7 +147,7 @@ h5{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), inset 0 -3px 3px rgba(0, 0, 0, 0.1);
 }
 
-.sidebar-select{
+.sidebar-select {
     position: relative;
     display: flex;
     align-items: center;
@@ -157,7 +157,7 @@ h5{
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-#search-toggle{
+#search-toggle {
     position: absolute;
     left: 20%;
     color: white;
@@ -166,7 +166,7 @@ h5{
     font-size: 1.1rem;
 }
 
-#requests-toggle{
+#requests-toggle {
     position: absolute;
     right: 20%;
     opacity: 0.6;
@@ -174,7 +174,7 @@ h5{
     font-size: 1.1rem;
 }
 
-.search-bar{
+.search-bar {
     margin-top: 2rem;
     display: flex;
     align-items: center;
@@ -182,16 +182,16 @@ h5{
     width: 100%;
 }
 
-.search-bar > input{
+.search-bar > input {
     font-family: Quicksand;
     width: 60%;
 }
 
-input:focus{
+input:focus {
     outline: none;
 }
 
-.requests{
+.requests {
     margin-top: 2rem;
     display: none;
     flex-direction: column;
@@ -199,38 +199,41 @@ input:focus{
     justify-content: center;
 }
 
-.request{
+.request {
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     width: 70%;
     align-items: center;
     margin-bottom: 1.5rem;
 }
 
-.request img{
+.request img {
     height: 60px;
     width: 60px;
     margin-right: 0.3rem;
 }
 
-.request h6{
-    font-size: 1rem;
+.request h6 {
+    font-size: 0.75rem;
     color: white;
+    display: inline-block;
+    width: 120px;
+    word-break: break-all;
 }
 
-.request p{
+.request p {
     font-size: 0.8rem;
     margin: 0;
 }
 
-.request-info{
+.request-info {
     display: flex;
     flex-direction: column;
     margin-left: 0.5rem;
 }
 
-.request-actions{
+.request-actions {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -238,38 +241,187 @@ input:focus{
     margin-left: 1rem;
 }
 
-.request-actions > *{
+.request-actions > * {
     text-align: center;
     background: rgba(0, 0, 0, 0.5);
-    padding: 0.35rem;
+    padding: 0.2rem;
     border-radius: 3px;
     margin: 0.1rem 0;
     width: 45px;
     cursor: pointer;
 }
 
-.request-actions > a{
+.request-actions > a {
     color: white;
     font-size: 0.75rem;
 }
 
-.search-pop{
+.search-pop {
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: center;
 }
 
-.footer{
+.footer {
     position: fixed;
     bottom: 0px;
     width: 30%;
     text-align: center;
 }
 
-.footer h6{
+.footer h6 {
     color: white;
     font-weight: 300;
     margin: 24.978px 0;
     font-size: 0.67rem;
+}
+
+.requests {
+    margin-top: 2rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    max-height: 100vh;
+    padding: 0;
+}
+
+@media screen and (max-width: 1821px){
+    .request h6{
+        width: 110px;
+    }
+}
+
+@media screen and (max-width: 1745px){
+    .request h6{
+        width: 100px;
+    }
+}
+
+@media screen and (max-width: 1650px){
+    .request h6{
+        width: 90px;
+    }
+}
+
+@media screen and (max-width: 1550px){
+    .request h6{
+        width: 80px;
+    }
+}
+
+@media screen and (max-width: 1450px){
+    .request h6{
+        width: 70px;
+        font-size: 0.6rem;
+    }
+}
+
+
+@media screen and (max-width: 1390px) {
+    .search-pop img {
+        height: 50px !important;
+        width: 50px !important;
+    }
+
+    .search-pop .friend-info {
+        margin-left: 0.9rem;
+    }
+
+    .search-pop {
+        align-items: start;
+    }
+
+    .search-pop > .friend {
+        margin-left: 50px !important;
+    }
+
+    .search-pop p {
+        display: none;
+    }
+
+    .search-pop a {
+        margin-top: 1rem;
+        font-size: 0.65rem !important;
+        width: 2.5rem !important;
+    }
+
+    h6 {
+        font-size: 1rem;
+    }
+
+    .request-actions > a {
+        font-size: 0.6rem;
+    }
+
+    .request-actions > * {
+        padding: 0.2rem;
+        width: 35px
+    }
+
+    .requests img {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media screen and (max-width: 1175px) {
+    #search-toggle {
+        left: 30px;
+    }
+
+    #requests-toggle {
+        right: 30px;
+    }
+
+    .search-pop > .friend {
+        margin-left: 35px !important;
+    }
+
+    .request {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    #search-toggle {
+        font-size: 0.8rem;
+    }
+
+    #requests-toggle {
+        font-size: 0.8rem;
+    }
+
+    .friend-actions a {
+        font-size: 0.5rem;
+    }
+
+    .friend-actions > * {
+        width: 30px;
+        padding: 0.15rem 0.4rem;
+    }
+
+    .friends img {
+        height: 65px;
+        width: 65px;
+    }
+
+    .search-pop > .friend {
+        margin-left: 20px !important;
+    }
+    .requests img {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    search-pop h6 {
+        font-size: 0.8rem;
+    }
+
+    .search-pop > .friend {
+        margin-left: 10px !important;
+    }
 }

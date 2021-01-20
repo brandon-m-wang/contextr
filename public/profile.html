@@ -2,7 +2,7 @@
 <html lang="en" style="visibility: hidden; overflow-x: hidden; position:fixed;">
 <head>
     <meta charset="UTF-8">
-    <title>contextr.io / Home</title>
+    <title>contextr.io / Profile</title>
     <link rel="icon" type="image/png" href="../assets/square-logo-cutout.png"/>
     <link rel="stylesheet" href="../css/home.css"/>
     <link rel="stylesheet" href="../css/profile.css"/>
@@ -93,7 +93,7 @@
                 <input type="text" id="username" name="username" placeholder="Username..." autocomplete="off"
                        maxlength=10 onpaste="return false;" pattern="[a-zA-Z0-9]+" required><br><br>
                 <label for="bio">Bio:</label><br>
-                <textarea id="bio" rows="4" placeholder="Bio..." maxlength=80></textarea><br>
+                <textarea id="bio" rows="4" placeholder="Bio..." maxlength=80 onpaste="return false"></textarea><br>
                 <button id="submit" onclick="changeUserInfo(); return false">Save</button>
             </form>
             <rect x="0" y="0" fill="none" width="226" height="162" rx="3" ry="3"></rect>
@@ -108,7 +108,8 @@
                 <img id="pfp"
                      src="https://iupac.org/wp-content/uploads/2018/05/default-avatar.png"/>
                 <div class="change-pfp">
-                    <input id="new-pfp" type="file" accept="image/*" onchange='changeProfilePic(event)' style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom:
+                    <input id="new-pfp" type="file" accept=".png,.jpg,.gif,.jpeg" onchange='changeProfilePic(event)'
+                           style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom:
                      0; right: 0; width: 100%; height:100%;"/>
                     <h5>Change picture</h5>
                 </div>

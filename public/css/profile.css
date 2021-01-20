@@ -739,3 +739,40 @@ html.modal-active, body.modal-active {
     color: white;
     font-weight: 300;
 }
+
+@media screen and (max-width: 1150px){
+    .post h3{
+        font-size: 1rem;
+    }
+    .post-header h4{
+        font-size: 0.6rem;
+        margin-left: 0.5rem;
+    }
+    .details > h6{
+        font-size: 0.75rem;
+        margin: 0.4rem;
+    }
+    .edit-profile{
+        right: 5%;
+        padding: 0.2rem 0.3rem;
+        font-size: 0.75rem;
+    }
+}
+
+@media screen and (max-width: 930px){
+    .username-and-details h3{
+        font-size: 1.5rem;
+    }
+    #user-bio{
+        font-size: 0.9rem;
+    }
+    .delete-post{
+        width: 40px;
+        font-size: 0.5rem;
+        right: 0.75rem;
+    }
+    .pfp-container{
+        margin-left: 2%;
+    }
+
+}

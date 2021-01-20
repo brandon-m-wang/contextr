@@ -9,6 +9,39 @@ html, body, div, span {
     font-family: Quicksand;
 }
 
+::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgb(141, 141, 141);
+  background-color: transparent;
+}
+
+::-webkit-scrollbar
+{
+  width: 6px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb
+{
+  background-color: rgb(141, 141, 141);
+}
+
+.requests::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 6px rgb(203, 203, 203);
+  background-color: transparent;
+}
+
+.requests::-webkit-scrollbar
+{
+  width: 6px;
+  background-color: transparent;
+}
+
+.requests::-webkit-scrollbar-thumb
+{
+   background-color: rgb(231, 231, 231);
+}
+
 html {
     height: 100%;
 }
@@ -651,6 +684,11 @@ textarea::placeholder{
     font-size: 1rem !important;
     font-weight: 400 !important;
     margin: 10px 0 !important;
+    display: inline-block;
+}
+
+.individual-comments a{
+    width: calc(1rem*10);
 }
 
 .individual-comments p{
@@ -709,6 +747,9 @@ textarea::placeholder{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    overflow-y: auto;
+    max-height: 50vh;
+    padding-right: 25px;
 }
 
 .request{
@@ -1334,6 +1375,20 @@ html.modal-active, body.modal-active {
 
 }
 
+@media screen and (max-width: 1775px){
+    #warning{
+        left: 375px;
+    }
+}
+
+@media screen and (max-width: 1722px){
+    #warning{
+        left: 40px;
+        bottom: 12.85%;
+        margin: 0 !important;
+    }
+}
+
 @media screen and (max-width: 1640px) {
     #prompt5 {
         display: none
@@ -1344,11 +1399,49 @@ html.modal-active, body.modal-active {
     #prompt4 {
         display: none
     }
+    .see-all-comments{
+        right: -40px;
+    }
+    .post p{
+        font-size: 1.5rem;
+    }
+    #num-chars{
+        left: 225px;
+    }
+}
+
+@media screen and (max-width: 1295px){
+    #num-chars{
+        left: 40px;
+        bottom: 6.5%;
+    }
+    #currently-citing{
+        bottom: 11.85%;
+    }
+    #warning{
+        bottom: 16.35%;
+        font-size: 0.75rem;
+    }
 }
 
 @media screen and (max-width: 1135px) {
     #prompt3 {
         display: none
+    }
+    .individual-comments p{
+        width: 70% !important;
+    }
+}
+
+@media screen and (max-width: 965px){
+    #currently-citing{
+        font-size: 0.55rem;
+    }
+    #num-chars{
+        font-size: 0.55rem;
+    }
+    #warning{
+        font-size: 0.5rem;
     }
 }
 

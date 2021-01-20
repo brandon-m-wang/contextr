@@ -1,3 +1,7 @@
+if ($(window).width() <= 830) {
+    window.location.replace('https://contextr.io/in-progress')
+}
+
 $(document).ready(function () {
 
     $(document).on('click', '#Logout', function (e) {
@@ -25,7 +29,7 @@ $(document).ready(function () {
                     if (names.length >= numNames) {
                         break;
                     }
-                    if (doc.id.substring(0, searchTerm.length) == searchTerm) {
+                    if (doc.id.toLowerCase().substring(0, searchTerm.length) == searchTerm) {
                         names.push(doc.data().username);
                     }
                 }
@@ -178,10 +182,12 @@ $(document).ready(function () {
                         let imgString = htmlToElement(`<img src='${imgUrl}'>`)
                         document.getElementById("friend" + i.toString()).prepend(imgString)
                     })
+                    if (i == 4) {
+                        document.getElementById("loading-gif").style.display = "none";
+                        document.getElementsByTagName("html")[0].style.visibility = "visible";
+                        document.getElementsByTagName("html")[0].style.position = '';
+                    }
                 }
-                document.getElementById("loading-gif").style.display = "none";
-                document.getElementsByTagName("html")[0].style.visibility = "visible";
-                document.getElementsByTagName("html")[0].style.position = '';
             });
         }
     });

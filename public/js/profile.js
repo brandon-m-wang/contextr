@@ -1,3 +1,7 @@
+if ($(window).width() <= 830) {
+    window.location.replace('https://contextr.io/in-progress')
+}
+
 $(document).ready(function () {
 
     document.getElementById('username').onkeydown = function (e) {
@@ -667,7 +671,7 @@ async function changeUserInfo() {
                                         }
                                     });
                                 }).then(function () {
-                                    const newUrl = "users/" + nameText;
+                                    const newUrl = "https://contextr.io/users/" + nameText;
                                     history.pushState({}, null, newUrl);
                                 });
                             }

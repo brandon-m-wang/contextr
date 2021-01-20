@@ -8,7 +8,7 @@ exports.loadUser = functions.https.onRequest((req, res) => {
 <html lang="en" style="visibility: hidden; overflow-x: hidden; position: fixed">
 <head>
     <meta charset="UTF-8">
-    <title>contextr.io / Home</title>
+    <title>contextr.io / User</title>
     <link rel="icon" type="image/png" href="../assets/square-logo-cutout.png"/>
     <link rel="stylesheet" href="../css/home.css"/>
     <link rel="stylesheet" href="../css/profile.css"/>
