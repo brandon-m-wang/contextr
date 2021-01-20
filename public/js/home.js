@@ -520,7 +520,7 @@ $(document).ready(function () {
                             transformedComments.set(String(e), comments[e]);
                         });
                         var numComments = transformedComments.size
-                        firebase.firestore().collection('users').doc(poster).get().then(function (doc) {
+                        await firebase.firestore().collection('users').doc(poster).get().then(function (doc) {
                             var posterUsername = doc.data().name
                             firebase.firestore().collection('users').doc(postee).get().then(function (doc) {
                                 var posteeUsername = doc.data().name
@@ -869,6 +869,7 @@ $(document).ready(function () {
                                         </div>
                                         <h4>${dhm(new Date().getTime() - time)}</h4>
                                     </div>`)
+                                            console.log(postID)
                                             document.getElementById(postID).appendChild(htmlString)
                                         })
                                         await firebase.storage().ref().child('users/' + commentUserID + '/profile').getDownloadURL().then(async function (result) {
