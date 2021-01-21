@@ -188,6 +188,9 @@ $(document).ready(function () {
                         document.getElementsByTagName("html")[0].style.position = '';
                     }
                 }
+                document.getElementById("loading-gif").style.display = "none";
+                document.getElementsByTagName("html")[0].style.visibility = "visible";
+                document.getElementsByTagName("html")[0].style.position = '';
             });
         }
     });
