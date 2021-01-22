@@ -41,7 +41,7 @@ function logIn() {
 }
 
 function signUp(callback) {
-    var nameIn = document.getElementById("name_signup").value;
+    var nameIn = document.getElementById("name_signup").value.toLowerCase();
     var email = document.getElementById("email_signup").value;
     var password = document.getElementById("password_signup").value;
 
@@ -62,7 +62,7 @@ function signUp(callback) {
                                 })
                                 firebase.firestore().collection('users').doc(userID).set({
                                     bio: "",
-                                    name: nameIn.toLowerCase(),
+                                    name: nameIn,
                                     friends: [],
                                     requestsOut: [],
                                     posts: []
