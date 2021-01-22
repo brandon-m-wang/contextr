@@ -26,6 +26,9 @@ $(document).ready(function () {
                 var userID = firebase.auth().currentUser.uid
                 var postID = $(e.target).parent().parent().find('h1').attr('data-value')
                 var commentContent = $(e.target).parent().find('.comment').val()
+                if (!commentContent.replace(/\s/g, '').length) {
+                    return
+                }
                 var currTime = new Date().getTime()
                 firebase.firestore().collection('posts').doc(postID).set({
                     "comments": {
