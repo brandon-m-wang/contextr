@@ -622,7 +622,7 @@ function changeProfilePic(e) {
 async function changeUserInfo() {
     var db = firebase.firestore();
     var bioText = document.getElementById("bio").value;
-    var nameText = document.getElementById("username").value;
+    var nameText = document.getElementById("username").value.toLowerCase();
     var username = db.collection("usernames").doc(nameText);
     var flag = false;
     var bioOnly = false;

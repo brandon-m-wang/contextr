@@ -62,7 +62,7 @@ function signUp(callback) {
                                 })
                                 firebase.firestore().collection('users').doc(userID).set({
                                     bio: "",
-                                    name: nameIn,
+                                    name: nameIn.toLowerCase(),
                                     friends: [],
                                     requestsOut: [],
                                     posts: []
