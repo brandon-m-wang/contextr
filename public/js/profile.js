@@ -672,7 +672,7 @@ async function changeUserInfo() {
                                     });
                                 }).then(function () {
                                     const newUrl = "https://contextr.io/users/" + nameText;
-                                    history.pushState({}, null, newUrl);
+                                    window.location.replace(newUrl);
                                 });
                             }
                         });
