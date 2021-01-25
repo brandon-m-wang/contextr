@@ -591,16 +591,18 @@ $("#submit").submit(function (e) {
     e.preventDefault();
 });
 
-function changeProfilePic(e) {
+async function changeProfilePic(e) {
     var file = e.target.files[0];
     var storageRef = firebase.storage().ref();
     var reader = new FileReader();
+    $('.pfp-container').css('pointer-events', 'none');
 
-    firebase.auth().onAuthStateChanged(function (user) {
+    await firebase.auth().onAuthStateChanged(async function (user) {
         if (user) {
             var imageRef = storageRef.child('users/' + firebase.auth().currentUser.uid + '/profile');
             imageRef.put(file).then(function (snapshot) {
                 console.log('Uploaded image');
+                $('.pfp-container').css('pointer-events', '');
             });
         }
     });

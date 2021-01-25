@@ -872,7 +872,6 @@ $(document).ready(function () {
                                         </div>
                                         <h4>${dhm(new Date().getTime() - time)}</h4>
                                     </div>`)
-                                            console.log(postID)
                                             document.getElementById(postID).appendChild(htmlString)
                                         })
                                         await firebase.storage().ref().child('users/' + commentUserID + '/profile').getDownloadURL().then(async function (result) {
