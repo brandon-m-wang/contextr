@@ -180,9 +180,7 @@ $(document).ready(function () {
                 document.getElementsByClassName('details')[0].children[2].innerHTML = "<span>" + friends.length.toString() + " " + "</span>Friends"
                 document.getElementsByClassName('details')[0].children[0].innerHTML = "<span>" + allPosts.length.toString() + " " + "</span>Citations"
                 for (let i = 1; i < allPosts.length + 1; i++) {
-                    if ((new Date().getTime() - getPostDate(allPosts[allPosts.length - i])[2]) < 604800000) {
-                        postsToGenerate[getPostDate(allPosts[allPosts.length - i])[2]] = allPosts[allPosts.length - i]
-                    }
+                    postsToGenerate[getPostDate(allPosts[allPosts.length - i])[2]] = allPosts[allPosts.length - i]
                 }
             })
             var totalLikes = 0

@@ -482,7 +482,7 @@ $(document).ready(function () {
                         await firebase.firestore().collection('users').doc(friends[i]).get().then(async function (doc) {
                             var allPosts = await doc.data().posts
                             for (let i = 1; (i < 4 && i < allPosts.length + 1) && i < 4; i++) {
-                                if ((new Date().getTime() - getPostDate(allPosts[allPosts.length - i])[2]) < 604800000) {
+                                if ((new Date().getTime() - getPostDate(allPosts[allPosts.length - i])[2]) < 2629800000) {
                                     unorderedPostsToGenerate[getPostDate(allPosts[allPosts.length - i])[2]] = allPosts[allPosts.length - i]
                                 }
                             }

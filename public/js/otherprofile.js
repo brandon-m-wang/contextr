@@ -72,9 +72,7 @@ $(document).ready(async function () {
                     await firebase.firestore().collection('users').doc(uid).get().then(async function (doc) {
                         var allPosts = await doc.data().posts
                         for (let i = 1; i < allPosts.length + 1; i++) {
-                            if ((new Date().getTime() - getPostDate(allPosts[allPosts.length - i])[2]) < 604800000) {
-                                postsToGenerate[getPostDate(allPosts[allPosts.length - i])[2]] = allPosts[allPosts.length - i]
-                            }
+                            postsToGenerate[getPostDate(allPosts[allPosts.length - i])[2]] = allPosts[allPosts.length - i]
                         }
                     })
                     if (userID === uid) {
@@ -573,9 +571,7 @@ $(document).ready(async function () {
                     await firebase.firestore().collection('users').doc(uid).get().then(async function (doc) {
                         var allPosts = await doc.data().posts
                         for (let i = 1; i < allPosts.length + 1; i++) {
-                            if ((new Date().getTime() - getPostDate(allPosts[allPosts.length - i])[2]) < 604800000) {
-                                postsToGenerate[getPostDate(allPosts[allPosts.length - i])[2]] = allPosts[allPosts.length - i]
-                            }
+                            postsToGenerate[getPostDate(allPosts[allPosts.length - i])[2]] = allPosts[allPosts.length - i]
                         }
                     })
                     firebase.firestore().collection('users').doc(uid).get().then(function (subdoc) {
