@@ -63,7 +63,7 @@ exports.loadUser = functions.https.onRequest((req, res) => {
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
 </script>
-<script>
+<!--<script>
 firebase.auth().onAuthStateChanged(async function (user) {
         if (!window.HELP_HTML_) {
             window.HELP_HTML_ = true;
@@ -73,7 +73,7 @@ firebase.auth().onAuthStateChanged(async function (user) {
             }
         }
     })
-</script>
+</script>-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script src="../js/otherprofile.js"></script>
