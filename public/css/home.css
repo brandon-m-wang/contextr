@@ -674,6 +674,7 @@ textarea::placeholder{
 .individual-comments > img{
     height: 44px;
     width: 44px;
+    min-width: 44px;
     margin-left: 37px;
     object-fit: cover;
     border-radius: 100%;
