@@ -1,10 +1,14 @@
-# contextr.io - a social network
+# <img src="https://github.com/brandon-m-wang/contextr/blob/master/assets/square-logo-cutout.png?raw=true" height="75"/> <div hspace="20">contextr.io - a social network</div>
 
-A place to quote your friends and share your favorite out of context moments.
+<a href="http://contextr.io/users/brandon">contextr.io/users/brandon</a><br><br>
+*A place to quote your friends and share your favorite out of context moments.*
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" width="50" height="50" />
-<img src="https://cdn.dribbble.com/users/528264/screenshots/3140440/firebase_logo.png" width="50" height="50" />
-<img src="https://w7.pngwing.com/pngs/117/744/png-transparent-node-js-javascript-express-js-software-developer-react-network-code-angle-text-rectangle.png" width="50" height="50" />
+<p float="left">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" height="40"/>
+  <img src="https://brandslogos.com/wp-content/uploads/images/firebase-logo-vector.svg" height="40" hspace="20"/>
+  <img src="https://cdn.iconscout.com/icon/free/png-256/jquery-3628863-3030003.png" height="40"/>
+  <img src="https://jordankasper.com/images/nodejs.png" height="40" hspace="20"/>
+</p>
 
 #### beta-testing v0.0.1 results:
 
