@@ -1,3 +1,5 @@
+# contextr.io - a social network
+
 beta-testing v0.0.1 results:
 
 - pfp image can only accept valid file extensions otherwise site will break
