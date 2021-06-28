@@ -1,4 +1,8 @@
-# contextr.io - a social network
+**contextr.io - a social network**
+
+A place to quote your friends and share your favorite out of context moments.
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" width="200" height="200" />
 
 beta-testing v0.0.1 results:
 
